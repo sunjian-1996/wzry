@@ -49,16 +49,16 @@
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix">
             <li class="current">
-                <a href="${pageContext.request.contextPath}/article/findAll.do?zoneId=1"><em></em>综合交流区</a>
+                <a href="javaScript:findAll(1)"><em></em>综合交流区</a>
             </li>
             <li>
-                <a href="#"><em></em>BUG反馈区</a>
+                <a href="javaScript:findAll(2)"><em></em>BUG反馈区</a>
             </li>
             <li>
-                <a href="#"><em></em>新闻公告区</a>
+                <a href="javaScript:findAll(3)"><em></em>新闻公告区</a>
             </li>
             <li>
-                <a href="#"><em></em>活动专区</a>
+                <a href="javaScript:findAll(4)"><em></em>活动专区</a>
             </li>
         </ul>
 
@@ -67,85 +67,23 @@
         <div class="hm-bbs-main border-lrb clearfix">
             <!-- 左侧列表 -->
             <div class="list-view l">
-                <ul>
+                <ul id="articleUl">
 
-
-                    <li class="clearfix ding">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
-                        </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">晨曦初露</span>
-                            <span class="post-time">2017-05-24 08:00:05</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
-                        </div>
-                    </li>
-
-
-                    <li class="clearfix ding">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
-                        </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">晨曦初露</span><span class="post-time">2017-05-24 08:00:05</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
-                        </div>
-                    </li>
-                    <li class="clearfix ding">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
-                        </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">晨曦初露</span><span class="post-time">2017-05-24 08:00:05</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
-                        </div>
-                    </li>
-
-
-                    <li class="clearfix">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">排位赛BUG，排不上！</a>
-                        </div>
-                        <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">不哭不闹不炫耀</span><span
-                                class="post-time">2017-05-24 09:10:00</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>3</span>
-                            <span class="icon-talk"><i></i>10</span>
-                        </div>
-                    </li>
-
-
-                    <li class="clearfix">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">排位赛BUG，排不上！</a>
-                        </div>
-                        <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">不哭不闹不炫耀</span><span
-                                class="post-time">2017-05-24 09:10:00</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>3</span>
-                            <span class="icon-talk"><i></i>10</span>
-                        </div>
-                    </li>
-
-
+                    <%--<li class="clearfix ding">--%>
+                    <%--<div class="hm-index-title">--%>
+                    <%--<i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>--%>
+                    <%--</div>--%>
+                    <%--<div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>--%>
+                    <%--<div class="hm-index-info l">--%>
+                    <%--<span class="article-username">晨曦初露</span>--%>
+                    <%--<span class="post-time">2017-05-24 08:00:05</span>--%>
+                    <%--</div>--%>
+                    <%--<div class="hm-index-fun r">--%>
+                    <%--<span class="icon-like"><i></i>1</span>--%>
+                    <%--<span class="icon-talk"><i></i>0</span>--%>
+                    <%--</div>--%>
+                    <%--</li>--%>
+                    <%--<li class="clearfix ding"><div class="hm-index-title"><a href="">没有帖子，来一发吧！</a></div></div></li>--%>
                 </ul>
             </div>
 
@@ -209,6 +147,52 @@
         </div>
     </div>
 </form>
+
+
+<script>
+    $(function () {
+        findAll(1);
+    });
+
+    function findAll(num) {
+        var jArticleUl = $("#articleUl");
+        jArticleUl.empty();
+        $.post("${pageContext.request.contextPath}/article/findAll.do", {"zoneId": num}, function (date) {
+            if (date.length == 0 || date == null) {
+                jArticleUl.append($("                    <li class=\"clearfix ding\"><div class=\"hm-index-title\"><a href=\"\">没有帖子，来一发吧！</a></div></div></li>\n"));
+                return;
+            }
+            $(date).each(function () {
+                var article = "<li class=\"clearfix\">\n" +
+                    "                        <div class=\"hm-index-title\">\n" +
+                    "                            <i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do\">" + this['title'] + "</a>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"hm-index-con\">" + this['content'] + "</div>\n" +
+                    "                        <div class=\"hm-index-info l\">\n" +
+                    "                            <span class=\"article-username\">" + this['senderName'] + "</span><span\n" +
+                    "                                class=\"post-time\">" + this['sendTime'] + "</span>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"hm-index-fun r\">\n" +
+                    "                            <span class=\"icon-like\"><i></i>" + this['upvoteCount'] + "</span>\n" +
+                    "                            <span class=\"icon-talk\"><i></i>" + this['replyCount'] + "</span>\n" +
+                    "                        </div>\n" +
+                    "                    </li>";
+
+                var jArticle = $(article);
+                if (this['isTop'] == 1) {
+                    jArticle.addClass("ding");
+                    jArticleUl.prepend(jArticle);
+                } else {
+                    jArticleUl.append(jArticle);
+                }
+
+
+            })
+
+        }, "json")
+    }
+
+</script>
 
 
 </body>
