@@ -13,7 +13,7 @@
         <div class="hm-inner-r r">
             <div class="box">
                 <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                <a href="register.do">【新用户注册】</a>
+                <a href="/jsp/register.jsp">【新用户注册】</a>
                 <div id="dialogBg"></div>
                 <div id="dialog" class="animated">
                     <img class="dialogIco" width="50" height="40" src="images/ico.png"/>
