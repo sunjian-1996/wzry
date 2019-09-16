@@ -1,6 +1,7 @@
 package com.bbs.common;
 
 
+
 public class QueryResponseResult extends ResponseResult {
 
     QueryResult queryResult;
