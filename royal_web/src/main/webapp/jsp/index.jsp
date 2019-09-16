@@ -49,17 +49,19 @@
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix" id="bbs_zone_table">
             <%--<li>--%>
-                <%--<a href="javaScript:findAll(1)"><em></em>综合交流区</a>--%>
+            <%--<a href="javaScript:findAll(1)"><em></em>综合交流区</a>--%>
             <%--</li>--%>
             <%--<li>--%>
-                <%--<a href="javaScript:findAll(2)"><em></em>BUG反馈区</a>--%>
+            <%--<a href="javaScript:findAll(2)"><em></em>BUG反馈区</a>--%>
             <%--</li>--%>
             <%--<li>--%>
-                <%--<a href="javaScript:findAll(3)"><em></em>新闻公告区</a>--%>
+            <%--<a href="javaScript:findAll(3)"><em></em>新闻公告区</a>--%>
             <%--</li>--%>
             <%--<li>--%>
-                <%--<a href="javaScript:findAll(4)"><em></em>活动专区</a>--%>
+            <%--<a href="javaScript:findAll(4)"><em></em>活动专区</a>--%>
             <%--</li>--%>
+
+
         </ul>
 
 
@@ -153,15 +155,26 @@
     //页面加载完毕获取版块
     $(function () {
         $.post("${pageContext.request.contextPath}/zone/findAll.do", function (date) {
-            $(date).each(function () {
-                var zone = "<li>\n" +
-                    "                <a href=\"javaScript:findAll(" + this['zoneId'] + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
-                    "            </li>";
-                $("#bbs_zone_table").append($(zone));
+            var number = 1;
 
+            $(date).each(function () {
+                if (number == 1) {
+                    var zone = "<li class='current'>\n" +
+                        "                <a href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "            </li>";
+                    $("#bbs_zone_table").append($(zone));
+                    number++;
+                } else {
+                    var zone = "<li>\n" +
+                        "                <a href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "            </li>";
+                    $("#bbs_zone_table").append($(zone));
+                    number++;
+                }
             })
 
         }, "json");
+
 
         //页面加载完毕获取版块内容
         findAll(1);
@@ -174,11 +187,14 @@
             $(this).removeClass("current");
         });
         $(lis[num - 1]).addClass("current");
+
         //清空版块内容
         var jArticleUl = $("#articleUl");
         jArticleUl.empty();
         //发送AJAX获取版块内容
         $.post("${pageContext.request.contextPath}/article/findAll.do", {"zoneId": num}, function (date) {
+
+            //版块没有文章显示
             if (date.length == 0 || date == null) {
                 jArticleUl.append($("<li class=\"clearfix ding\"><div class=\"hm-index-title\"><a href=\"\">没有帖子，来一发吧！</a></div></div></li>\n"));
                 return;
