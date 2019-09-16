@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -25,8 +25,6 @@
         <div class="hm-banner"></div>
 
 
-
-
         <!--头部，帖子统计，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
@@ -48,12 +46,10 @@
         </div>
 
 
-
-
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix">
             <li class="current">
-                <a href="#"><em></em>综合交流区</a>
+                <a href="${pageContext.request.contextPath}/article/findAll.do?zoneId=1"><em></em>综合交流区</a>
             </li>
             <li>
                 <a href="#"><em></em>BUG反馈区</a>
@@ -65,8 +61,6 @@
                 <a href="#"><em></em>活动专区</a>
             </li>
         </ul>
-
-
 
 
         <!-- 主体部分 -->
@@ -92,7 +86,6 @@
                     </li>
 
 
-
                     <li class="clearfix ding">
                         <div class="hm-index-title">
                             <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
@@ -119,8 +112,6 @@
                             <span class="icon-talk"><i></i>0</span>
                         </div>
                     </li>
-
-
 
 
                     <li class="clearfix">
@@ -129,7 +120,8 @@
                         </div>
                         <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
                         <div class="hm-index-info l">
-                            <span class="article-username">不哭不闹不炫耀</span><span class="post-time">2017-05-24 09:10:00</span>
+                            <span class="article-username">不哭不闹不炫耀</span><span
+                                class="post-time">2017-05-24 09:10:00</span>
                         </div>
                         <div class="hm-index-fun r">
                             <span class="icon-like"><i></i>3</span>
@@ -138,15 +130,14 @@
                     </li>
 
 
-
-
                     <li class="clearfix">
                         <div class="hm-index-title">
                             <i class="set-to-top">顶</i> <a href="getArticle.do">排位赛BUG，排不上！</a>
                         </div>
                         <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
                         <div class="hm-index-info l">
-                            <span class="article-username">不哭不闹不炫耀</span><span class="post-time">2017-05-24 09:10:00</span>
+                            <span class="article-username">不哭不闹不炫耀</span><span
+                                class="post-time">2017-05-24 09:10:00</span>
                         </div>
                         <div class="hm-index-fun r">
                             <span class="icon-like"><i></i>3</span>
@@ -159,8 +150,6 @@
             </div>
 
 
-
-
             <!-- 右侧侧边栏,在线用户 -->
             <div class="aside l">
                 <div class="aside-box">
@@ -169,7 +158,7 @@
                     </h3>
                     <ul class="b clearfix">
                         <li>
-                            <div><img src="images/default.png" height="55"/> </div>
+                            <div><img src="images/default.png" height="55"/></div>
                             <p>Mr.King</p>
                         </li>
                         <li>
@@ -181,7 +170,6 @@
             </div>
 
 
-
         </div>
     </div>
 </div>
@@ -189,7 +177,6 @@
 
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
-
 
 
 <!-- 右边发帖，回顶部 -->
