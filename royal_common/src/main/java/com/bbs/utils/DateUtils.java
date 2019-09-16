@@ -13,10 +13,23 @@ public class DateUtils {
         return format;
     }
 
+    public static String date2String(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String format = sdf.format(date);
+        return format;
+    }
+
     //字符串转换成日期
     public static Date string2Date(String str, String patt) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(patt);
         Date parse = sdf.parse(str);
         return parse;
     }
+
+    public static Date string2Date(String str) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date parse = sdf.parse(str);
+        return parse;
+    }
+
 }

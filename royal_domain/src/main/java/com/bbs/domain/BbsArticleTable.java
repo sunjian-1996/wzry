@@ -1,107 +1,125 @@
 package com.bbs.domain;
 
+import com.bbs.utils.DateUtils;
 
 import java.util.Date;
 
 public class BbsArticleTable {
 
-  private long articleId;//帖子编号
-  private String title;//标题
-  private String content;//内容
-  private Date sendTime;//发送时间
-  private String senderName;//发送人编号
-  private long isTop;//是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
-  private long replyCount;//评论数
-  private long upvoteCount;//点赞数
-  private long browseCount;//浏览数
-  private long zoneId;//所在交流区
-  private long isReport;//举报状态
+    private long articleId;//帖子编号
+    private String title;//标题
+    private String content;//内容
+    private Date sendTime;//发送时间
+    private String senderName;//发送人编号
+    private long isTop;//是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
+    private long replyCount;//评论数
+    private long upvoteCount;//点赞数
+    private long browseCount;//浏览数
+    private long zoneId;//所在交流区
+    private long isReport;//举报状态
 
-  public long getArticleId() {
-    return articleId;
-  }
+    @Override
+    public String toString() {
+        return "BbsArticleTable{" +
+                "articleId=" + articleId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", sendTime=" + this.getSendTime() +
+                ", senderName='" + senderName + '\'' +
+                ", isTop=" + isTop +
+                ", replyCount=" + replyCount +
+                ", upvoteCount=" + upvoteCount +
+                ", browseCount=" + browseCount +
+                ", zoneId=" + zoneId +
+                ", isReport=" + isReport +
+                '}';
+    }
 
-  public void setArticleId(long articleId) {
-    this.articleId = articleId;
-  }
+    public long getArticleId() {
+        return articleId;
+    }
 
-  public String getTitle() {
-    return title;
-  }
+    public void setArticleId(long articleId) {
+        this.articleId = articleId;
+    }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-  public String getContent() {
-    return content;
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-  public void setContent(String content) {
-    this.content = content;
-  }
+    public String getContent() {
+        return content;
+    }
 
-  public Date getSendTime() {
-    return sendTime;
-  }
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-  public void setSendTime(Date sendTime) {
-    this.sendTime = sendTime;
-  }
+    public String getSendTime() {
+        return DateUtils.date2String(sendTime);
+    }
 
-  public String getSenderName() {
-    return senderName;
-  }
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
+    }
 
-  public void setSenderName(String senderName) {
-    this.senderName = senderName;
-  }
+    public String getSenderName() {
+        return senderName;
+    }
 
-  public long getIsTop() {
-    return isTop;
-  }
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
 
-  public void setIsTop(long isTop) {
-    this.isTop = isTop;
-  }
+    public long getIsTop() {
+        return isTop;
+    }
 
-  public long getReplyCount() {
-    return replyCount;
-  }
+    public void setIsTop(long isTop) {
+        this.isTop = isTop;
+    }
 
-  public void setReplyCount(long replyCount) {
-    this.replyCount = replyCount;
-  }
+    public long getReplyCount() {
+        return replyCount;
+    }
 
-  public long getUpvoteCount() {
-    return upvoteCount;
-  }
+    public void setReplyCount(long replyCount) {
+        this.replyCount = replyCount;
+    }
 
-  public void setUpvoteCount(long upvoteCount) {
-    this.upvoteCount = upvoteCount;
-  }
+    public long getUpvoteCount() {
+        return upvoteCount;
+    }
 
-  public long getBrowseCount() {
-    return browseCount;
-  }
+    public void setUpvoteCount(long upvoteCount) {
+        this.upvoteCount = upvoteCount;
+    }
 
-  public void setBrowseCount(long browseCount) {
-    this.browseCount = browseCount;
-  }
+    public long getBrowseCount() {
+        return browseCount;
+    }
 
-  public long getZoneId() {
-    return zoneId;
-  }
+    public void setBrowseCount(long browseCount) {
+        this.browseCount = browseCount;
+    }
 
-  public void setZoneId(long zoneId) {
-    this.zoneId = zoneId;
-  }
+    public long getZoneId() {
+        return zoneId;
+    }
 
-  public long getIsReport() {
-    return isReport;
-  }
+    public void setZoneId(long zoneId) {
+        this.zoneId = zoneId;
+    }
 
-  public void setIsReport(long isReport) {
-    this.isReport = isReport;
-  }
+    public long getIsReport() {
+        return isReport;
+    }
+
+    public void setIsReport(long isReport) {
+        this.isReport = isReport;
+    }
 }
