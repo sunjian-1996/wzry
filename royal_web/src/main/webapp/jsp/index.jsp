@@ -145,7 +145,7 @@
             <%--<input type="hidden" name="senderName" value="${bbsUserTable.userName}">--%>
             <input type="hidden" name="senderName" value="测试用户">
             <%--需要获取当前版块的id--%>
-            <input id="zoneIdHidden" type="hidden" name="zoneId" value="1">
+            <input id="zoneIdHidden" type="hidden" name="zoneId" value="${zoneId}">
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="submit" class="btn" value="发表"/>
@@ -164,26 +164,28 @@
             var number = 1;
 
             $(date).each(function () {
-                if (number == zoneIdField) {
-                    var zone = "<li class='current'>\n" +
-                        "                <a zoneId=" + this['zoneId'] + "  href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
-                        "            </li>";
-                    $("#bbs_zone_table").append($(zone));
-                    number++;
-                } else {
-                    var zone = "<li>\n" +
-                        "                <a zoneId=" + this['zoneId'] + " href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
-                        "            </li>";
-                    $("#bbs_zone_table").append($(zone));
-                    number++;
+
+                var zone = "<li zoneId=" + this['zoneId'] + ">\n" +
+                    "                <a href=\"javaScript:findAll(" + this['zoneId'] + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                    "            </li>";
+
+                //页面第一次加载给第一个版块添加样式
+                var JZoneId = $(zone);
+                if (!zoneIdField && number == 1) {
+                    JZoneId.addClass("current");
+                    //不是第一次给特定版块添加样式
+                } else if (JZoneId.attr("zoneId") == zoneIdField) {
+                    JZoneId.addClass("current");
                 }
+                $("#bbs_zone_table").append(JZoneId);
+                number++;
+
             })
 
         }, "json");
 
 
-        //页面加载完毕获取版块内容
-
+        //页面加载完毕获取版块内容，第一次访问默认选择第一版块
         if (zoneIdField) {
             findAll(zoneIdField);
         } else {
@@ -192,17 +194,15 @@
     });
 
     function findAll(num) {
-        //获取版块id放入隐藏域
-        var id = $($("a[zoneId]")[num - 1]).attr("zoneId");
-        if (id) {
-            $("#zoneIdHidden").val(id)
-        }
-        //版块选中属性控制
+
+        //ajax请求时版块选中添加样式
         var lis = $("#bbs_zone_table>li");
         lis.each(function () {
             $(this).removeClass("current");
+            if ($(this).attr("zoneId") == num) {
+                $(this).addClass("current")
+            }
         });
-        $(lis[num - 1]).addClass("current");
 
         //清空版块内容
         var jArticleUl = $("#articleUl");
