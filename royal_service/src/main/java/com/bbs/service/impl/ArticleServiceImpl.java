@@ -25,6 +25,11 @@ public class ArticleServiceImpl implements ArticleService {
         articleTable.setSendTime(new Date());
         articleDao.publish(articleTable);
     }
+
+    @Override
+    public BbsArticleTable getArticle(long articleId) throws Exception {
+        return articleDao.getArticle(articleId);
+    }
     //帖子总数
     @Override
     public int tiezifindAll() throws Exception {

@@ -16,6 +16,9 @@ public interface ArticleDao {
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;
 
+    @Select("select * from bbs_article_table where id = #{articleId}")
+    BbsArticleTable getArticle(long articleId) throws Exception;
+
     //帖子总数
     @Select("select count(*) from bbs_article_table")
     int tiezifindAll() throws Exception;

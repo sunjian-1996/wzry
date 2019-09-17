@@ -100,7 +100,6 @@
         var tel1 = /^[a-zA-Z0-9_-]{3,16}$/;
 
         if (tel1.test(userName)) {
-            alert(111)
             //3.若内容不为空，发送ajax
             //3.1请求路径
             $.post("${pageContext.request.contextPath}/user/findByuserName.do",
@@ -113,13 +112,12 @@
                         alert("该用户名已存在，请重新输入");
                     }
                         //提示信息在前台做或者后台做都是一样的效果
-
                 },"json"
             )
         }else {
             //4.若用户输入的格式不对或为空，提示信息
-            $("#userInfo").html("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
-            $("#userInfo").css("color","red");
+           alert("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
+
         }
 
     };

@@ -60,4 +60,13 @@ public class ArticleController {
 
 
 
+    @RequestMapping("getArticle.do")
+    public ModelAndView getArticle(@RequestParam(name = "articleId") long articleId) throws Exception {
+        BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("bbsArticleTable", bbsArticleTable);
+        mv.setViewName("getArticle");
+        return mv;
+    }
+
 }

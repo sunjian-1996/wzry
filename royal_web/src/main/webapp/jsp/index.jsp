@@ -250,7 +250,7 @@
             $(date).each(function () {
                 var article = "<li class=\"clearfix\">\n" +
                     "                        <div class=\"hm-index-title\">\n" +
-                    "                            <i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do\">" + this['title'] + "</a>\n" +
+                    "                            <i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do?articleId=" + this['articleId'] + "\">" + this['title'] + "</a>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"hm-index-con\">" + this['content'] + "</div>\n" +
                     "                        <div class=\"hm-index-info l\">\n" +
@@ -290,4 +290,6 @@
 
 
 </body>
+<script>
+</script>
 </html>
