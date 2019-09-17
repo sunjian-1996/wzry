@@ -91,6 +91,7 @@
                 </li>
 
                 <c:forEach items="${bbsArticleTable.bbsCommentTables}" var="comment" varStatus="i">
+
                     <!-- 评论部分,一楼及以后 -->
                     <li class="floor clearfix">
                         <div class="floorer-info l">
@@ -127,7 +128,8 @@
                                     </ul>
                                 </div>
                                 <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
+
+                                <a href="javascript:;" onclick="showDialog('${i.count}')"> <i></i> 回复</a>
                             </span>
                             </div>
                         </div>
@@ -138,24 +140,29 @@
             </ul>
         </div>
 
-        <!--发表评论-->
-        <div class="detail-to-comment">
-            <div class="tit"><a name="comment">发表评论</a></div>
-            <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
+        <c:if test="${!empty loginUser.userName}">
+            <!--发表评论-->
+            <div class="detail-to-comment">
+                <div class="tit"><a name="comment">发表评论</a></div>
+                <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
 
-            <!-- 登录后显示评论输入框-->
-            <form action="#" method="post">
-                <div class="con con-loged">
-                    <div class="con-t">
-                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
+                <!-- 登录后显示评论输入框-->
+                <form id="addCommentForm" action="${pageContext.request.contextPath}/comment/addComment.do"
+                      method="post">
+                    <input type="hidden" name="articleId" value="${bbsArticleTable.articleId}">
+                    <input type="hidden" name="commentUserName" value="${loginUser.userName}">
+                    <div class="con con-loged">
+                        <div class="con-t">
+                            <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
+                        </div>
+                        <div class="con-b">
+                            <input id="addComment" type="submit" class="btn"/>
+                            <span class="num">不能超过5000字</span>
+                        </div>
                     </div>
-                    <div class="con-b">
-                        <input type="submit" class="btn"/>
-                        <span class="num">不能超过5000字</span>
-                    </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        </c:if>
     </div>
 </div>
 
@@ -190,7 +197,12 @@
 
 
 <div class="fixedBar" id="j_fixedBar">
-    <a href="#comment" class="newTopic"><span></span>回复</a>
+    <c:if test="${empty loginUser}">
+        <a class="newTopic" href="javaScript:inspect()"><span></span>回复</a>
+    </c:if>
+    <c:if test="${!empty loginUser}">
+        <a href="#comment" class="newTopic"><span></span>回复</a>
+    </c:if>
     <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
 </div>
 
@@ -198,11 +210,24 @@
 </body>
 
 <script type="text/javascript">
+    // function addComment() {
+    //     if ($("#addCommentForm>textarea").val()) {
+    //         $("#addCommentForm").submit();
+    //     } else {
+    //         alert("不要评论空内容")
+    //     }
+    // }
+
+
+    function inspect() {
+        alert("请先登陆再操作");
+    }
+
     //弹出回复框
     function showDialog(num, commentId) {
         var loginUser = "${loginUser}";
         if (!loginUser) {
-            alert("请登录");
+            alert("请先登录再操作");
             return;
         }
         $("#commentId").val(commentId);

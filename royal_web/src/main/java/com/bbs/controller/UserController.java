@@ -17,48 +17,51 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+
     //异步验证用户名
     @RequestMapping("findByuserName.do")
-    public @ResponseBody BbsUserTable findByuserName(String userName){
+    public @ResponseBody
+    BbsUserTable findByuserName(String userName) {
         return userService.findByuserName(userName);
     }
+
     //注册
     @RequestMapping("save.do")
-    public ModelAndView save(BbsUserTable bbsUserTable){
+    public ModelAndView save(BbsUserTable bbsUserTable) {
         userService.save(bbsUserTable);
         bbsUserTable = userService.findByuserName(bbsUserTable.getUserName());
         ModelAndView mv = new ModelAndView();
         mv.addObject("loginUser", bbsUserTable);
-        mv.setViewName("index");
+        mv.setViewName("redirect:/article/show.do");
         return mv;
     }
 
     //登陆
     @RequestMapping("login.do")
-    public ModelAndView login(BbsUserTable bbsUserTable, HttpServletRequest request){
+    public ModelAndView login(BbsUserTable bbsUserTable, HttpServletRequest request) {
         BbsUserTable bb = userService.findByuserName(bbsUserTable.getUserName());
         ModelAndView mv = new ModelAndView();
-        if (bb==null){
-            mv.addObject("msg","账号或密码有误");
-        }else{
-            if (bb.getUserPass().equals(bbsUserTable.getUserPass())&&bb.getUserName().equals(bbsUserTable.getUserName())){
-                request.getSession().setAttribute("loginUser",bb);
-            }else {
-                mv.addObject("msg","账号或密码有误");
+        if (bb == null) {
+            mv.addObject("msg", "账号或密码有误");
+        } else {
+            if (bb.getUserPass().equals(bbsUserTable.getUserPass()) && bb.getUserName().equals(bbsUserTable.getUserName())) {
+                request.getSession().setAttribute("loginUser", bb);
+            } else {
+                mv.addObject("msg", "账号或密码有误");
             }
         }
 
-        mv.setViewName("index");
+        mv.setViewName("redirect:/article/show.do");
         return mv;
 
     }
 
     //注销
     @RequestMapping("logout.do")
-    public ModelAndView logout(HttpSession httpSession){
-        httpSession.invalidate();
+    public ModelAndView logout(HttpSession httpSession) {
+        httpSession.removeAttribute("loginUser");
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("redirect:/article/show.do");
         return modelAndView;
     }
 }

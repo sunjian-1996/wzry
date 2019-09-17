@@ -118,13 +118,19 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
-
-<!-- 右边发帖，回顶部 -->
-<div class="fixedBar" id="j_fixedBar">
-    <a id="newTopicBtn" href="javascript:;" class="newTopic"><span></span>发帖</a>
-    <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
-</div>
-
+<c:if test="${empty loginUser.userName}">
+    <div class="fixedBar" id="j_fixedBar">
+        <a href="javaScript:inspect()" class="newTopic"><span></span>发帖</a>
+        <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
+    </div>
+</c:if>
+<c:if test="${!empty loginUser.userName}">
+    <!-- 右边发帖，回顶部 -->
+    <div class="fixedBar" id="j_fixedBar">
+        <a id="newTopicBtn" href="javaScript:;" class="newTopic"><span></span>发帖</a>
+        <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
+    </div>
+</c:if>
 <!-- 发帖弹出框 -->
 <form action="${pageContext.request.contextPath}/article/publish.do" method="post">
     <div class="pop-box ft-box">
@@ -142,8 +148,8 @@
                 </div>
             </div>
             <%--此处需要获取域中的用户名--%>
-            <%--<input type="hidden" name="senderName" value="${bbsUserTable.userName}">--%>
-            <input type="hidden" name="senderName" value="测试用户">
+            <input type="hidden" name="senderName" value="${loginUser.userName}">
+            <%--<input type="hidden" name="senderName" value="测试用户">--%>
             <%--需要获取当前版块的id--%>
             <input id="zoneIdHidden" type="hidden" name="zoneId" value="${zoneId}">
             <div class="win_ft">
@@ -157,6 +163,11 @@
 
 
 <script>
+
+    function inspect() {
+        alert("请先登陆再操作");
+    }
+
     //页面加载完毕获取版块
     $(function () {
         var zoneIdField = "${zoneId}";

@@ -8,11 +8,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @RequestMapping("/article")
-@SessionAttributes("zoneId")
+@SessionAttributes({"zoneId", "articleId"})
 public class ArticleController {
 
     @Autowired
@@ -27,11 +29,12 @@ public class ArticleController {
     }
 
     @RequestMapping("/publish.do")
-    public ModelAndView publish(BbsArticleTable articleTable) throws Exception {
+    public ModelAndView publish(BbsArticleTable articleTable, HttpSession session) throws Exception {
         articleService.publish(articleTable);
         long zoneId = articleTable.getZoneId();
         ModelAndView mv = new ModelAndView();
         mv.addObject("zoneId", zoneId);
+        session.removeAttribute("articleId");
         mv.setViewName("index");
         return mv;
     }
@@ -41,8 +44,20 @@ public class ArticleController {
         BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
         ModelAndView mv = new ModelAndView();
         mv.addObject("bbsArticleTable", bbsArticleTable);
+        mv.addObject("articleId", articleId);
         mv.setViewName("getArticle");
         return mv;
+    }
+
+    @RequestMapping("/show.do")
+    public String show(HttpSession session) {
+        Object articleId = session.getAttribute("articleId");
+        if (articleId != null) {
+            return "redirect:/article/getArticle.do?articleId=" + articleId;
+        } else {
+            return "redirect:/jsp/index.jsp";
+        }
+
     }
 
 }

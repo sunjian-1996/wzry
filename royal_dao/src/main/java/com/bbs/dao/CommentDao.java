@@ -1,10 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.BbsCommentTable;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 public interface CommentDao {
 
@@ -15,5 +12,8 @@ public interface CommentDao {
                     select = "com.bbs.dao.ReplyDao.findByCommentId"
             ))
     })
-    public BbsCommentTable findByArticleId(int articleId);
+    public BbsCommentTable findByArticleId(int articleId) throws Exception;
+
+    @Insert("insert into bbs_comment_table(commentContent,commentUserName,articleId) values(#{commentContent},#{commentUserName},#{articleId}) ")
+    void addComment(BbsCommentTable bbsCommentTable) throws Exception;
 }
