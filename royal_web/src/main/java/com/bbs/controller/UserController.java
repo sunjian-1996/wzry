@@ -60,6 +60,8 @@ public class UserController {
     @RequestMapping("logout.do")
     public ModelAndView logout(HttpSession httpSession) {
         httpSession.removeAttribute("loginUser");
+        httpSession.removeAttribute("articleId");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/article/show.do");
         return modelAndView;
