@@ -34,4 +34,11 @@ public interface ArticleDao {
     @Select("SELECT COUNT(*) FROM bbs_article_table WHERE sendTime LIKE #{date}")
     int jinritiezifindAll(String date);
 
+    //单个article对象查询
+    @Select("select * from bbs_article_table where articleId = #{articleId}")
+    BbsArticleTable findById(long articleId) throws Exception;
+
+    //添加评论次数
+    @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
+    void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
 }
