@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArticleDao {
 
     //查询单个版块的所有帖
-    @Select("select * from bbs_article_table where zoneId = #{zoneId}")
+    @Select("select * from bbs_article_table where zoneId = #{zoneId} ORDER BY sendTime DESC ")
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
     //写帖
