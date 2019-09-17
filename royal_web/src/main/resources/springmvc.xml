@@ -23,8 +23,8 @@
     </bean>
     <!-- 设置静态资源不过滤 -->
     <mvc:resources location="/css/" mapping="/css/**"/>
-    <mvc:resources location="/images/" mapping="/img/**" />
-    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/images/" mapping="/img/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:default-servlet-handler/>
 
     <!--开启springmvc注解支持-->
@@ -45,8 +45,5 @@
         <!-- 延迟文件解析 -->
         <property name="resolveLazily" value="true"/>
     </bean>
-
-
-
 
 </beans>
