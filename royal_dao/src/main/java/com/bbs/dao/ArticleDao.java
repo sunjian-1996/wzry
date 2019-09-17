@@ -8,13 +8,16 @@ import java.util.List;
 
 public interface ArticleDao {
 
+    //查询单个版块的所有帖
     @Select("select * from bbs_article_table where zoneId = #{zoneId}")
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
+    //写帖
     @Insert("insert into bbs_article_table(title,content,sendTime,senderName,zoneId) values(" +
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;
 
+    //帖详情
     @Select("select * from bbs_article_table where articleId = #{articleId}")
     @Results({
             @Result(id = true, property = "articleId", column = "articleId"),

@@ -13,6 +13,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    //评论功能
     @RequestMapping("addComment.do")
     public String addComment(BbsCommentTable bbsCommentTable) throws Exception {
 

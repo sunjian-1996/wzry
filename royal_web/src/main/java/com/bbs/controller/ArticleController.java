@@ -20,6 +20,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    //查询单个版块所有文章
     @RequestMapping("/findAll.do")
     public @ResponseBody
     List<BbsArticleTable> findAll(ModelMap modelMap, @RequestParam(name = "zoneId", defaultValue = "1") @RequestBody int zoneId) throws Exception {
@@ -28,6 +29,7 @@ public class ArticleController {
         return articleList;
     }
 
+    //发帖
     @RequestMapping("/publish.do")
     public ModelAndView publish(BbsArticleTable articleTable, HttpSession session) throws Exception {
         articleService.publish(articleTable);
@@ -39,6 +41,7 @@ public class ArticleController {
         return mv;
     }
 
+    //查看帖详情
     @RequestMapping("/getArticle.do")
     public ModelAndView getArticle(@RequestParam(name = "articleId") long articleId) throws Exception {
         BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
@@ -49,6 +52,7 @@ public class ArticleController {
         return mv;
     }
 
+    //返回之前所在页面
     @RequestMapping("/show.do")
     public String show(HttpSession session) {
         Object articleId = session.getAttribute("articleId");
