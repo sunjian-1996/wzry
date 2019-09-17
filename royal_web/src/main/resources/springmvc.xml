@@ -18,13 +18,13 @@
 
     <!--配置视图解析器-->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/pages/"/>
+        <property name="prefix" value="/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
     <!-- 设置静态资源不过滤 -->
     <mvc:resources location="/css/" mapping="/css/**"/>
-    <mvc:resources location="/images/" mapping="/img/**" />
-    <mvc:resources location="/js/" mapping="/js/**" />
+    <mvc:resources location="/images/" mapping="/img/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
     <mvc:default-servlet-handler/>
 
     <!--开启springmvc注解支持-->
@@ -32,9 +32,6 @@
 
     <!--开启aop注解支持 自动代理，生产代理对象 默认spring会自动选择-->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-
-
 
 
 </beans>

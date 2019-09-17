@@ -28,7 +28,7 @@
         <!--头部，帖子统计，搜索-->
         <div class="hm-bbs-info">
             <div class="hm-bbs-icon l" style="width:130px;">
-                <span><img src="images/bbs-icon.png" height="80"/></span>
+                <span><img src="${pageContext.request.contextPath}/images/bbs-icon.png" height="80"/></span>
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
@@ -98,11 +98,11 @@
                     </h3>
                     <ul class="b clearfix">
                         <li>
-                            <div><img src="images/default.png" height="55"/></div>
+                            <div><img src="${pageContext.request.contextPath}/images/default.png" height="55"/></div>
                             <p>Mr.King</p>
                         </li>
                         <li>
-                            <div><img src="images/default.png" height="55"/></div>
+                            <div><img src="${pageContext.request.contextPath}/images/default.png" height="55"/></div>
                             <p>疯子</p>
                         </li>
                     </ul>
@@ -126,7 +126,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/article/publish.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -141,6 +141,11 @@
                     <textarea id="content" name="content" placeholder="正文"></textarea>
                 </div>
             </div>
+            <%--此处需要获取域中的用户名--%>
+            <%--<input type="hidden" name="senderName" value="${bbsUserTable.userName}">--%>
+            <input type="hidden" name="senderName" value="测试用户">
+            <%--需要获取当前版块的id--%>
+            <input id="zoneIdHidden" type="hidden" name="zoneId" value="1">
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="submit" class="btn" value="发表"/>
@@ -154,19 +159,20 @@
 <script>
     //页面加载完毕获取版块
     $(function () {
+        var zoneIdField = "${zoneId}";
         $.post("${pageContext.request.contextPath}/zone/findAll.do", function (date) {
             var number = 1;
 
             $(date).each(function () {
-                if (number == 1) {
+                if (number == zoneIdField) {
                     var zone = "<li class='current'>\n" +
-                        "                <a href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "                <a zoneId=" + this['zoneId'] + "  href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
                         "            </li>";
                     $("#bbs_zone_table").append($(zone));
                     number++;
                 } else {
                     var zone = "<li>\n" +
-                        "                <a href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "                <a zoneId=" + this['zoneId'] + " href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
                         "            </li>";
                     $("#bbs_zone_table").append($(zone));
                     number++;
@@ -177,10 +183,20 @@
 
 
         //页面加载完毕获取版块内容
-        findAll(1);
+
+        if (zoneIdField) {
+            findAll(zoneIdField);
+        } else {
+            findAll(1);
+        }
     });
 
     function findAll(num) {
+        //获取版块id放入隐藏域
+        var id = $($("a[zoneId]")[num - 1]).attr("zoneId");
+        if (id) {
+            $("#zoneIdHidden").val(id)
+        }
         //版块选中属性控制
         var lis = $("#bbs_zone_table>li");
         lis.each(function () {
