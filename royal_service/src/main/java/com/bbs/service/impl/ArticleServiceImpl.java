@@ -25,4 +25,9 @@ public class ArticleServiceImpl implements ArticleService {
         articleTable.setSendTime(new Date());
         articleDao.publish(articleTable);
     }
+
+    @Override
+    public BbsArticleTable getArticle(long articleId) throws Exception {
+        return articleDao.getArticle(articleId);
+    }
 }

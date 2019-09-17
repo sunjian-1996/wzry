@@ -15,4 +15,7 @@ public interface ArticleDao {
     @Insert("insert into bbs_article_table(title,content,sendTime,senderName,zoneId) values(" +
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;
+
+    @Select("select * from bbs_article_table where id = #{articleId}")
+    BbsArticleTable getArticle(long articleId) throws Exception;
 }

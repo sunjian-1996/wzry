@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +18,7 @@
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp" />
-
+<jsp:include page="common/header.jsp"/>
 
 
 <div class="hm-header"></div>
@@ -33,7 +32,7 @@
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix">
-                    <h2 class="l">求官方出艾琳英雄活动</h2>
+                    <h2 class="l">${bbsArticleTable.title}</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
 					         <a href="#"><i></i>3</a>
@@ -131,7 +130,7 @@
                 <!--二楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="images/default.png"/> </div>
+                        <div class="floorer-photo"><img src="images/default.png"/></div>
                         <div class="floorer-name">不哭不闹不炫耀</div>
                     </div>
                     <div class="floor-con l">
@@ -227,10 +226,8 @@
 </div>
 
 
-
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
-
 
 
 <!-- 回复弹出框 -->
@@ -250,13 +247,12 @@
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="submit" class="btn" value="回复"/>
-					<input type="hidden" id="commentId" name="commentId"/>
+                    <input type="hidden" id="commentId" name="commentId"/>
                 </div>
             </div>
         </div>
     </div>
 </form>
-
 
 
 <div class="fixedBar" id="j_fixedBar">
@@ -268,16 +264,16 @@
 </body>
 
 <script type="text/javascript">
-//弹出回复框
-function showDialog(num, commentId) {
-	var loginUser = "${loginUser}";
-	if(!loginUser){
-		alert("请登录");
-		return;
-	}
-	$("#commentId").val(commentId);
-    $('.pop-box').css('display', 'block');
-    $("#floorSpan").html(num);
-}
+    //弹出回复框
+    function showDialog(num, commentId) {
+        var loginUser = "${loginUser}";
+        if (!loginUser) {
+            alert("请登录");
+            return;
+        }
+        $("#commentId").val(commentId);
+        $('.pop-box').css('display', 'block');
+        $("#floorSpan").html(num);
+    }
 </script>
 </html>
