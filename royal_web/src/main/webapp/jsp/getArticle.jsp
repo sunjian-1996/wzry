@@ -55,7 +55,7 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="index.do">
+            <a href="../index.do">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
@@ -86,7 +86,11 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <span class="icon-comment">
+                            <a href="#comment"> <i></i> 点赞</a>
+                            <a href="javascript:;" onclick="showDialog()"> <i></i> 举报</a>
+                            <a href="#"> <i></i> 评论</a>
+                        </span>
                     </div>
                 </li>
 
@@ -168,7 +172,7 @@
                 <!--三楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="images/default.png"/></div>
+                        <div class="floorer-photo"><img src="../images/default.png"/></div>
                         <div class="floorer-name">不哭不闹不炫耀</div>
                     </div>
                     <div class="floor-con l">
@@ -257,13 +261,10 @@
     </div>
 </form>
 
-
-
 <div class="fixedBar" id="j_fixedBar">
     <a href="#comment" class="newTopic"><span></span>回复</a>
     <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
 </div>
-
 
 </body>
 

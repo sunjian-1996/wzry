@@ -485,6 +485,15 @@ a:visited {
 .floor-con{
   position: relative;
 }
+/*举报*/
+.floor-con .icon-comment2 i{
+  background-position: -100px -32px;
+}
+.floor-con .icon-comment,.floor-con .icon-feedback {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
 
   /*评论*/
 .floor-con .icon-comment i{
