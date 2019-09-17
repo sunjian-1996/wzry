@@ -14,7 +14,7 @@ public class DateUtils {
     }
 
     public static String date2String(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = sdf.format(date);
         return format;
     }
@@ -27,7 +27,7 @@ public class DateUtils {
     }
 
     public static Date string2Date(String str) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date parse = sdf.parse(str);
         return parse;
     }
