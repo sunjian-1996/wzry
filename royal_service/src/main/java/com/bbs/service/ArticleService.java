@@ -10,4 +10,12 @@ public interface ArticleService {
     void publish(BbsArticleTable articleTable) throws Exception;
 
     BbsArticleTable getArticle(long articleId) throws Exception;
+
+    //帖子总数
+    int  tiezifindAll() throws Exception;
+    //今日帖子
+   int  jinritiezifindAll(String date) throws Exception;
+
+
+
 }

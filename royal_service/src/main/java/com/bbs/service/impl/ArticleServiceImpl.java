@@ -30,4 +30,14 @@ public class ArticleServiceImpl implements ArticleService {
     public BbsArticleTable getArticle(long articleId) throws Exception {
         return articleDao.getArticle(articleId);
     }
+    //帖子总数
+    @Override
+    public int tiezifindAll() throws Exception {
+        return articleDao.tiezifindAll();
+    }
+
+    @Override
+    public int jinritiezifindAll(String date) throws Exception {
+        return articleDao.jinritiezifindAll(date);
+    }
 }

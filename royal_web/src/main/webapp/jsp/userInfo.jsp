@@ -54,7 +54,7 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png"/>
+                    <img src="../images/default.png"/>
                     <div class="username">张无忌</div>
                 </div>
                 <ul class="user-info-l-b">

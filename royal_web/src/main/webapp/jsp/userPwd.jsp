@@ -52,7 +52,7 @@
             <div class="user-info-t" style="height:20px;"></div>
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png" alt=""/>
+                    <img src="../images/default.png" alt=""/>
                     <div class="username">张无忌</div>
                 </div>
                 <ul class="user-info-l-b">

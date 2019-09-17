@@ -26,4 +26,12 @@ public interface ArticleDao {
             ))
     })
     BbsArticleTable getArticle(long articleId) throws Exception;
+
+    //帖子总数
+    @Select("select count(*) from bbs_article_table")
+    int tiezifindAll() throws Exception;
+
+    @Select("SELECT COUNT(*) FROM bbs_article_table WHERE sendTime LIKE #{date}")
+    int jinritiezifindAll(String date);
+
 }

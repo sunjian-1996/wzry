@@ -2,10 +2,11 @@ package com.bbs.domain;
 
 import com.bbs.utils.DateUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class BbsArticleTable {
+public class BbsArticleTable implements Serializable {
 
     private long articleId;//帖子编号
     private String title;//标题
