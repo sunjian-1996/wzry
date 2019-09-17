@@ -15,4 +15,12 @@ public interface ArticleDao {
     @Insert("insert into bbs_article_table(title,content,sendTime,senderName,zoneId) values(" +
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;
+
+    //帖子总数
+    @Select("select count(*) from bbs_article_table")
+    int tiezifindAll() throws Exception;
+
+    @Select("SELECT COUNT(*) FROM bbs_article_table WHERE sendTime LIKE #{date}")
+    int jinritiezifindAll(String date);
+
 }
