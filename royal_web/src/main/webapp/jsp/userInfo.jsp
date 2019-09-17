@@ -54,8 +54,8 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png"/>
-                    <div class="username">张无忌</div>
+                    <img id="pic" src=""/>
+                    <div class="username">${loginUser.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
@@ -68,7 +68,13 @@
             <div class="user-info-r r">
                 <ul class="clearfix hd">
                     <li class="cur"><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li><a href="/jsp/userPwd.jsp">修改密码</a></li>
+                    <c:if test="${loginUser.role == 1}">
+                        <li><a href="/jsp/userInfomima.jsp">申请高级用户</a></li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li><a href="/jsp/addZone.jsp">开辟新板块</a></li>
+                    </c:if>
                 </ul>
 
 
@@ -90,7 +96,7 @@
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;">修改成功！</span>
+                                <span style="color:red;">${msgg}</span>
                             </div>
                         </li>
                     </ul>
@@ -107,6 +113,20 @@
 
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
+
+<script>
+    $(function () {
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/userInfo/findPic.do",
+            dataType:"text",
+            success:function (data) {
+                $("#pic").prop("src",data);
+            }
+        })
+
+    })
+</script>
 
 
 

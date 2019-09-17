@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,16 +12,15 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
     <style type="text/css">
-        .hm-header-b {
-            border-bottom: 1px solid #d9d9d9;
-        }
+        .hm-header-b { border-bottom: 1px solid #d9d9d9; }
     </style>
 </head>
 <body>
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp"/>
+<jsp:include page="common/header.jsp" />
+
 
 
 <!--头部信息-->
@@ -29,7 +28,7 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" alt=""/></a>
+                <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
                 <form action="javascript:;">
@@ -40,47 +39,50 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>修改密码
+            <a href="index.do">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
 
 
-<!--修改密码-->
+
 <div class="hm-body hm-body-bgc">
     <div class="hm-inner">
         <div class="user-info clearfix">
             <div class="user-info-t" style="height:20px;"></div>
+
+            <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
                     <img id="pic" src=""/>
                     <div class="username">${loginUser.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
-
-                    <li><i class="info-icon"></i>我的资料</li>
-                    <li class="cur"><i class="safe-icon"></i>修改密码</li>
+                    <li class="cur"><i class="info-icon"></i>我的资料</li>
+                    <li><i class="safe-icon"></i>修改密码</li>
                 </ul>
             </div>
 
 
+            <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
                     <li><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li class="cur"><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li class="cur"><a href="javascript:void(0);" id="login" class="to-login">修改密码</a></li>
                 </ul>
-                <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post">
+
+
+                <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post" enctype="multipart/form-data">
                     <ul class="bd">
                         <li class="clearfix">
-                            <div class="info-l"><i class="red">*</i>旧密码：</div>
-                            <div class="info-r"><input type="password" name="oldPassword"   class="txt" id="oldPassword"/>
-
-                            </div>
+                            <div class="info-l"><i class="red">*</i>用户名：</div>
+                            <div class="info-r"><input type="text" name="userName" class="txt" value="${loginUser.userName}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
-                            <div class="info-l"><i class="red">*</i>新密码：</div>
-                            <div class="info-r"><input type="password" name="newPassword" class="txt"/></div>
+                            <div class="info-l">密码</div>
+                            <div class="info-r"><input type="text" name="userPass" class="txt" value=""/></div>
                         </li>
+
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
@@ -90,24 +92,21 @@
                         </li>
                     </ul>
                 </form>
+
+
             </div>
+
+
         </div>
     </div>
 </div>
+
 
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
 <script>
-    $(function(){
-        $("#oldPassword").blur(function () {
-            var oldPassword = $("#oldPassword").val();
-            var loginUser = ${loginUser.userPass};
-            if(loginUser != oldPassword){
-                alert("你输入的旧密码有误，请重新输入")
-            }
-        })
-
+    $(function () {
         $.ajax({
             type:"get",
             url:"${pageContext.request.contextPath}/userInfo/findPic.do",
@@ -116,8 +115,11 @@
                 $("#pic").prop("src",data);
             }
         })
+
     })
 </script>
+
+
 
 </body>
 </html>

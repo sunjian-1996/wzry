@@ -22,6 +22,7 @@ public class UserController {
     public @ResponseBody BbsUserTable findByuserName(String userName){
         return userService.findByuserName(userName);
     }
+
     //注册
     @RequestMapping("save.do")
     public ModelAndView save(BbsUserTable bbsUserTable){
@@ -37,6 +38,7 @@ public class UserController {
     @RequestMapping("login.do")
     public ModelAndView login(BbsUserTable bbsUserTable, HttpServletRequest request){
         BbsUserTable bb = userService.findByuserName(bbsUserTable.getUserName());
+
         ModelAndView mv = new ModelAndView();
         if (bb==null){
             mv.addObject("msg","账号或密码有误");
