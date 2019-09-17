@@ -90,117 +90,50 @@
                     </div>
                 </li>
 
-
-                <!-- 评论部分,一楼及以后 -->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">1楼</div>
+                <c:forEach items="${bbsArticleTable.bbsCommentTables}" var="comment" varStatus="i">
+                    <!-- 评论部分,一楼及以后 -->
+                    <li class="floor clearfix">
+                        <div class="floorer-info l">
+                            <div class="floorer-photo"><img
+                                    src="${pageContext.request.contextPath}/images/default.png"/>
+                            </div>
+                            <div class="floorer-name">${comment.commentUserName}</div>
                         </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
+                        <div class="floor-con l">
+                            <div class="floor-info clearfix">
+                                <div class="floor-time l">回贴时间：${comment.commentTime}</div>
+                                <div class="r">${i.count}楼</div>
                             </div>
-                            <div class="floor-ans">
-                                <ul>
+                            <div class="floor-art-ans">
+                                <div class="floor-art">
+                                    <p>${comment.commentContent}</p>
+                                </div>
+                                <div class="floor-ans">
+                                    <ul>
 
-                                    <!-- 回复部分,楼中楼 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
+                                        <c:forEach items="${comment.bbsReplyTables}" var="reply">
+                                            <!-- 回复部分,楼中楼 -->
+                                            <li class="clearfix">
+                                                <div class="floor-ans-pho l"><img
+                                                        src="${pageContext.request.contextPath}/images/default.png"/>
+                                                </div>
+                                                <div class="floor-ans-con l">
+                                                    <span class="name">${reply.replyUserName}</span>：${reply.replyContent}
+                                                    <span class="ans-time">${reply.replyTime}</span>
+                                                </div>
+                                            </li>
 
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                                <span class="icon-feedback">
                                 <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
                             </span>
+                            </div>
                         </div>
-                    </div>
-                </li>
-
+                    </li>
+                </c:forEach>
                 <!--二楼-->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">2楼</div>
-                        </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
-                            </div>
-                            <div class="floor-ans">
-                                <ul>
-
-                                    <!-- 回复部分 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(2)"> <i></i> 回复</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-
-
-                <!--三楼-->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">3楼</div>
-                        </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
-                            </div>
-                            <div class="floor-ans">
-                                <ul>
-
-                                    <!-- 回复部分 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="${pageContext.request.contextPath}/images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(3)"> <i></i> 回复</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-
 
             </ul>
         </div>
