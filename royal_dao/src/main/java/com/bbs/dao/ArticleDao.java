@@ -16,7 +16,7 @@ public interface ArticleDao {
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;
 
-    @Select("select * from bbs_article_table where id = #{articleId}")
+    @Select("select * from bbs_article_table where articleId = #{articleId}")
     BbsArticleTable getArticle(long articleId) throws Exception;
 
     //帖子总数
