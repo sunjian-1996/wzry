@@ -1,5 +1,7 @@
 package com.bbs.domain;
 
+import com.bbs.utils.DateUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -37,8 +39,8 @@ public class BbsCommentTable {
         this.commentContent = commentContent;
     }
 
-    public Date getCommentTime() {
-        return commentTime;
+    public String getCommentTime() {
+        return DateUtils.date2String(commentTime);
     }
 
     public void setCommentTime(Date commentTime) {
