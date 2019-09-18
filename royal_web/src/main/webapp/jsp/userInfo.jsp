@@ -79,6 +79,7 @@
 
 
                 <form action="${pageContext.request.contextPath}/userInfo/update.do" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id= "picUrl" name = "picUrl" value="">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
@@ -122,7 +123,7 @@
             dataType:"text",
             success:function (data) {
                 $("#pic").prop("src",data);
-
+                $("#picUrl").val(data);
             }
         })
     })

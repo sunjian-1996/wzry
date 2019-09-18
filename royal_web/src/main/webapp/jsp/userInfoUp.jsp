@@ -80,6 +80,7 @@
 
 
                 <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post" enctype="multipart/form-data">
+
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
@@ -120,6 +121,7 @@
             dataType:"text",
             success:function (data) {
                 $("#pic").prop("src",data);
+                $("#picUrl").val(data);
             }
         })
 

@@ -32,29 +32,39 @@ public class UserInfoController {
     public ModelAndView update(@RequestParam(value="file",required=false) MultipartFile file, BbsUserTable bbsUserTable, HttpServletRequest request) throws IOException {
         // 使用fileupload组件完成文件上传
         // 上传的位置
-        String path = request.getSession().getServletContext().getRealPath("/jsp/upload/images/");
-        // 判断，该路径是否存在
-        File file2 = new File(path);
-        if(!file2.exists()){
-            // 创建该文件夹
-            file2.mkdirs();
+        if (file.getSize() != 0){
+            String path = request.getSession().getServletContext().getRealPath("/jsp/upload/images/");
+            // 判断，该路径是否存在
+            File file2 = new File(path);
+            if(!file2.exists()){
+                // 创建该文件夹
+                file2.mkdirs();
+            }
+
+            // 说明上传文件项
+            // 获取上传文件的名称
+            String filename = file.getOriginalFilename();
+            String substring = filename.substring(filename.lastIndexOf(".") + 1);
+            if((!"jpg".equals(substring.toLowerCase())) && (!"png".equals(substring.toLowerCase()))){
+                ModelAndView mv = new ModelAndView();
+                //mv.addObject("msgg","修改成功");
+                request.getSession().setAttribute("msggs","图片格式非法");
+                mv.setViewName("redirect:/jsp/userInfo.jsp");
+                return mv;
+            }
+            // 把文件的名称设置唯一值，uuid
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            filename = uuid+"_"+filename;
+            // 完成文件上传
+
+            file.transferTo(new File(path,filename));
+
+            bbsUserTable.setPicUrl("" +
+                    "upload/images/"+filename);
         }
-
-        // 说明上传文件项
-        // 获取上传文件的名称
-        String filename = file.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
-
-        file.transferTo(new File(path,filename));
-
-
-
-        bbsUserTable.setPicUrl("" +
-                "upload/images/"+filename);
         userInfoService.update(bbsUserTable);
+        BbsUserTable userTable = userService.findByuserName(bbsUserTable.getUserName());
+        request.getSession().setAttribute("loginUser",userTable);
         ModelAndView mv = new ModelAndView();
         //mv.addObject("msgg","修改成功");
         request.getSession().setAttribute("msggs","修改成功");
@@ -69,6 +79,7 @@ public class UserInfoController {
         BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
         BbsUserTable bbsUserTable = userService.findByuserName(loginUser.getUserName());
         request.getSession().setAttribute("loginUser",bbsUserTable);
+        request.getSession().removeAttribute("msggs");
         return bbsUserTable.getPicUrl();
     }
 

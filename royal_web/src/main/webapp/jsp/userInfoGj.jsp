@@ -95,14 +95,14 @@
 
 
                             <li class="clearfix" style="left: 100px;">
-                                <i class="red">当前发帖数：</i>${publishCount}
+                                <i class="red">当前发帖数：</i><span id="fatie"></span>
                             </li>
 
 
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="申请"/>
+                                <input type="submit"  id="shenqing" class="btn" value="申请"/>
                                 <span style="color:red;">${msgg}</span>
                             </div>
                         </li>
@@ -134,7 +134,14 @@
         })
         $.post( '${pageContext.request.contextPath}/article/publishCount.do',
             function (data) {
-                data['publishCount']
+            $("#fatie").html(data['publishCount'])
+                if (data['publishCount']>=5){
+                    $("#shenqing").prop("type","submit")
+                    alert("已提交申请，请等待审核")
+                } else {
+                    $("#shenqing").prop("type","button")
+                    alert("请发5条帖子")
+                }
             }
             ,"json"
         )
