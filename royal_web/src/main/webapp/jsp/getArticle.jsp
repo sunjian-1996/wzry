@@ -13,6 +13,23 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/getArticle.css"/>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
+    <style>
+        .floor-con .icon-report i {
+            background-position: -64px -16px;
+        }
+
+        .floor-con .icon-feedback1 i {
+            background-position: -112px -32px;
+        }
+
+        .floor-con .icon-comment, .floor-con .icon-feedback, .floor-con .icon-report, .floor-con .icon-feedback1 {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+
+    </style>
 </head>
 <body>
 
@@ -35,7 +52,7 @@
                     <h2 class="l">${bbsArticleTable.title}</h2>
                     <div class="hm-detail-fun l">
 					     <span class="icon-like">
-					         <a href="#"><i></i>${bbsArticleTable.upvoteCount}</a>
+					         <a id="dianZanCount" href="#"><i></i>${bbsArticleTable.upvoteCount}</a>
 					     </span>
                         <span class="icon-talk">
 						     <i></i>${bbsArticleTable.replyCount}
@@ -85,11 +102,23 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
+
                         <c:if test="${empty loginUser}">
-                            <span class="icon-comment"><a href="javaScript:inspect()"> <i></i> 评论</a></span>
+                            <span id="myUpVote" class="icon-feedback" style="right: 150px"><a
+                                    href="javascript:inspect(0)"> <i></i> 点赞</a></span>
+                            <span class="icon-report"><a href="javascript:inspect(0)"> <i></i> 举报</a></span>
+                            <span class="icon-comment" style="right: 80px"><a
+                                    href="javaScript:inspect()"> <i></i> 评论</a></span>
                         </c:if>
+
+
                         <c:if test="${!empty loginUser}">
-                            <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                            <span id="myUpVote" class="icon-feedback" style="right: 150px"><a
+                                    href="javascript:dianZan()"> <i></i> 点赞</a></span>
+
+                            <span class="icon-report"><a href="javascript:"> <i></i> 举报</a></span>
+
+                            <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
                         </c:if>
                     </div>
                 </li>
@@ -231,5 +260,39 @@
         $('.pop-box').css('display', 'block');
         $("#floorSpan").html(num);
     }
+
+    //刷新点赞状态
+    function yangShi() {
+        if ("${loginUser.userName}") {
+            $.post("${pageContext.request.contextPath}/upvote/findDianZanStatus.do", function (date) {
+
+                var JDianzan = $("#myUpVote");
+                if (date['status'] == 1) {
+                    JDianzan.removeClass("icon-feedback");
+                    JDianzan.addClass("icon-feedback1");
+                }
+                if (date['status'] == 0) {
+                    JDianzan.removeClass("icon-feedback1");
+                    JDianzan.addClass("icon-feedback");
+                }
+            }, "json")
+        }
+    }
+
+    //点赞功能
+    function dianZan() {
+        $.post("${pageContext.request.contextPath}/upvote/dianZan.do", function (date) {
+            yangShi();
+            var dianZanCount = date['dianZanCount'];
+            $("#dianZanCount").html("<i></i>" + dianZanCount);
+        }, "json")
+    }
+
+    //页面加载完成发送ajax查询点赞状态
+    $(function () {
+        yangShi();
+    })
+
+
 </script>
 </html>

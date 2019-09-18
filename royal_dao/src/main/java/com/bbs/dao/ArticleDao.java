@@ -42,4 +42,12 @@ public interface ArticleDao {
     //添加评论次数
     @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
     void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
+
+    //查询点赞次数
+    @Select("select upvoteCount from bbs_article_table where articleId = #{articleId}")
+    Long findDianZanCount(long articleId) throws Exception;
+
+    //修改点赞次数
+    @Update("update bbs_article_table set upvoteCount = #{dianZanCount} where articleId = #{articleId}")
+    void addDianZan(@Param("articleId") long articleId, @Param("dianZanCount") Long dianZanCount);
 }
