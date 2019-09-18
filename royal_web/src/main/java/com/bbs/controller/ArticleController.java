@@ -1,6 +1,7 @@
 package com.bbs.controller;
 
 import com.bbs.domain.BbsArticleTable;
+import com.bbs.domain.BbsUserTable;
 import com.bbs.service.ArticleService;
 import com.bbs.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,18 @@ public class ArticleController {
         } else {
             return "redirect:/jsp/index.jsp";
         }
+    }
+
+    //用户发帖计数
+    @RequestMapping("publishCount.do")
+    public @ResponseBody
+    Map<String, Long> publishCount(HttpSession session) throws Exception {
+        BbsUserTable userTable = (BbsUserTable) session.getAttribute("loginUser");
+        String userName = userTable.getUserName();
+        long publishCount = articleService.publishCount(userName);
+        HashMap<String, Long> map = new HashMap<String, Long>();
+        map.put("publishCount", publishCount);
+        return map;
     }
 
 }

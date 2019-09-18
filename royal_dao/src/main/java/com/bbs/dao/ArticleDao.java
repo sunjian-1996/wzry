@@ -42,4 +42,8 @@ public interface ArticleDao {
     //添加评论次数
     @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
     void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
+
+    //用户发帖计数
+    @Select("select count(*) from bbs_article_table where senderName = #{userName}")
+    long publishCount(String userName) throws Exception;
 }
