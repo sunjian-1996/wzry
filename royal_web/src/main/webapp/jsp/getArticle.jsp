@@ -64,7 +64,6 @@
             </a>
         </div>
 
-
         <div class="detail-box">
             <ul class="detail-floors">
 
@@ -86,7 +85,12 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <c:if test="${empty loginUser}">
+                            <span class="icon-comment"><a href="javaScript:inspect()"> <i></i> 评论</a></span>
+                        </c:if>
+                        <c:if test="${!empty loginUser}">
+                            <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        </c:if>
                     </div>
                 </li>
 
@@ -129,7 +133,7 @@
                                 </div>
                                 <span class="icon-feedback">
 
-                                <a href="javascript:;" onclick="showDialog('${i.count}')"> <i></i> 回复</a>
+                                <a href="javascript:;" onclick="showDialog(${i.count},${comment.commentId})"> <i></i> 回复</a>
                             </span>
                             </div>
                         </div>
@@ -172,7 +176,7 @@
 
 
 <!-- 回复弹出框 -->
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/reply/addReply.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
@@ -187,8 +191,9 @@
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
-                    <input type="submit" class="btn" value="回复"/>
                     <input type="hidden" id="commentId" name="commentId"/>
+                    <input type="hidden" name="replyUserName" value="${loginUser.userName}">
+                    <input type="submit" class="btn" value="回复"/>
                 </div>
             </div>
         </div>
@@ -213,14 +218,6 @@
 </body>
 
 <script type="text/javascript">
-    // function addComment() {
-    //     if ($("#addCommentForm>textarea").val()) {
-    //         $("#addCommentForm").submit();
-    //     } else {
-    //         alert("不要评论空内容")
-    //     }
-    // }
-
 
     function inspect() {
         alert("请先登陆再操作");

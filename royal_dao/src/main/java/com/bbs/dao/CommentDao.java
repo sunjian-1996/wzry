@@ -18,4 +18,5 @@ public interface CommentDao {
     //新增评论
     @Insert("insert into bbs_comment_table(commentContent,commentUserName,articleId) values(#{commentContent},#{commentUserName},#{articleId}) ")
     void addComment(BbsCommentTable bbsCommentTable) throws Exception;
+
 }
