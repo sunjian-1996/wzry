@@ -86,7 +86,12 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <c:if test="${empty loginUser}">
+                            <span class="icon-comment"><a href="javaScript:inspect()"> <i></i> 评论</a></span>
+                        </c:if>
+                        <c:if test="${!empty loginUser}">
+                            <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        </c:if>
                     </div>
                 </li>
 
