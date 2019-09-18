@@ -39,7 +39,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>个人信息
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -95,14 +95,14 @@
 
 
                             <li class="clearfix" style="left: 100px;">
-                                <i class="red">当前发帖数：</i>0
+                                <i class="red">当前发帖数：</i><span id="fatie"></span>
                             </li>
 
 
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="申请"/>
+                                <input type="submit"  id="shenqing" class="btn" value="申请"/>
                                 <span style="color:red;">${msgg}</span>
                             </div>
                         </li>
@@ -132,6 +132,21 @@
                 $("#pic").prop("src",data);
             }
         })
+        $.post( '${pageContext.request.contextPath}/article/publishCount.do',
+            function (data) {
+            $("#fatie").html(data['publishCount'])
+                if (data['publishCount']>=5){
+                    $("#shenqing").prop("type","submit")
+                    alert("已提交申请，请等待审核")
+                } else {
+                    $("#shenqing").prop("type","button")
+                    alert("请发5条帖子")
+                }
+            }
+            ,"json"
+        )
+
+
 
     })
 </script>
