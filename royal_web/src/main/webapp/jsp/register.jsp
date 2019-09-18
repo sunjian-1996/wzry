@@ -23,7 +23,7 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
+                <a href="javascript:;"><img src="../images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
                 <form action="javascript:;">
@@ -45,14 +45,14 @@
         <div class="reg-box">
             <h2>用户注册<span>（红色型号代表必填）</span></h2>
             <div class="reg-info">
-                <form action="" method="post">
+                <form action="${pageContext.request.contextPath}/user/save.do" method="post">
                     <ul>
                         <li>
                             <div class="reg-l">
                                 <span class="red">*</span> 用户名：
                             </div>
                             <div class="reg-c">
-                                <input type="text" id="userName" name="userName" class="txt" value=""/>
+                                <input type="text" id="username" name="userName" class="txt"  onblur="checkName()"/>
                             </div>
                             <span class="tips">用户名必须是由英文、数字、下划线组成</span>
                         </li>
@@ -90,6 +90,38 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
+<script>
+
+    //判断用户名是否可用
+    function checkName() {
+        //1.获取用户输入的内容
+        var userName = $("#username").val();
+        //2.定义正则表达式
+        var tel1 = /^[a-zA-Z0-9_-]{3,16}$/;
+
+        if (tel1.test(userName)) {
+            //3.若内容不为空，发送ajax
+            //3.1请求路径
+            $.post("${pageContext.request.contextPath}/user/findByuserName.do",
+                //3.2请求参数 方法名 和 用户输入的用户名
+                {"userName":userName},
+                //3.3回调函数
+                function (date) {
+                    //3.4判断回调函数
+                    if (date!=null){
+                        alert("该用户名已存在，请重新输入");
+                    }
+                        //提示信息在前台做或者后台做都是一样的效果
+                },"json"
+            )
+        }else {
+            //4.若用户输入的格式不对或为空，提示信息
+           alert("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
+
+        }
+
+    };
+</script>
 
 </body>
 </html>

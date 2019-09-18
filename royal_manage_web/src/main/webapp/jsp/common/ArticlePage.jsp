@@ -6,9 +6,9 @@
 
 </head>
 <style type="text/css">
-    html,body{
-        overflow:auto;
-        height:100%;
+    html, body {
+        overflow: auto;
+        height: 100%;
     }
 
     .line-limit-length {
@@ -26,19 +26,19 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="head.jsp"%>
+    <%@ include file="../../jsp/commom/head.jsp" %>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
-        <%@ include file="leftsidebar.jsp"%>
+        <%@ include file="../../jsp/commom/leftsidebar.jsp" %>
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
             <div class="panel panel-success">
                 <!-- 路径导航 -->
-                <div >
+                <div>
                     <ol class="breadcrumb">
                         <li><a href="#">用户帖管理</a></li>
                         <li class="active">帖子信息</li>
@@ -147,9 +147,10 @@
                             <!--上一页-->
                             <li>
                                 <c:if test="${articleMsgs.hasPreviousPage}">
-                                        <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
-                                            <span aria-hidden="true">«</span>
-                                        </a>
+                                    <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
                                 </c:if>
                             </li>
 
@@ -178,7 +179,7 @@
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="foot.jsp"%>
+        <%@ include file="../../jsp/commom/foot.jsp" %>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->

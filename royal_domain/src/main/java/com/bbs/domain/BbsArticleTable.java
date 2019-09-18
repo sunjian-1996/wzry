@@ -2,9 +2,11 @@ package com.bbs.domain;
 
 import com.bbs.utils.DateUtils;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class BbsArticleTable {
+public class BbsArticleTable implements Serializable {
 
     private long articleId;//帖子编号
     private String title;//标题
@@ -17,6 +19,15 @@ public class BbsArticleTable {
     private long browseCount;//浏览数
     private long zoneId;//所在交流区
     private long isReport;//举报状态
+    private List<BbsCommentTable> bbsCommentTables; //评论表
+
+    public List<BbsCommentTable> getBbsCommentTables() {
+        return bbsCommentTables;
+    }
+
+    public void setBbsCommentTables(List<BbsCommentTable> bbsCommentTables) {
+        this.bbsCommentTables = bbsCommentTables;
+    }
 
     @Override
     public String toString() {

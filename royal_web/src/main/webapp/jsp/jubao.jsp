@@ -119,19 +119,13 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
-<c:if test="${empty loginUser.userName}">
-    <div class="fixedBar" id="j_fixedBar">
-        <a href="javaScript:inspect()" class="newTopic"><span></span>发帖</a>
-        <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
-    </div>
-</c:if>
-<c:if test="${!empty loginUser.userName}">
-    <!-- 右边发帖，回顶部 -->
-    <div class="fixedBar" id="j_fixedBar">
-        <a id="newTopicBtn" href="javaScript:;" class="newTopic"><span></span>发帖</a>
-        <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
-    </div>
-</c:if>
+
+<!-- 右边发帖，回顶部 -->
+<div class="fixedBar" id="j_fixedBar">
+    <a id="newTopicBtn" href="javascript:;" class="newTopic"><span></span>发帖</a>
+    <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
+</div>
+
 <!-- 发帖弹出框 -->
 <form id="articleAddForm" action="${pageContext.request.contextPath}/article/publish.do" method="post">
     <div class="pop-box ft-box">
@@ -149,10 +143,10 @@
                 </div>
             </div>
             <%--此处需要获取域中的用户名--%>
-            <input type="hidden" name="senderName" value="${loginUser.userName}">
-            <%--<input type="hidden" name="senderName" value="测试用户">--%>
+            <%--<input type="hidden" name="senderName" value="${bbsUserTable.userName}">--%>
+            <input type="hidden" name="senderName" value="测试用户">
             <%--需要获取当前版块的id--%>
-            <input id="zoneIdHidden" type="hidden" name="zoneId" value="${zoneId}">
+            <input id="zoneIdHidden" type="hidden" name="zoneId" value="1">
             <div class="win_ft">
                 <div class="win_ft_in">
                     <input type="button" class="btn" value="发表" onclick="addArticle()"/>
@@ -164,11 +158,6 @@
 
 
 <script>
-
-    function inspect() {
-        alert("请先登陆再操作");
-    }
-
     $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
@@ -184,17 +173,16 @@
         });
         return o;
     };
-
-    function addArticle() {
+    function addArticle(){
         $.ajax({
-            url: '${pageContext.request.contextPath}/article/publish.do',
-            data: JSON.stringify($("#articleAddForm").serializeObject()),
-            contentType: 'application/json',
+            url:'${pageContext.request.contextPath}/article/publish.do',
+            data:JSON.stringify($("#articleAddForm").serializeObject()),
+            contentType:'application/json',
             cache: false,
-            dataType: 'text',
-            type: 'post',
-            success: function (data) {
-                location.href = "/article/show.do";
+            dataType:'text',
+            type:'post',
+            success:function (data) {
+                location.href="/jsp/index.jsp";
             }
         })
     }
@@ -206,28 +194,26 @@
             var number = 1;
 
             $(date).each(function () {
-
-                var zone = "<li zoneId=" + this['zoneId'] + ">\n" +
-                    "                <a href=\"javaScript:findAll(" + this['zoneId'] + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
-                    "            </li>";
-
-                //页面第一次加载给第一个版块添加样式
-                var JZoneId = $(zone);
-                if (!zoneIdField && number == 1) {
-                    JZoneId.addClass("current");
-                    //不是第一次给特定版块添加样式
-                } else if (JZoneId.attr("zoneId") == zoneIdField) {
-                    JZoneId.addClass("current");
+                if (number == zoneIdField) {
+                    var zone = "<li class='current'>\n" +
+                        "                <a zoneId=" + this['zoneId'] + "  href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "            </li>";
+                    $("#bbs_zone_table").append($(zone));
+                    number++;
+                } else {
+                    var zone = "<li>\n" +
+                        "                <a zoneId=" + this['zoneId'] + " href=\"javaScript:findAll(" + number + ")\"><em></em>" + this['zoneName'] + "</a>\n" +
+                        "            </li>";
+                    $("#bbs_zone_table").append($(zone));
+                    number++;
                 }
-                $("#bbs_zone_table").append(JZoneId);
-                number++;
-
             })
 
         }, "json");
 
 
-        //页面加载完毕获取版块内容，第一次访问默认选择第一版块
+        //页面加载完毕获取版块内容
+
         if (zoneIdField) {
             findAll(zoneIdField);
         } else {
@@ -238,15 +224,17 @@
     });
 
     function findAll(num) {
-
-        //ajax请求时版块选中添加样式
+        //获取版块id放入隐藏域
+        var id = $($("a[zoneId]")[num - 1]).attr("zoneId");
+        if (id) {
+            $("#zoneIdHidden").val(id)
+        }
+        //版块选中属性控制
         var lis = $("#bbs_zone_table>li");
         lis.each(function () {
             $(this).removeClass("current");
-            if ($(this).attr("zoneId") == num) {
-                $(this).addClass("current")
-            }
         });
+        $(lis[num - 1]).addClass("current");
 
         //清空版块内容
         var jArticleUl = $("#articleUl");
@@ -262,7 +250,7 @@
             $(date).each(function () {
                 var article = "<li class=\"clearfix\">\n" +
                     "                        <div class=\"hm-index-title\">\n" +
-                    "                            <i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do?articleId=" + this['articleId'] + "\">" + this['title'] + "</a>\n" +
+                    "                            <i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do\">" + this['title'] + "</a>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"hm-index-con\">" + this['content'] + "</div>\n" +
                     "                        <div class=\"hm-index-info l\">\n" +
@@ -291,6 +279,7 @@
     }
 
 
+
     $(function () {
         $.post("${pageContext.request.contextPath}/article/tiezifindAll.do", function (data) {
             $("#total").html(data['total']);
@@ -301,6 +290,4 @@
 
 
 </body>
-<script>
-</script>
 </html>

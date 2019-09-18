@@ -11,10 +11,30 @@ import java.util.List;
 
 @Service("userService")
 @Transactional
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service("userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
+
+    //异步验证用户名
+    @Override
+    public BbsUserTable findByuserName(String userName) {
+        return userDao.findByuserName(userName);
+    }
+
+    //注册
+    @Override
+    public void save(BbsUserTable bbsUserTable) {
+        bbsUserTable.setUserPass(bCryptPasswordEncoder.encode(bbsUserTable.getUserPass()));
+        userDao.save(bbsUserTable);
+    }
+}
 /*    @Override
     public User login(String userName,String userPass) {
         return userDao.findWithLoginAndPassword( userName,userPass );

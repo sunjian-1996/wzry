@@ -15,4 +15,10 @@ public interface UserService{
     void updateUser(int userId,int role);
 
     void WordAndReply(int userId,int talkStatus);
+public interface UserService {
+
+
+    BbsUserTable findByuserName(String userName);
+
+    void save(BbsUserTable bbsUserTable);
 }
