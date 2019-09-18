@@ -14,7 +14,10 @@
 
             <div class="box">
                 <c:if test="${msg!=null}">
-                    <script language='JavaScript'>alert('您的账号或密码输入错误！')</script>
+                    <script type="text/javascript">
+                        alert('您的账号或密码输入错误！')
+                    </script>
+                   <%-- <script language='JavaScript'>alert('您的账号或密码输入错误！')</script>--%>
                 </c:if>
                 <c:if test="${loginUser==null||empty loginUser}">
                     <a href="javascript:void(0);" id="login" class="to-login">游客登录</a>

@@ -40,14 +40,17 @@ public class UserController {
     @RequestMapping("login.do")
     public ModelAndView login(BbsUserTable bbsUserTable, HttpServletRequest request) {
         BbsUserTable bb = userService.findByuserName(bbsUserTable.getUserName());
+
         ModelAndView mv = new ModelAndView();
         if (bb == null) {
-            mv.addObject("msg", "账号或密码有误");
+           // mv.addObject("msg", "账号或密码有误");
+            request.getSession().setAttribute("msg", "账号或密码有误");
         } else {
             if (bb.getUserPass().equals(bbsUserTable.getUserPass()) && bb.getUserName().equals(bbsUserTable.getUserName())) {
                 request.getSession().setAttribute("loginUser", bb);
             } else {
-                mv.addObject("msg", "账号或密码有误");
+                request.getSession().setAttribute("msg", "账号或密码有误");
+                /*mv.addObject("msg", "账号或密码有误");*/
             }
         }
 
