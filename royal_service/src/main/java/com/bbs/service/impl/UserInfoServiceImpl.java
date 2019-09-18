@@ -15,4 +15,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public void update(BbsUserTable bbsUserTable) {
         userInfoDao.update(bbsUserTable);
     }
+
+    //修改密码
+    @Override
+    public void updateToPass(BbsUserTable loginUser) {
+        userInfoDao.updateToPass(loginUser);
+    }
+
 }
