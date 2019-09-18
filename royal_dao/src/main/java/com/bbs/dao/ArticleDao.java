@@ -13,6 +13,7 @@ public interface ArticleDao {
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
     //写帖
+    @SelectKey(before = false, keyColumn = "articleId", keyProperty = "articleId", resultType = int.class, statement = "SELECT LAST_INSERT_ID()")
     @Insert("insert into bbs_article_table(title,content,sendTime,senderName,zoneId) values(" +
             "#{title},#{content},#{sendTime},#{senderName},#{zoneId})")
     void publish(BbsArticleTable articleTable) throws Exception;

@@ -184,16 +184,17 @@
         });
         return o;
     };
-    function addArticle(){
+
+    function addArticle() {
         $.ajax({
-            url:'${pageContext.request.contextPath}/article/publish.do',
-            data:JSON.stringify($("#articleAddForm").serializeObject()),
-            contentType:'application/json',
+            url: '${pageContext.request.contextPath}/article/publish.do',
+            data: JSON.stringify($("#articleAddForm").serializeObject()),
+            contentType: 'application/json',
             cache: false,
-            dataType:'text',
-            type:'post',
-            success:function (data) {
-                location.href="/jsp/index.jsp";
+            dataType: 'text',
+            type: 'post',
+            success: function (data) {
+                location.href = "/article/show.do";
             }
         })
     }
@@ -288,7 +289,6 @@
 
         }, "json")
     }
-
 
 
     $(function () {

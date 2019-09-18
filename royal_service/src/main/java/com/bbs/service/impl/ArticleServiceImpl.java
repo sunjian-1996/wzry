@@ -20,16 +20,19 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findAll(zoneId);
     }
 
+    //写帖
     @Override
-    public void publish(BbsArticleTable articleTable) throws Exception {
+    public long publish(BbsArticleTable articleTable) throws Exception {
         articleTable.setSendTime(new Date());
         articleDao.publish(articleTable);
+        return articleTable.getArticleId();
     }
 
     @Override
     public BbsArticleTable getArticle(long articleId) throws Exception {
         return articleDao.getArticle(articleId);
     }
+
     //帖子总数
     @Override
     public int tiezifindAll() throws Exception {
