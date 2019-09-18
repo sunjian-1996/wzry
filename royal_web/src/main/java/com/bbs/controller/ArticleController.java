@@ -33,8 +33,9 @@ public class ArticleController {
 
     //写帖
     @RequestMapping("/publish.do")
-    public String publish(@RequestBody BbsArticleTable articleTable) throws Exception {
-        articleService.publish(articleTable);
+    public String publish(@RequestBody BbsArticleTable articleTable, HttpSession session) throws Exception {
+        long articleId = articleService.publish(articleTable);
+        session.setAttribute("articleId", articleId);
         return "redirect:/article/show.do";
     }
 
