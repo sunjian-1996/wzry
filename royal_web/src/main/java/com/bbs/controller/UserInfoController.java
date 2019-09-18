@@ -2,6 +2,7 @@ package com.bbs.controller;
 
 import com.bbs.domain.BbsUserTable;
 import com.bbs.service.UserInfoService;
+import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,15 @@ public class UserInfoController {
     private UserInfoService userInfoService;
     private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
 
+    @Autowired
+    private UserService userService;
+
     //修改邮箱
     @RequestMapping("update.do")
     public ModelAndView update(@RequestParam(value="file",required=false) MultipartFile file, BbsUserTable bbsUserTable, HttpServletRequest request) throws IOException {
         // 使用fileupload组件完成文件上传
         // 上传的位置
-        String path = request.getSession().getServletContext().getRealPath("/upload/images/");
+        String path = request.getSession().getServletContext().getRealPath("/jsp/upload/images/");
         // 判断，该路径是否存在
         File file2 = new File(path);
         if(!file2.exists()){
@@ -52,8 +56,9 @@ public class UserInfoController {
                 "upload/images/"+filename);
         userInfoService.update(bbsUserTable);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("msgg","修改成功");
-        mv.setViewName("userInfo");
+        //mv.addObject("msgg","修改成功");
+        request.getSession().setAttribute("msggs","修改成功");
+        mv.setViewName("redirect:/jsp/userInfo.jsp");
         return mv;
     }
 
@@ -62,7 +67,9 @@ public class UserInfoController {
     @ResponseBody
     public String findPic(HttpServletRequest request){
         BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
-        return loginUser.getPicUrl();
+        BbsUserTable bbsUserTable = userService.findByuserName(loginUser.getUserName());
+        request.getSession().setAttribute("loginUser",bbsUserTable);
+        return bbsUserTable.getPicUrl();
     }
 
 

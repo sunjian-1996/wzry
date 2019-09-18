@@ -39,7 +39,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>个人信息
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -95,7 +95,7 @@
 
 
                             <li class="clearfix" style="left: 100px;">
-                                <i class="red">当前发帖数：</i>0
+                                <i class="red">当前发帖数：</i>${publishCount}
                             </li>
 
 
@@ -132,6 +132,14 @@
                 $("#pic").prop("src",data);
             }
         })
+        $.post( '${pageContext.request.contextPath}/article/publishCount.do',
+            function (data) {
+                data['publishCount']
+            }
+            ,"json"
+        )
+
+
 
     })
 </script>

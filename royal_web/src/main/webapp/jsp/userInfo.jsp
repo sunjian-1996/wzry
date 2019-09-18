@@ -39,7 +39,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>个人信息
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -95,8 +95,8 @@
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;">${msgg}</span>
+                                <input type="submit" class="btn"  value="保存"/>
+                                <span style="color:red;" >${msggs}</span>
                             </div>
                         </li>
                     </ul>
@@ -122,9 +122,9 @@
             dataType:"text",
             success:function (data) {
                 $("#pic").prop("src",data);
+
             }
         })
-
     })
 </script>
 
