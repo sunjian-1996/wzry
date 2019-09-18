@@ -66,8 +66,15 @@
 
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li class="cur"><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li><a href="/jsp/userInfo.jsp">个人信息</a></li>
+                    <li class="cur"><a href="/jsp/userPwd.jsp">修改密码</a></li>
+                    <c:if test="${loginUser.role == 1}">
+                        <li><a href="/jsp/userInfoGj.jsp">申请高级用户</a></li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li><a href="/jsp/addZone.jsp">开辟新板块</a></li>
+                    </c:if>
+
                 </ul>
                 <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post">
                     <ul class="bd">
@@ -84,7 +91,7 @@
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="保存"/>
+                                <input id="tijiao" type="submit" class="btn" value="保存"/>
                                 <span style="color:red;">${msgg}</span>
                             </div>
                         </li>
@@ -101,11 +108,22 @@
 <script>
     $(function(){
         $("#oldPassword").blur(function () {
+
             var oldPassword = $("#oldPassword").val();
-            var loginUser = ${loginUser.userPass};
-            if(loginUser != oldPassword){
-                alert("你输入的旧密码有误，请重新输入")
-            }
+            $.ajax({
+                type:"get",
+                url:"${pageContext.request.contextPath}/userInfo/yanZhengMM.do",
+                data:{"oldPassword":oldPassword},
+                dataType:"json",
+                success:function (data) {
+                  if (data==null){
+                      $("#tijiao").prop("type","hidden");
+                      alert("你输入的旧密码有误，请重新输入")
+                  }else {
+                      $("#tijiao").prop("type","submit");
+                  }
+                }
+            })
         })
 
         $.ajax({

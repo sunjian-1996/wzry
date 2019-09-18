@@ -67,8 +67,15 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li class="cur"><a href="javascript:void(0);" id="login" class="to-login">修改密码</a></li>
+                    <li><a href="/jsp/userInfo.jsp">个人信息</a></li>
+                    <%--id="login" class="to-login"--%>
+                    <li><a href="/jsp/userPwd.jsp">修改密码</a></li>
+                    <c:if test="${loginUser.role == 1}">
+                        <li class="cur"><a href="/jsp/userInfoGj.jsp">申请高级用户</a></li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li class="cur"><a href="/jsp/addZone.jsp">开辟新板块</a></li>
+                    </c:if>
                 </ul>
 
 

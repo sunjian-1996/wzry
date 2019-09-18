@@ -13,14 +13,15 @@
         <div class="hm-inner-r r">
 
             <div class="box">
-                <c:if test="${msg!=null}">
+                <c:if test="${not empty msg}">
                     <script type="text/javascript">
                         alert('您的账号或密码输入错误！')
                     </script>
-                   <%-- <script language='JavaScript'>alert('您的账号或密码输入错误！')</script>--%>
+                    <%-- <script language='JavaScript'>alert('您的账号或密码输入错误！')</script>--%>
                 </c:if>
                 <c:if test="${loginUser==null||empty loginUser}">
                     <a href="javascript:void(0);" id="login" class="to-login">游客登录</a>
+                    <a id="zhuxiao" href="javascript:void(0)">【新用户注册】</a>
                 </c:if>
 
                 <c:if test="${loginUser!=null||not empty loginUser}">
@@ -31,15 +32,18 @@
                         <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
                     </c:if>
                     <c:if test="${loginUser.role == 2}">
-                        <a href="javascript:void(0);" >高级用户${loginUser.userName}</a>
+                        <a href="javascript:void(0);">高级用户${loginUser.userName}</a>
+                        <a href="/jsp/userInfo.jsp">个人中心</a>
+                        <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
                     </c:if>
                     <c:if test="${loginUser.role == 3}">
                         <a href="javascript:void(0);">超级管理员${loginUser.userName}</a>
+                        <a href="/jsp/userInfo.jsp">个人中心</a>
+                        <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
                     </c:if>
                 </c:if>
 
 
-                <a href="/jsp/register.jsp">【新用户注册】</a>
                 <div id="dialogBg"></div>
                 <div id="dialog" class="animated">
                     <img class="dialogIco" width="50" height="40" src="../../images/ico.png"/>
@@ -79,6 +83,17 @@
                 $("#j_fixedBar").show();
             });
         });
+        $("#zhuxiao").click(function () {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/user/zhuxiao.do',
+                type: 'get',
+                success: function (data) {
+                    location.href = "/jsp/register.jsp"
+                }
+            })
+        })
+
+
     });
 </script>
 </html>

@@ -3,6 +3,7 @@ package com.bbs.controller;
 import com.bbs.domain.BbsUserTable;
 import com.bbs.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
 
     //修改邮箱
     @RequestMapping("update.do")
@@ -66,14 +68,28 @@ public class UserInfoController {
 
     //修改密码
     @RequestMapping("updateToPass")
-    public ModelAndView updateToPass(HttpServletRequest request,String newPassword){
+    public ModelAndView updateToPass(HttpServletRequest request,String oldPassword,String newPassword){
         BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
-        loginUser.setUserPass(newPassword);
-        userInfoService.updateToPass(loginUser);
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("index");
-        mv.addObject("msgg","修改成功");
+//        loginUser.getUserPass().equals(oldPassword)
+      if (bCryptPasswordEncoder.matches(oldPassword,loginUser.getUserPass())){
+          loginUser.setUserPass(bCryptPasswordEncoder.encode(newPassword));
+          userInfoService.updateToPass(loginUser);
+          mv.setViewName("index");
+//          mv.addObject("msgg","修改成功");
+      }else {
+          mv.setViewName("index");
+//          mv.addObject("msgg","修改失败");
+      }
         return mv;
-
+    }
+    @RequestMapping("yanZhengMM.do")
+    public @ResponseBody BbsUserTable yanZhengMM(String oldPassword,HttpServletRequest request){
+        BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
+        if (bCryptPasswordEncoder.matches(oldPassword,loginUser.getUserPass())){
+            return loginUser;
+        }else {
+            return null;
+        }
     }
 }
