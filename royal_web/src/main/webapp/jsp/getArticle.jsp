@@ -38,7 +38,7 @@
 					         <a href="#"><i></i>${bbsArticleTable.upvoteCount}</a>
 					     </span>
                         <span class="icon-talk">
-						     <i></i>
+						     <i></i>${bbsArticleTable.replyCount}
 						</span>
                     </div>
                 </div>
