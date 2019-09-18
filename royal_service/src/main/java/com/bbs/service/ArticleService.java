@@ -7,7 +7,11 @@ import java.util.List;
 public interface ArticleService {
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
-    void publish(BbsArticleTable articleTable) throws Exception;
+    List<BbsArticleTable> findByPage(int page, int size);
 
-    BbsArticleTable getArticle(long articleId) throws Exception;
+    List<BbsArticleTable> findByTitleOrSenderName(String title, String senderName);
+
+    void publish(BbsArticleTable articleTable) throws Exception ;
+
+    BbsArticleTable getArticle(long articleId) throws Exception ;
 }

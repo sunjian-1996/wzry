@@ -3,10 +3,9 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
 
-
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:applicationContest.xml,classpath*:spring-security.xml</param-value>
+    <param-value>classpath*:applicationContext*.xml</param-value>
   </context-param>
 
 
@@ -19,20 +18,10 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
-  <filter>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-
-  <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
   <!--监听器-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -56,9 +45,11 @@
     <servlet-name>DispatcherServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+
+
   <welcome-file-list>
-    <welcome-file>/jsp/login.jsp</welcome-file>
+    <!--<welcome-file>/WEB-INF/jsp/ArticlePage.jsp</welcome-file>-->
+    <welcome-file>/jsp/common/main.jsp</welcome-file>
   </welcome-file-list>
 
- 
 </web-app>
