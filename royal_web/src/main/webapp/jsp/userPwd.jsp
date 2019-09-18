@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +12,16 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
     <style type="text/css">
-        .hm-header-b { border-bottom: 1px solid #d9d9d9; }
+        .hm-header-b {
+            border-bottom: 1px solid #d9d9d9;
+        }
     </style>
 </head>
 <body>
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp" />
-
+<jsp:include page="common/header.jsp"/>
 
 
 <!--头部信息-->
@@ -52,10 +53,11 @@
             <div class="user-info-t" style="height:20px;"></div>
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png" alt=""/>
-                    <div class="username">张无忌</div>
+                    <img id="pic" src=""/>
+                    <div class="username">${loginUser.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
+
                     <li><i class="info-icon"></i>我的资料</li>
                     <li class="cur"><i class="safe-icon"></i>修改密码</li>
                 </ul>
@@ -64,27 +66,36 @@
 
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li class="cur"><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li><a href="/jsp/userInfo.jsp">个人信息</a></li>
+                    <li class="cur"><a href="/jsp/userPwd.jsp">修改密码</a></li>
+                    <c:if test="${loginUser.role == 1}">
+                        <li><a href="/jsp/userInfoGj.jsp">申请高级用户</a></li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li><a href="/jsp/addZone.jsp">开辟新板块</a></li>
+                    </c:if>
+
                 </ul>
-                <form action="#" method="post">
-                  <ul class="bd">
-                    <li class="clearfix">
-                        <div class="info-l"><i class="red">*</i>旧密码：</div>
-                        <div class="info-r"><input type="password" name="oldPassword" class="txt"/></div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="info-l"><i class="red">*</i>新密码：</div>
-                        <div class="info-r"><input type="password" name="newPassword" class="txt"/></div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="info-l"></div>
-                        <div class="info-r">
-						  <input type="submit" class="btn" value="保存"/>
-						  <span style="color:red;">修改成功！</span>
-						</div>
-                    </li>
-                  </ul>
+                <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post">
+                    <ul class="bd">
+                        <li class="clearfix">
+                            <div class="info-l"><i class="red">*</i>旧密码：</div>
+                            <div class="info-r"><input type="password" name="oldPassword"   class="txt" id="oldPassword"/>
+
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="info-l"><i class="red">*</i>新密码：</div>
+                            <div class="info-r"><input type="password" name="newPassword" class="txt"/></div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="info-l"></div>
+                            <div class="info-r">
+                                <input id="tijiao" type="submit" class="btn" value="保存"/>
+                                <span style="color:red;">${msgg}</span>
+                            </div>
+                        </li>
+                    </ul>
                 </form>
             </div>
         </div>
@@ -94,6 +105,37 @@
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
+<script>
+    $(function(){
+        $("#oldPassword").blur(function () {
+
+            var oldPassword = $("#oldPassword").val();
+            $.ajax({
+                type:"get",
+                url:"${pageContext.request.contextPath}/userInfo/yanZhengMM.do",
+                data:{"oldPassword":oldPassword},
+                dataType:"json",
+                success:function (data) {
+                  if (data==null){
+                      $("#tijiao").prop("type","hidden");
+                      alert("你输入的旧密码有误，请重新输入")
+                  }else {
+                      $("#tijiao").prop("type","submit");
+                  }
+                }
+            })
+        })
+
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/userInfo/findPic.do",
+            dataType:"text",
+            success:function (data) {
+                $("#pic").prop("src",data);
+            }
+        })
+    })
+</script>
 
 </body>
 </html>

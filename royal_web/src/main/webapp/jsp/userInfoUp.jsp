@@ -67,31 +67,29 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li class="cur"><a href="/jsp/userInfo.jsp">个人信息</a></li>
+                    <li><a href="/jsp/userInfo.jsp">个人信息</a></li>
+                    <%--id="login" class="to-login"--%>
                     <li><a href="/jsp/userPwd.jsp">修改密码</a></li>
                     <c:if test="${loginUser.role == 1}">
-                        <li><a href="/jsp/userInfoGj.jsp">申请高级用户</a></li>
+                        <li class="cur"><a href="/jsp/userInfoGj.jsp">申请高级用户</a></li>
                     </c:if>
                     <c:if test="${loginUser.role == 2}">
-                        <li><a href="/jsp/addZone.jsp">开辟新板块</a></li>
+                        <li class="cur"><a href="/jsp/addZone.jsp">开辟新板块</a></li>
                     </c:if>
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/userInfo/update.do" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post" enctype="multipart/form-data">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
                             <div class="info-r"><input type="text" name="userName" class="txt" value="${loginUser.userName}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
-                            <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value="${loginUser.email}"/></div>
+                            <div class="info-l">密码</div>
+                            <div class="info-r"><input type="text" name="userPass" class="txt" value=""/></div>
                         </li>
-                        <li class="clearfix">
-                            <div class="info-l">上传头像：</div>
-                            <div class="info-r"><input type="file" name="file" class="file-btn"/></div>
-                        </li>
+
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">

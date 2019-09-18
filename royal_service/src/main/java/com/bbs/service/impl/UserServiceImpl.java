@@ -4,13 +4,16 @@ import com.bbs.dao.UserDao;
 import com.bbs.domain.BbsUserTable;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
+    private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
 
     //异步验证用户名
     @Override
@@ -21,6 +24,7 @@ public class UserServiceImpl implements UserService {
     //注册
     @Override
     public void save(BbsUserTable bbsUserTable) {
+        bbsUserTable.setUserPass(bCryptPasswordEncoder.encode(bbsUserTable.getUserPass()));
         userDao.save(bbsUserTable);
     }
 }

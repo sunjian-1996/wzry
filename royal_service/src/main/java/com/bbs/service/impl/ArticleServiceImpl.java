@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Service("articleTable")
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
@@ -22,23 +22,20 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-
-    public void publish(BbsArticleTable articleTable) throws Exception {
+    public long publish(BbsArticleTable articleTable) throws Exception {
         articleTable.setSendTime(new Date());
         articleDao.publish(articleTable);
+        return articleTable.getArticleId();
     }
 
     @Override
     public BbsArticleTable getArticle(long articleId) throws Exception {
         return articleDao.getArticle(articleId);
     }
-
-
-
     @Override
     public List<BbsArticleTable> findByTitleOrSenderName(String title, String senderName) {
-        return articleDao.findByTitleOrSenderName(title,senderName);
-
+        return articleDao.findByTitleOrSenderName(title, senderName);
+    }
 
     @Override
     public List<BbsArticleTable> findByPage(int page, int size) {
@@ -46,5 +43,14 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findByPage(page,size);
     }
 
+    //帖子总数
+    @Override
+    public int tiezifindAll() throws Exception {
+        return articleDao.tiezifindAll();
+    }
 
+    @Override
+    public int jinritiezifindAll(String date) throws Exception {
+        return articleDao.jinritiezifindAll(date);
+    }
 }

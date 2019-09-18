@@ -6,9 +6,9 @@
 
 </head>
 <style type="text/css">
-    html,body{
-        overflow:auto;
-        height:100%;
+    html, body {
+        overflow: auto;
+        height: 100%;
     }
 
     .line-limit-length {
@@ -26,19 +26,27 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
+<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
     <%@ include file="head.jsp"%>
+=======
+    <%@ include file="../../jsp/commom/head.jsp" %>
+>>>>>>> origin/dev2.0:royal_manage_web/src/main/webapp/WEB-INF/jsp/ArticlePage.jsp
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
+<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
         <%@ include file="leftsidebar.jsp"%>
+=======
+        <%@ include file="../../jsp/commom/leftsidebar.jsp" %>
+>>>>>>> origin/dev2.0:royal_manage_web/src/main/webapp/WEB-INF/jsp/ArticlePage.jsp
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
             <div class="panel panel-success">
                 <!-- 路径导航 -->
-                <div >
+                <div>
                     <ol class="breadcrumb">
                         <li><a href="#">用户帖管理</a></li>
                         <li class="active">帖子信息</li>
@@ -93,6 +101,7 @@
                     </tr>
                     </thead>
                     <tbody>
+<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
                     <c:forEach items="${pageInfo.list}" var="article">
                         <tr>
                             <td width="15%" class="line-limit-length">${article.title}</td>
@@ -120,6 +129,43 @@
                             </td>
                         </tr>
                     </c:forEach>
+=======
+
+                    <tr>
+                        <td width="15%">标题</td>
+                        <td width="30%" class="line-limit-length">
+
+                        </td>
+                        <td width="5%" class="line-limit-length">${article.sendername}</td>
+                        <td width="5%" class="line-limit-length">
+
+                        </td>
+                        <td width="5%">
+
+                        </td>
+                        <td width="5%">
+
+                        </td>
+                        <td width="5%">
+
+                        </td>
+                        <td width="15%">
+
+                        </td>
+                        <td width="15%">
+                            <a href="/article/deleteArticle.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
+                               role="button" class="btn btn-primary">屏蔽</a>
+                            <c:if test="${article.istop==0}">
+                                <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
+                                   role="button" class="btn btn-danger">置顶</a>
+                            </c:if>
+                            <c:if test="${article.istop==1}">
+                                <a href="/article/changeStatus.do?id=${article.articleid}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
+                                   role="button" class="btn btn-info">取消</a>
+                            </c:if>
+                        </td>
+                    </tr>
+>>>>>>> origin/dev2.0:royal_manage_web/src/main/webapp/WEB-INF/jsp/ArticlePage.jsp
                     </tbody>
                 </table>
 
@@ -140,10 +186,18 @@
                             <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
+<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
                                 <c:if test="${pageInfo.hasPreviousPage}">
                                         <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
+=======
+                                <c:if test="${articleMsgs.hasPreviousPage}">
+                                    <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')"
+                                       aria-label="Previous">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+>>>>>>> origin/dev2.0:royal_manage_web/src/main/webapp/WEB-INF/jsp/ArticlePage.jsp
                                 </c:if>
                             </li>
 
@@ -172,12 +226,16 @@
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
+<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
         <%@ include file="foot.jsp"%>
+=======
+        <%@ include file="../../jsp/commom/foot.jsp" %>
+>>>>>>> origin/dev2.0:royal_manage_web/src/main/webapp/WEB-INF/jsp/ArticlePage.jsp
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%@ include file="ArticleUpdate.jsp"%>
+<%@ include file="ArticleUpdate.jsp" %>
 </body>
 </html>

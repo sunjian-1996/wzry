@@ -15,6 +15,7 @@ public class ZoneController {
     @Autowired
     private ZoneService zoneService;
 
+    //查询所有版块
     @RequestMapping("/findAll.do")
     public @ResponseBody
     List<BbsZoneTable> findAll() throws Exception {
