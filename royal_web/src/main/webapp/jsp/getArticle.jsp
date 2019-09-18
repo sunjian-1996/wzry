@@ -38,7 +38,7 @@
 					         <a href="#"><i></i>${bbsArticleTable.upvoteCount}</a>
 					     </span>
                         <span class="icon-talk">
-						     <i></i>${bbsArticleTable.replyCount}
+						     <i></i>
 						</span>
                     </div>
                 </div>
@@ -63,7 +63,6 @@
                 <i></i>从新到旧查看
             </a>
         </div>
-
 
         <div class="detail-box">
             <ul class="detail-floors">
