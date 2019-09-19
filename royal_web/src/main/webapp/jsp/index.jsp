@@ -351,6 +351,11 @@
             $("#jinri").html(data['jinri']);
         }, "json");
     });
+
+    // 页面加载的时候查询在线用户
+    $(function () {
+        $.post("${pageContext.request.contextPath}/online/showOnline.do")
+    })
 </script>
 
 
