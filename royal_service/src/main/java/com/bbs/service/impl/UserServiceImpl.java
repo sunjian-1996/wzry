@@ -39,6 +39,19 @@ public class UserServiceImpl implements UserService {
         userDao.save( bbsUserTable );
     }
 
+    //改变登录状态
+    @Override
+    public void gaibiandengluzhuangtai(String userName) {
+        userDao.gaibiandengluzhuangtai( userName );
+    }
+
+    //注销改变登录状态
+    @Override
+    public void gaibiandengluzhuangtai2(String userName) {
+        userDao.gaibiandengluzhuangtai2( userName );
+    }
+
+
 /*    @Override
     public User login(String userName,String userPass) {
         return userDao.findWithLoginAndPassword( userName,userPass );
@@ -71,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     /*模糊查询*/
     @Override
-    public List<BbsUserTable> findByUserName(String userName, String role,int page,int size) {
+    public List<BbsUserTable> findByUserName(String userName, String role, int page, int size) {
         if ("超级管理员".equals( role )) {
             role = "3";
         } else if ("高级用户".equals( role )) {
@@ -79,7 +92,7 @@ public class UserServiceImpl implements UserService {
         } else {
             role = "1";
         }
-        PageHelper.startPage( page,size );
+        PageHelper.startPage( page, size );
         return userDao.findByUserName( userName, role );
     }
 

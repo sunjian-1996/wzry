@@ -22,4 +22,8 @@ public interface UserService extends UserDetailsService {
     BbsUserTable findByUserName(String userName);
 
     void save(BbsUserTable bbsUserTable);
+
+    void gaibiandengluzhuangtai(String userName);
+
+    void gaibiandengluzhuangtai2(String userName);
 }

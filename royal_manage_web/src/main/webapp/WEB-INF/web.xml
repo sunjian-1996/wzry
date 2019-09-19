@@ -10,12 +10,6 @@
     </context-param>
 
 
-<!--  &lt;!&ndash;获取request对象&ndash;&gt;
-  <listener>
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-  </listener>-->
-
-
     <!--字符过滤器-->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -30,7 +24,7 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
 <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

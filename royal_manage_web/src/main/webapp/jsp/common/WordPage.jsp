@@ -2,13 +2,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>帖信息管理页面</title>
+    <title>敏感词汇管理</title>
 
 </head>
 <style type="text/css">
-    html, body {
-        overflow: auto;
-        height: 100%;
+    html,body{
+        overflow:auto;
+        height:100%;
     }
 
     .line-limit-length {
@@ -26,48 +26,35 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="head.jsp" %>
+    <%@ include file="head.jsp"%>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
-        <%@ include file="leftsidebar.jsp" %>
+        <%@ include file="leftsidebar.jsp"%>
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
             <div class="panel panel-success">
                 <!-- 路径导航 -->
-                <div>
+                <div >
                     <ol class="breadcrumb">
                         <li><a href="#">用户帖管理</a></li>
-                        <li class="active">帖子信息</li>
+                        <li class="active">敏感词汇管理信息</li>
                     </ol>
                 </div>
                 <hr>
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="post" action="${pageContext.request.contextPath}/article/findByTitleOrSenderName.do" id="articleSearchForm">
+                        <form method="post" action="${pageContext.request.contextPath}/word/findAll.do" id="articleSearchForm">
                             <table>
                                 <tr>
-                                    <th>
-                                        <label for="title" class="control-label">标题:</label>
-                                    </th>
-                                    <th>
-                                        <input type="text" id="title" class="form-control"
-                                               name="title" value="${title}">
-                                        <input type="hidden" id="pageNum" name="pn" value="">
-                                    </th>
-                                    <th>
-                                        <label for="article_sendername" class="control-label">创帖人:</label>
-                                    </th>
-                                    <th>
-                                        <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="${senderName}">
-                                    </th>
                                     <th colspan="2">
-                                        <input type="submit" value="查询" class="form-control btn-primary">
+                                        <button type="button" class="btn btn-default" title="新增敏感词汇" onclick="location.href='${pageContext.request.contextPath}/jsp/common/WordPage-add.jsp'">
+                                            <i class="fa fa-file-o"></i> 新增敏感词汇
+                                        </button>
                                     </th>
                                 </tr>
                             </table>
@@ -80,32 +67,18 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>标题</th>
-                        <th>内容</th>
-                        <th>发送时间</th>
-                        <th>创帖人</th>
-                        <th>是否置顶</th>
-                        <th>回复数</th>
-                        <th>点赞数</th>
-                        <th>浏览数</th>
-                        <th>所在交流区</th>
+                        <th>序号</th>
+                        <th>敏感词</th>
+                        <th>是否启用</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pageInfo.list}" var="article">
+                    <c:forEach items="${pageInfo.list}" var="word">
                         <tr>
-                            <td width="15%" class="line-limit-length">${article.title}</td>
-                            <td width="5%" class="line-limit-length">${article.content}</td>
-                            <td width="5%" class="line-limit-length">${article.sendTime}</td>
-                            <td width="5%" class="line-limit-length">${article.senderName}</td>
-                            <td width="5%" class="line-limit-length">${article.isTop}</td>
-                            <td width="5%" class="line-limit-length">${article.replyCount}</td>
-                            <td width="5%" class="line-limit-length">${article.upvoteCount}</td>
-                            <td width="5%" class="line-limit-length">${article.browseCount}</td>
-                            <td width="5%" class="line-limit-length">${article.zoneId}</td>
-                            <td width="5%" class="line-limit-length">${article.isReport}</td>
-
+                            <td width="15%" class="line-limit-length">${word.wordId}</td>
+                            <td width="5%" class="line-limit-length">${word.word}</td>
+                            <td width="5%" class="line-limit-length">${word.status}</td>
                             <td width="15%">
                                 <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
                                    role="button" class="btn btn-primary">屏蔽</a>
@@ -137,54 +110,47 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
-<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
                                 <c:if test="${pageInfo.hasPreviousPage}">
-                                        <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
+                                        <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
-=======
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')"
-                                       aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
                                 </c:if>
                             </li>
 
                             <c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
                                 <c:if test="${page_num == pageInfo.pageNum}">
-                                    <li class="active"><a href="${pageContext.request.contextPath}/article/findByPage.do?page=${page_num}&size=${pageInfo.pageSize}">${page_num}</a></li>
+                                    <li class="active"><a href="${pageContext.request.contextPath}/word/findAll.do?page=${page_num}&size=${pageInfo.pageSize}">${page_num}</a></li>
                                 </c:if>
                                 <c:if test="${page_num != pageInfo.pageNum}">
-                                    <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=${page_num}&size=${pageInfo.pageSize}" onclick="searchArticle('${page_num}')">${page_num}</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=${page_num}&size=${pageInfo.pageSize}" onclick="searchArticle('${page_num}')">${page_num}</a></li>
                                 </c:if>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
                                 <c:if test="${pageInfo.hasNextPage}">
-                                    <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
+                                    <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="foot.jsp" %>
+        <%@ include file="foot.jsp"%>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%--<%@ include file="ArticleUpdate.jsp"%>--%>
+<%@ include file="ArticleUpdate.jsp"%>
 </body>
 </html>

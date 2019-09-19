@@ -40,7 +40,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>修改密码
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>修改密码
         </div>
     </div>
 </div>
