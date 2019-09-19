@@ -29,10 +29,10 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
+                <a href="javascript:;"><img src="${pageContext.request.contextPath}/images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
-                <img src="/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
+                <img src="${pageContext.request.contextPath}/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
             </div>
         </div>
         <div class="hm-header-b">

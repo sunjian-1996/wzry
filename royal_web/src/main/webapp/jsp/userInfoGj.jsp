@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +12,16 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
     <style type="text/css">
-        .hm-header-b { border-bottom: 1px solid #d9d9d9; }
+        .hm-header-b {
+            border-bottom: 1px solid #d9d9d9;
+        }
     </style>
 </head>
 <body>
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp" />
-
+<jsp:include page="common/header.jsp"/>
 
 
 <!--头部信息-->
@@ -28,7 +29,8 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
+                <a href="javascript:;"><img src="${pageContext.request.contextPath}/images/logo.png" height="64"
+                                            width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
                 <img src="/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
@@ -40,7 +42,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div class="hm-body hm-body-bgc">
@@ -77,24 +78,24 @@
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/userInfo/upgrade.do" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/userInfo/upgrade.do" method="post"
+                      enctype="multipart/form-data">
                     <ul class="bd">
 
 
-                            <li class="clearfix"  style="left: 100px;">
-                                <i class="red">高级特权：</i>开辟新板块
-                            </li>
+                        <li class="clearfix" style="left: 100px;">
+                            <i class="red">高级特权：</i>开辟新板块
+                        </li>
 
 
-                            <li class="clearfix" style="left: 100px;">
-                                <i class="red">申请条件：</i>发帖数≥5
-                            </li>
+                        <li class="clearfix" style="left: 100px;">
+                            <i class="red">申请条件：</i>发帖数≥5
+                        </li>
 
 
-
-                            <li class="clearfix" style="left: 100px;">
-                                <i class="red">当前发帖数：</i><span id="fatie"></span>
-                            </li>
+                        <li class="clearfix" style="left: 100px;">
+                            <i class="red">当前发帖数：</i><span id="fatie"></span>
+                        </li>
 
 
                         <li class="clearfix">
@@ -123,15 +124,15 @@
 <script>
     $(function () {
         $.ajax({
-            type:"get",
-            url:"${pageContext.request.contextPath}/userInfo/findPic.do",
-            dataType:"text",
-            success:function (data) {
-                $("#pic").prop("src",data);
+            type: "get",
+            url: "${pageContext.request.contextPath}/userInfo/findPic.do",
+            dataType: "text",
+            success: function (data) {
+                $("#pic").prop("src", data);
             }
         })
 
-    })
+    });
     $("#shenqing").click(function () {
 
 
@@ -154,7 +155,6 @@
         }
     )
 </script>
-
 
 
 </body>

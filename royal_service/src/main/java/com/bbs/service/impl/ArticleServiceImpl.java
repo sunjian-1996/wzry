@@ -49,4 +49,9 @@ public class ArticleServiceImpl implements ArticleService {
     public int jinritiezifindAll(String date) throws Exception {
         return articleDao.jinritiezifindAll(date);
     }
+
+    @Override
+    public long publishCount(String userName) throws Exception {
+        return articleDao.publishCount(userName);
+    }
 }

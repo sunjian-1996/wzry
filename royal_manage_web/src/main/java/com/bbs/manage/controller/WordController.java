@@ -34,5 +34,16 @@ public class WordController {
         wordService.save(wordId);
         return "redirect:findAll.do";
     }
+    @RequestMapping("/changeStatus.do")
+    public ModelAndView changeStatus(int id,long status,int page,int size){
+        wordService.update(id,status,page,size);
+        ModelAndView mv = new ModelAndView();
+        List<BbsWordTable> bbsWordTableList=wordService.findAll(page,size);
+        //分页bean,pageInfo
+        PageInfo pageInfo =new PageInfo(bbsWordTableList);
+        mv.setViewName("WordPage");
+        mv.addObject("pageInfo",pageInfo);
+        return mv;
+    }
 
 }

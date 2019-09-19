@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.BbsReplyTable;
+import com.bbs.domain.BbsReportTable;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,4 +16,9 @@ public interface ReplyDao {
     //新增回复
     @Insert("insert into bbs_reply_table(replyContent,replyUserName,commentId) values(#{replyContent},#{replyUserName},#{commentId})")
     void addReply(BbsReplyTable bbsReplyTable) throws Exception;
+
+
+
+
+
 }
