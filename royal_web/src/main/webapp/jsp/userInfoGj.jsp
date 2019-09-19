@@ -55,8 +55,9 @@
                     <div class="username">${loginUser.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
-                    <li class="cur"><i class="info-icon"></i>我的资料</li>
+                    <li><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
+                    <li class="cur"><i class="safe-icon"></i>申请高级用户</li>
                 </ul>
             </div>
 
@@ -99,7 +100,7 @@
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit"  id="shenqing" class="btn" value="申请"/>
+                                <input type="button"  id="shenqing" class="btn" value="申请"/>
                                 <span style="color:red;"></span>
                             </div>
                         </li>
@@ -129,23 +130,29 @@
                 $("#pic").prop("src",data);
             }
         })
-        $.post( '${pageContext.request.contextPath}/article/publishCount.do',
-            function (data) {
-            $("#fatie").html(data['publishCount'])
-                if (data['publishCount']>=5){
-                    $("#shenqing").prop("type","submit")
-                    alert("已提交申请，请等待审核")
-                } else {
-                    $("#shenqing").prop("type","button")
-                    alert("你发的帖子数不满足条件")
-                }
-            }
-            ,"json"
-        )
-
-
 
     })
+    $("#shenqing").click(function () {
+
+
+            $.post( '${pageContext.request.contextPath}/article/publishCount.do',
+                function (data) {
+                    $("#fatie").html(data['publishCount'])
+                    if (data['publishCount']>=5){
+                        $("#shenqing").prop("type","submit")
+                        alert("已提交申请，请等待审核")
+                    } else {
+                        $("#shenqing").prop("type","button")
+                        alert("你发的帖子数不满足条件")
+                    }
+                }
+                ,"json"
+            )
+
+
+
+        }
+    )
 </script>
 
 

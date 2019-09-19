@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +12,16 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/hm-bbs.js"></script>
     <style type="text/css">
-        .hm-header-b { border-bottom: 1px solid #d9d9d9; }
+        .hm-header-b {
+            border-bottom: 1px solid #d9d9d9;
+        }
     </style>
 </head>
 <body>
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp" />
-
+<jsp:include page="common/header.jsp"/>
 
 
 <!--头部信息-->
@@ -42,7 +43,6 @@
 </div>
 
 
-
 <div class="hm-body hm-body-bgc">
     <div class="hm-inner">
         <div class="user-info clearfix">
@@ -57,6 +57,13 @@
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
+                    <c:if test="${loginUser.role == 1}">
+                    <li><i class="safe-icon"></i>申请高级用户</li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li><i class="safe-icon"></i>开启新板块</li>
+                    </c:if>
+
                 </ul>
             </div>
 
@@ -75,16 +82,19 @@
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/userInfo/update.do" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id= "picUrl" name = "picUrl" value="">
+                <form action="${pageContext.request.contextPath}/userInfo/update.do" method="post"
+                      enctype="multipart/form-data">
+                    <input type="hidden" id="picUrl" name="picUrl" value="">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" name="userName" class="txt" value="${loginUser.userName}" readonly="readonly"/></div>
+                            <div class="info-r"><input type="text" name="userName" class="txt"
+                                                       value="${loginUser.userName}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value="${loginUser.email}"/></div>
+                            <div class="info-r"><input type="text" name="email" class="txt" value="${loginUser.email}"/>
+                            </div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">上传头像：</div>
@@ -93,8 +103,8 @@
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn"  value="保存"/>
-                                <span style="color:red;" >${msggs}</span>
+                                <input type="submit" class="btn" value="保存"/>
+                                <span style="color:red;">${msggs}</span>
                             </div>
                         </li>
                     </ul>
@@ -115,25 +125,24 @@
 <script>
     $(function () {
         $.ajax({
-            type:"get",
-            url:"${pageContext.request.contextPath}/userInfo/findPic.do",
-            dataType:"text",
-            success:function (data) {
-                $("#pic").prop("src",data);
+            type: "get",
+            url: "${pageContext.request.contextPath}/userInfo/findPic.do",
+            dataType: "text",
+            success: function (data) {
+                $("#pic").prop("src", data);
                 $("#picUrl").val(data);
             }
         })
         $.ajax({
-            type:"get",
-            url:"${pageContext.request.contextPath}/userInfo/SChu.do",
-            dataType:"text",
-            success:function (data) {
+            type: "get",
+            url: "${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType: "text",
+            success: function (data) {
 
             }
         })
     })
 </script>
-
 
 
 </body>

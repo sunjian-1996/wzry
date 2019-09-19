@@ -129,6 +129,6 @@ public class UserInfoController {
     public void  xiaohui(HttpServletRequest request){
         request.getSession().removeAttribute("msgg");
         request.getSession().removeAttribute("msggs");
-
+        request.getSession().removeAttribute("msg");
     }
 }

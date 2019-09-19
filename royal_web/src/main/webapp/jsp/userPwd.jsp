@@ -57,6 +57,12 @@
 
                     <li><i class="info-icon"></i>我的资料</li>
                     <li class="cur"><i class="safe-icon"></i>修改密码</li>
+                    <c:if test="${loginUser.role == 1}">
+                        <li><i class="safe-icon"></i>申请高级用户</li>
+                    </c:if>
+                    <c:if test="${loginUser.role == 2}">
+                        <li><i class="safe-icon"></i>开启新板块</li>
+                    </c:if>
                 </ul>
             </div>
 

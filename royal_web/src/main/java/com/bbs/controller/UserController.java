@@ -25,7 +25,8 @@ public class UserController {
     @RequestMapping("findByuserName.do")
     public @ResponseBody
     BbsUserTable findByuserName(String userName) {
-        return userService.findByuserName(userName);
+        BbsUserTable name = userService.findByuserName(userName);
+        return name;
     }
 
     //注册
@@ -75,7 +76,7 @@ public class UserController {
             }
         }
 
-        mv.setViewName("redirect:/article/show.do");
+        mv.setViewName("forward:/article/show.do");
         return mv;
 
     }

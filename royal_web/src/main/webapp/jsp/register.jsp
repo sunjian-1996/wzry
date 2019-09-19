@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +15,7 @@
 
 
 <!-- 头部 -->
-<jsp:include page="common/header.jsp" />
-
+<jsp:include page="common/header.jsp"/>
 
 
 <div class="hm-header">
@@ -46,7 +45,8 @@
                                 <span class="red">*</span> 用户名：
                             </div>
                             <div class="reg-c">
-                                <input type="text" id="username" name="userName" class="txt"  onblur="checkName()"/>
+                                <input type="text" id="username" name="userName" class="txt" onblur="checkName()"/>
+                                <span id="userName_message"></span>
                             </div>
                             <span class="tips">用户名必须是由英文、数字、下划线组成</span>
                         </li>
@@ -55,7 +55,9 @@
                                 <span class="red">*</span> 密&nbsp;&nbsp;&nbsp;码：
                             </div>
                             <div class="reg-c">
-                                <input type="password" id="mima" name="userPass" class="txt" value="" onblur="checkMima()"/>
+                                <input type="password" id="mima" name="userPass" class="txt" value=""
+                                       onblur="checkMima()"/>
+                                <span id="userPass_message"></span>
                             </div>
                             <span class="tips">密码长度必须6~10位的英文或数字</span>
                         </li>
@@ -68,7 +70,7 @@
                         <li>
                             <div class="reg-l"></div>
                             <div class="reg-c">
-                                <input type="submit" id="zhuce" class="submit-btn" value="注册"/><br/>
+                                <input type="hidden" id="zhuce" class="submit-btn" value="注册"/><br/>
                             </div>
                         </li>
                     </ul>
@@ -79,31 +81,12 @@
 </div>
 
 
-
-
 <!-- 底部 -->
 <jsp:include page="common/footer.jsp"/>
 
 <script>
-    $(function () {
-        $("#zhuce").prop("type","button");
-
-        // $("#zhuce").onclick(function () {
-        //     //1.获取用户输入的内容
-        //     var userName = $("#username").val();
-        //     if (userName==null){
-        //             alert("请输入用户名")
-        //     }
-        //     var mm = $("#mima").val();
-        //     if (mm==null){
-        //         alert("请输入密码")
-        //     }
-        //
-        // })
-
-
-
-    })
+    var n = 0;
+    var p = 0;
 
 
     //判断用户名是否可用
@@ -116,47 +99,78 @@
 
         if (tel1.test(userName)) {
 
+            $("#userName_message").html("<font color='green'>用户名格式正确</font>");
+
             //3.若内容不为空，发送ajax
             //3.1请求路径
             $.post("${pageContext.request.contextPath}/user/findByuserName.do",
                 //3.2请求参数 方法名 和 用户输入的用户名
-                {"userName":userName},
+                {"userName": userName},
                 //3.3回调函数
                 function (date) {
                     //3.4判断回调函数
-                    if (date!=null){
-                        alert("该用户名已存在，请重新输入");
-                        $("#zhuce").prop("type","hidden");
-                    }else {
-                        var mm = $("#mima").val();
-                        if (mm!=""){
-                            $("#zhuce").prop("type","submit");}
+                    if (date != null) {
+                        $("#userName_message").html("<font color='red'>该用户名已存在，请重新输入</font>");
+                        $("#zhuce").prop("type", "hidden");
+                        if (n == 1) {
+                            n = 0;
+                        }
+                    } else {
+                        if (n == 0) {
+                            n = 1;
+                        }
+
+                        if (n + p == 2) {
+                            $("#zhuce").prop("type", "submit");
+                        }
                     }
-                        //提示信息在前台做或者后台做都是一样的效果
-                },"json"
+                    //提示信息在前台做或者后台做都是一样的效果
+                }, "json"
             )
 
 
-        }else {
+        } else {
+            if (n == 1) {
+                n = 0;
+            }
             //4.若用户输入的格式不对或为空，提示信息
-           alert("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
-            $("#zhuce").prop("type","hidden");
+            $("#userName_message").html("<font color='red'>格式错误</font>");
+            $("#zhuce").prop("type", "hidden");
             return;
 
         }
 
+        if (n + p == 2) {
+            $("#zhuce").prop("type", "submit");
+        }
+
     };
+
     function checkMima() {
         //定义密码正则表达式
         var mima = /^[a-zA-Z0-9_-]{6,10}$/;
         var mm = $("#mima").val();
+
         if (mima.test(mm)) {
-            $("#zhuce").prop("type","submit");
-        }else {
-            $("#zhuce").prop("type","hidden");
-            alert("你输入的密码格式不正确，请重新输入")
-            return;
+            if (p == 0) {
+                p = 1;
             }
+            if (n + p == 2) {
+                $("#zhuce").prop("type", "submit");
+            }
+            $("#userPass_message").html("<font color='green'>密码格式正确</font>");
+        } else {
+            if (p == 1) {
+                p = 0;
+            }
+            $("#zhuce").prop("type", "hidden");
+            $("#userPass_message").html("<font color='red'>你输入的密码格式不正确，请重新输入</font>");
+            return;
+        }
+
+        if (n + p == 2) {
+            $("#zhuce").prop("type", "submit");
+        }
     }
 
 
