@@ -13,7 +13,7 @@ import java.util.List;
 public interface ArticleDao {
 
     //查询单个版块的所有帖
-    @Select("select * from bbs_article_table where zoneId = #{zoneId} ORDER BY sendTime DESC ")
+    @Select("select * from bbs_article_table where zoneId = #{zoneId} and articleStatus = 0 ORDER BY sendTime DESC ")
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
     //写帖
@@ -31,10 +31,9 @@ public interface ArticleDao {
             ))
     })
     BbsArticleTable getArticle(long articleId) throws Exception;
-    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
-    List<BbsArticleTable> findByTitleOrSenderName(@Param("title") String title, @Param("senderName") String senderName);
 
-    @Select("select * from bbs_article_table ")
+    //分页+模糊查询
+    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
     @Results({
             @Result(id = true,property = "articleId",column = "articleId"),
             @Result(property = "title",column = "title"),
@@ -46,10 +45,9 @@ public interface ArticleDao {
             @Result(property = "upvoteCount",column = "upvoteCount"),
             @Result(property = "browseCount",column = "browseCount"),
             @Result(property = "zoneId",column = "zoneId"),
-            @Result(property = "isReport",column = "isReport"),
-
+            @Result(property = "isReport",column = "isReport")
     })
-    List<BbsArticleTable> findByPage(int page, int size);
+    List<BbsArticleTable> findByPage(@Param("page") int page,@Param("size") int size,@Param("title") String title, @Param("senderName") String senderName);
 
     //帖子总数
     @Select("select count(*) from bbs_article_table")
@@ -65,4 +63,16 @@ public interface ArticleDao {
     //添加评论次数
     @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
     void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
+
+    //用户发帖计数
+    @Select("select count(*) from bbs_article_table where senderName = #{userName}")
+    long publishCount(String userName) throws Exception;
+
+    //查询点赞次数
+    @Select("select upvoteCount from bbs_article_table where articleId = #{articleId}")
+    Long findDianZanCount(long articleId) throws Exception;
+
+    //修改点赞次数
+    @Update("update bbs_article_table set upvoteCount = #{dianZanCount} where articleId = #{articleId}")
+    void addDianZan(@Param("articleId") long articleId, @Param("dianZanCount") Long dianZanCount);
 }

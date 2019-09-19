@@ -32,15 +32,11 @@ public class ArticleServiceImpl implements ArticleService {
     public BbsArticleTable getArticle(long articleId) throws Exception {
         return articleDao.getArticle(articleId);
     }
-    @Override
-    public List<BbsArticleTable> findByTitleOrSenderName(String title, String senderName) {
-        return articleDao.findByTitleOrSenderName(title, senderName);
-    }
 
     @Override
-    public List<BbsArticleTable> findByPage(int page, int size) {
+    public List<BbsArticleTable> findByPage(int page, int size,String title, String senderName) {
         PageHelper.startPage(page, size);
-        return articleDao.findByPage(page,size);
+        return articleDao.findByPage(page,size,title,senderName);
     }
 
     //帖子总数
@@ -52,5 +48,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public int jinritiezifindAll(String date) throws Exception {
         return articleDao.jinritiezifindAll(date);
+    }
+
+    @Override
+    public long publishCount(String userName) throws Exception {
+        return articleDao.publishCount(userName);
     }
 }

@@ -39,6 +39,7 @@ public class UserInfoController {
             if(!file2.exists()){
                 // 创建该文件夹
                 file2.mkdirs();
+
             }
 
             // 说明上传文件项
@@ -62,6 +63,7 @@ public class UserInfoController {
             bbsUserTable.setPicUrl("" +
                     "upload/images/"+filename);
         }
+        request.getSession().removeAttribute("msgg");
         userInfoService.update(bbsUserTable);
         BbsUserTable userTable = userService.findByuserName(bbsUserTable.getUserName());
         request.getSession().setAttribute("loginUser",userTable);
@@ -79,7 +81,6 @@ public class UserInfoController {
         BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
         BbsUserTable bbsUserTable = userService.findByuserName(loginUser.getUserName());
         request.getSession().setAttribute("loginUser",bbsUserTable);
-        request.getSession().removeAttribute("msggs");
         return bbsUserTable.getPicUrl();
     }
 
@@ -93,11 +94,14 @@ public class UserInfoController {
       if (bCryptPasswordEncoder.matches(oldPassword,loginUser.getUserPass())){
           loginUser.setUserPass(bCryptPasswordEncoder.encode(newPassword));
           userInfoService.updateToPass(loginUser);
-          mv.setViewName("index");
+          mv.setViewName("redirect:/jsp/userPwd.jsp");
+          request.getSession().setAttribute("msgg","修改成功");
 //          mv.addObject("msgg","修改成功");
       }else {
-          mv.setViewName("index");
+          mv.setViewName("redirect:/jsp/userPwd.jsp");
 //          mv.addObject("msgg","修改失败");
+          request.getSession().setAttribute("msgg","修改失败");
+
       }
         return mv;
     }
@@ -109,5 +113,22 @@ public class UserInfoController {
         }else {
             return null;
         }
+    }
+
+    //申请高级用户
+    @RequestMapping("upgrade.do")
+    public ModelAndView  upgrade(HttpServletRequest request){
+    BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
+    userInfoService.upgrade(loginUser);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/jsp/userInfoGj.jsp");
+        return modelAndView;
+    }
+    //销毁session
+    @RequestMapping("SChu.do")
+    public void  xiaohui(HttpServletRequest request){
+        request.getSession().removeAttribute("msgg");
+        request.getSession().removeAttribute("msggs");
+
     }
 }

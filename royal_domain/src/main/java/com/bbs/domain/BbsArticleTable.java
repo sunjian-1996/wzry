@@ -17,7 +17,28 @@ public class BbsArticleTable implements Serializable {
     private long replyCount;//评论数
     private long upvoteCount;//点赞数
     private long browseCount;//浏览数
-    private long zoneId;//所在交流区
+    private Integer zoneId;//所在交流区
+    private String zoneIdStr;//
+
+    public String getZoneIdStr() {
+        if (zoneId!=null){
+            if (zoneId==1){
+                zoneIdStr="综合交流区";
+            }else if (zoneId==2){
+                zoneIdStr="BUG反馈区";
+            }else if (zoneId==3){
+                zoneIdStr="新闻公告区";
+            }else if (zoneId==4){
+                zoneIdStr="活动专区";
+            }
+        }
+        return zoneIdStr;
+    }
+
+    public void setZoneIdStr(String zoneIdStr) {
+        this.zoneIdStr = zoneIdStr;
+    }
+
     private long isReport;//举报状态
     private List<BbsCommentTable> bbsCommentTables; //评论表
 
@@ -118,11 +139,11 @@ public class BbsArticleTable implements Serializable {
         this.browseCount = browseCount;
     }
 
-    public long getZoneId() {
+    public Integer getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(long zoneId) {
+    public void setZoneId(Integer zoneId) {
         this.zoneId = zoneId;
     }
 

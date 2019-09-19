@@ -34,8 +34,8 @@
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
                 <p>
-                    <span>今日帖子<strong><span id="jinri"></span></strong></span>
-                    <span>全部帖子<strong><span id="total"></span></strong></span>
+                    <span>今日帖子<strong></strong><span id="jinri" style="color: red;font-weight:550;"></span></span>
+                    <span>全部帖子<strong></strong><span id="total" style="color: red;font-weight:550;"></span></span>
                 </p>
             </div>
             <div class="search-box l">
@@ -186,17 +186,22 @@
     };
 
     function addArticle() {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/article/publish.do',
-            data: JSON.stringify($("#articleAddForm").serializeObject()),
-            contentType: 'application/json',
-            cache: false,
-            dataType: 'text',
-            type: 'post',
-            success: function (data) {
-                location.href = "/article/show.do";
-            }
-        })
+        var articleAddForm = $("#articleAddForm").serializeObject();
+        if (articleAddForm['title'] && articleAddForm['content']) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/article/publish.do',
+                data: JSON.stringify($("#articleAddForm").serializeObject()),
+                contentType: 'application/json',
+                cache: false,
+                dataType: 'text',
+                type: 'post',
+                success: function (data) {
+                    location.href = "/article/show.do";
+                }
+            })
+        } else {
+            alert("标题或内容为空！");
+        }
     }
 
     //页面加载完毕获取版块
@@ -233,6 +238,14 @@
         } else {
             findAll(1);
         }
+        $.ajax({
+            type: "get",
+            url: "${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType: "text",
+            success: function (data) {
+
+            }
+        })
 
 
     });

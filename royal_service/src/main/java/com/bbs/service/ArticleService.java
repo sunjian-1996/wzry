@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<BbsArticleTable> findByPage(int page, int size);
-
-    List<BbsArticleTable> findByTitleOrSenderName(String title, String senderName);
+    List<BbsArticleTable> findByPage(int page, int size,String title,String senderName);
 
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
@@ -17,7 +15,10 @@ public interface ArticleService {
     BbsArticleTable getArticle(long articleId) throws Exception;
 
     //帖子总数
-    int  tiezifindAll() throws Exception;
+    int tiezifindAll() throws Exception;
+
     //今日帖子
-    int  jinritiezifindAll(String date) throws Exception;
+    int jinritiezifindAll(String date) throws Exception;
+//用户发帖计数
+    long publishCount(String userName) throws Exception;
 }

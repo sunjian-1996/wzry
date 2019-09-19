@@ -29,17 +29,17 @@
                     <c:if test="${loginUser.role == 1}">
                         <a href="javascript:void(0);">欢迎普通用户${loginUser.userName}</a>
                         <a href="/jsp/userInfo.jsp">个人中心</a>
-                        <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                        <a href="javaScript:exit_user()">注销</a>
                     </c:if>
                     <c:if test="${loginUser.role == 2}">
                         <a href="javascript:void(0);">高级用户${loginUser.userName}</a>
                         <a href="/jsp/userInfo.jsp">个人中心</a>
-                        <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                        <a href="javaScript:exit_user()">注销</a>
                     </c:if>
                     <c:if test="${loginUser.role == 3}">
                         <a href="javascript:void(0);">超级管理员${loginUser.userName}</a>
                         <a href="/jsp/userInfo.jsp">个人中心</a>
-                        <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
+                        <a href="javaScript:exit_user()">注销</a>
                     </c:if>
                 </c:if>
 
@@ -95,5 +95,12 @@
 
 
     });
+
+    function exit_user() {
+        if (confirm("确认要退出吗？")) {
+            location.href = "${pageContext.request.contextPath}/user/logout.do";
+        }
+    }
+
 </script>
 </html>

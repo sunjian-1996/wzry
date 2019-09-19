@@ -25,12 +25,6 @@
             <h1 class="logo l">
                 <a href="javascript:;"><img src="../images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
-            <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
-            </div>
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
@@ -91,6 +85,25 @@
 <jsp:include page="common/footer.jsp"/>
 
 <script>
+    $(function () {
+        $("#zhuce").prop("type","button");
+
+        // $("#zhuce").onclick(function () {
+        //     //1.获取用户输入的内容
+        //     var userName = $("#username").val();
+        //     if (userName==null){
+        //             alert("请输入用户名")
+        //     }
+        //     var mm = $("#mima").val();
+        //     if (mm==null){
+        //         alert("请输入密码")
+        //     }
+        //
+        // })
+
+
+
+    })
 
 
     //判断用户名是否可用
@@ -102,7 +115,7 @@
 
 
         if (tel1.test(userName)) {
-            $("#zhuce").prop("type","submit");
+
             //3.若内容不为空，发送ajax
             //3.1请求路径
             $.post("${pageContext.request.contextPath}/user/findByuserName.do",
@@ -114,14 +127,21 @@
                     if (date!=null){
                         alert("该用户名已存在，请重新输入");
                         $("#zhuce").prop("type","hidden");
+                    }else {
+                        var mm = $("#mima").val();
+                        if (mm!=""){
+                            $("#zhuce").prop("type","submit");}
                     }
                         //提示信息在前台做或者后台做都是一样的效果
                 },"json"
             )
+
+
         }else {
             //4.若用户输入的格式不对或为空，提示信息
            alert("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
             $("#zhuce").prop("type","hidden");
+            return;
 
         }
 
@@ -135,6 +155,7 @@
         }else {
             $("#zhuce").prop("type","hidden");
             alert("你输入的密码格式不正确，请重新输入")
+            return;
             }
     }
 
