@@ -186,17 +186,22 @@
     };
 
     function addArticle() {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/article/publish.do',
-            data: JSON.stringify($("#articleAddForm").serializeObject()),
-            contentType: 'application/json',
-            cache: false,
-            dataType: 'text',
-            type: 'post',
-            success: function (data) {
-                location.href = "/article/show.do";
-            }
-        })
+        var articleAddForm = $("#articleAddForm").serializeObject();
+        if (articleAddForm['title'] && articleAddForm['content']) {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/article/publish.do',
+                data: JSON.stringify($("#articleAddForm").serializeObject()),
+                contentType: 'application/json',
+                cache: false,
+                dataType: 'text',
+                type: 'post',
+                success: function (data) {
+                    location.href = "/article/show.do";
+                }
+            })
+        } else {
+            alert("标题或内容为空！");
+        }
     }
 
     //页面加载完毕获取版块
@@ -234,10 +239,10 @@
             findAll(1);
         }
         $.ajax({
-            type:"get",
-            url:"${pageContext.request.contextPath}/userInfo/SChu.do",
-            dataType:"text",
-            success:function (data) {
+            type: "get",
+            url: "${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType: "text",
+            success: function (data) {
 
             }
         })

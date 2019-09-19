@@ -60,7 +60,7 @@ public class ArticleController {
     public ModelAndView getArticle(@RequestParam(name = "articleId") long articleId, HttpSession session) throws Exception {
         BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("bbsArticleTable", wordUtils.updateArticle(bbsArticleTable));
+        session.setAttribute("bbsArticleTable", wordUtils.updateArticle(bbsArticleTable));
         session.setAttribute("articleId", bbsArticleTable.getArticleId());
         mv.setViewName("getArticle");
         return mv;

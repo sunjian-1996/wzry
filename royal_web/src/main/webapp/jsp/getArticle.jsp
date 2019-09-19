@@ -119,8 +119,14 @@
                             <span id="myUpVote" class="icon-feedback" style="right: 150px"><a
                                     href="javascript:dianZan()"> <i></i> 点赞</a></span>
 
+                            <c:if test="${bbsArticleTable.senderName==loginUser.userName}">
+                            <span id="report_but" class="icon-report"><a
+                                    href="javascript:alert('不能举报自己')"> <i></i> 举报</a></span>
+                            </c:if>
+                            <c:if test="${bbsArticleTable.senderName!=loginUser.userName}">
                             <span id="report_but" class="icon-report"><a
                                     href="javascript:jubao()"> <i></i> 举报</a></span>
+                            </c:if>
 
                             <span class="icon-comment" style="right: 80px"><a href="#comment"> <i></i> 评论</a></span>
                         </c:if>
@@ -259,8 +265,6 @@
 </form>
 
 
-
-
 <div class="fixedBar" id="j_fixedBar">
     <c:if test="${empty loginUser}">
         <a class="newTopic" href="javaScript:inspect()"><span></span>回复</a>
@@ -275,18 +279,19 @@
 </body>
 
 <script type="text/javascript">
+
     $(function () {
-        $.post("${pageContext.request.contextPath}/report/jubaozhuangtai.do",
-            function (data) {
-                if (data['jubao'] == 1) {
-
-                    var report_but = $("#report_but")
-                    report_but.removeProp("href");
-                    report_but.html(" <i></i> 已举报")
-                }
-            }, "json"
-        )
-
+        var report_but = $("#report_but");
+        if (${!empty loginUser}) {
+            $.post("${pageContext.request.contextPath}/report/jubaozhuangtai.do",
+                function (data) {
+                    if (data['jubao'] == 1) {
+                        report_but.removeProp("href");
+                        report_but.html(" <i></i> 已举报")
+                    }
+                }, "json"
+            )
+        }
     });
 
     function inspect() {
