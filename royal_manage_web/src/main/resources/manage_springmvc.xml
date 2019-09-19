@@ -19,11 +19,7 @@
 
     <!--配置视图解析器-->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-<<<<<<< HEAD
         <property name="prefix" value="/jsp/common/"/>
-=======
-        <property name="prefix" value="/jsp/"/>
->>>>>>> origin/dev2.0
         <property name="suffix" value=".jsp"/>
     </bean>
     <!-- 设置静态资源不过滤 -->
