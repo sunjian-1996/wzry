@@ -9,5 +9,5 @@ public interface WordService {
 
     void save(BbsWordTable wordId);
 
-    List<BbsWordTable> findAll();
+    List<BbsWordTable> findAllWord();
 }

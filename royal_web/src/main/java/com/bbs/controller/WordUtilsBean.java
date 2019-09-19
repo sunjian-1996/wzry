@@ -33,7 +33,7 @@ public class WordUtilsBean {
 
     //查询敏感词集合
     public List<String> findWordList() {
-        List<BbsWordTable> all = wordDao.findAll();
+        List<BbsWordTable> all = wordDao.findAllWord();
         ArrayList<String> list = new ArrayList<>();
         for (BbsWordTable bbsWordTable : all) {
             if (bbsWordTable.getStatus() == 0) {

@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service("wordService")
 public class WordServiceImpl implements WordService {
     @Autowired
     private WordDao wordDao;
+
     @Override
-    public List<BbsWordTable> findAll(int page,int size) {
+    public List<BbsWordTable> findAll(int page, int size) {
         PageHelper.startPage(page, size);
-        return wordDao.findAll(page,size);
+        return wordDao.findAll(page, size);
     }
 
     @Override
@@ -24,8 +26,8 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public List<BbsWordTable> findAll() {
-        return wordDao.findAll();
+    public List<BbsWordTable> findAllWord() {
+        return wordDao.findAllWord();
     }
 
 }

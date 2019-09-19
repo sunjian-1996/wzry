@@ -20,7 +20,7 @@ public class WordController {
 
     @RequestMapping("/findAll.do")
     public ModelAndView findAll() {
-        List<BbsWordTable> words = wordService.findAll();
+        List<BbsWordTable> words = wordService.findAllWord();
         ModelAndView mv = new ModelAndView();
         mv.addObject("words", words);
         mv.setViewName("redirect:/jsp/index.jsp");
