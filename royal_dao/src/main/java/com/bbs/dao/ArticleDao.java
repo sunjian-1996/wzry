@@ -79,4 +79,8 @@ public interface ArticleDao {
     //修改点赞次数
     @Update("update bbs_article_table set upvoteCount = #{dianZanCount} where articleId = #{articleId}")
     void addDianZan(@Param("articleId") long articleId, @Param("dianZanCount") Long dianZanCount);
+
+    //关键字查询功能
+    @Select("select * from bbs_article_table where articleStatus = 0 and (title like #{keyword1} or content like #{keyword2})")
+    List<BbsArticleTable> findByKeyword(@Param("keyword1") String keyword1, @Param("keyword2") String keyword2);
 }

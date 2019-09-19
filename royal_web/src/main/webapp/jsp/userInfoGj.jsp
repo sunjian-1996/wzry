@@ -59,6 +59,9 @@
                     <li><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
                     <li class="cur"><i class="safe-icon"></i>申请高级用户</li>
+                    <c:if test="${loginUser.role==2}">
+                        <li><i class="safe-icon"></i>开辟新版块</li>
+                    </c:if>
                 </ul>
             </div>
 

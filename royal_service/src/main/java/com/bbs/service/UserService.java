@@ -4,12 +4,13 @@ import com.bbs.domain.BbsUserTable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
-
+import com.bbs.domain.BbsZoneapplyTable;
 public interface UserService extends UserDetailsService {
 
 //    BbsUserTable findByUserName(BbsUserTable bbsUserTable);
 
     public List<BbsUserTable> findByPage(int page, int size);
+
 
     public List<BbsUserTable> findByPage();
 
@@ -26,4 +27,6 @@ public interface UserService extends UserDetailsService {
     void gaibiandengluzhuangtai(String userName);
 
     void gaibiandengluzhuangtai2(String userName);
+
+    Boolean addZone(BbsZoneapplyTable zoneapply);
 }

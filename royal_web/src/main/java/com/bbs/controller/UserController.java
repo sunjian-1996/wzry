@@ -1,6 +1,7 @@
 package com.bbs.controller;
 
 import com.bbs.domain.BbsUserTable;
+import com.bbs.domain.BbsZoneapplyTable;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user")
@@ -91,5 +94,12 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/article/show.do");
         return modelAndView;
+    }
+    //    个人用户添加新版块功能
+    @RequestMapping("addZone.do")
+    public @ResponseBody Map addZone(BbsZoneapplyTable zoneapply){
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("success",userService.addZone(zoneapply));
+        return map;
     }
 }
