@@ -14,7 +14,15 @@ public class BbsCommentTable {
     private long commentStatus;//评论状态，1代表屏蔽，0代表解除
     private long articleId;//帖子编号
     private List<BbsReplyTable> bbsReplyTables; //回复表
+    private String userTouXiang; //用户头像
 
+    public String getUserTouXiang() {
+        return userTouXiang;
+    }
+
+    public void setUserTouXiang(String userTouXiang) {
+        this.userTouXiang = userTouXiang;
+    }
     public List<BbsReplyTable> getBbsReplyTables() {
         return bbsReplyTables;
     }

@@ -163,11 +163,11 @@ action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=5&pa
             <nav aria-label="Page navigation">
             <ul class="pagination">
             <!--首页-->
-            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=1&size=${pageInfo.pageSize}" >首页</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?page=1&size=${pageInfo.pageSize}&userName=${condition.userName}&role=${condition.role}" >首页</a></li>
             <!--上一页-->
             <li>
             <c:if test="${pageInfo.hasPreviousPage}">
-                <a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}"
+                <a href="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}&userName=${condition.userName}&role=${condition.role}"
                    aria-label="Previous">
                     <span aria-hidden="true">«</span>
                 </a>
@@ -176,20 +176,20 @@ action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=5&pa
 
             <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
                 <li>
-                    <a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                    <a href="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?page=${pageNum}&size=${pageInfo.pageSize}&userName=${condition.userName}&role=${condition.role}">${pageNum}</a>
                 </li>
             </c:forEach>
 
             <!--下一页-->
             <li>
             <c:if test="${pageInfo.hasNextPage}">
-                <a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}"
+                <a href="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}&userName=${condition.userName}&role=${condition.role}"
                    aria-label="Next">
                     <span aria-hidden="true">»</span>
                 </a>
             </c:if>
             </li>
-            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" >尾页</a></li>
+            <li><a href="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}&userName=${condition.userName}&role=${condition.role}" >尾页</a></li>
             </ul>
             </nav>
             </div>

@@ -19,17 +19,26 @@ public class BbsArticleTable implements Serializable {
     private long browseCount;//浏览数
     private Integer zoneId;//所在交流区
     private String zoneIdStr;//
+    private String userTouXiang; //用户头像
+
+    public String getUserTouXiang() {
+        return userTouXiang;
+    }
+
+    public void setUserTouXiang(String userTouXiang) {
+        this.userTouXiang = userTouXiang;
+    }
 
     public String getZoneIdStr() {
-        if (zoneId!=null){
-            if (zoneId==1){
-                zoneIdStr="综合交流区";
-            }else if (zoneId==2){
-                zoneIdStr="BUG反馈区";
-            }else if (zoneId==3){
-                zoneIdStr="新闻公告区";
-            }else if (zoneId==4){
-                zoneIdStr="活动专区";
+        if (zoneId != null) {
+            if (zoneId == 1) {
+                zoneIdStr = "综合交流区";
+            } else if (zoneId == 2) {
+                zoneIdStr = "BUG反馈区";
+            } else if (zoneId == 3) {
+                zoneIdStr = "新闻公告区";
+            } else if (zoneId == 4) {
+                zoneIdStr = "活动专区";
             }
         }
         return zoneIdStr;

@@ -87,7 +87,7 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="${pageContext.request.contextPath}/images/default.png"/>
+                        <div class="floorer-photo"><img src="/jsp/${bbsArticleTable.userTouXiang}"/>
                         </div>
                         <div class="floorer-name">${bbsArticleTable.senderName}</div>
                     </div>
@@ -139,7 +139,7 @@
                     <li class="floor clearfix">
                         <div class="floorer-info l">
                             <div class="floorer-photo"><img
-                                    src="${pageContext.request.contextPath}/images/default.png"/>
+                                    src="/jsp/${comment.userTouXiang}"/>
                             </div>
                             <div class="floorer-name">${comment.commentUserName}</div>
                         </div>
@@ -159,7 +159,7 @@
                                             <!-- 回复部分,楼中楼 -->
                                             <li class="clearfix">
                                                 <div class="floor-ans-pho l"><img
-                                                        src="${pageContext.request.contextPath}/images/default.png"/>
+                                                        src="/jsp/${reply.userTouXiang}"/>
                                                 </div>
                                                 <div class="floor-ans-con l">
                                                     <span class="name">${reply.replyUserName}</span>：${reply.replyContent}
@@ -351,6 +351,7 @@
     //页面加载完成发送ajax查询点赞状态
     $(function () {
         yangShi();
+
     })
 
 

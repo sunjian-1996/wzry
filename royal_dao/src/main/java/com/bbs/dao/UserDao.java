@@ -34,7 +34,7 @@ public interface UserDao {
             "</if>",
             "</where>",
             "</script>"})
-    List<BbsUserTable> findByUserName(@Param("userName") String userName,@Param("role") String role);
+    List<BbsUserTable> findByUserName(@Param("userName") String userName, @Param("role") String role);
 
     /*禁言和恢复*/
     @Update("update bbs_user_table set talkStatus = #{talkStatus} where userId = #{userId}")
@@ -63,4 +63,8 @@ public interface UserDao {
     //改变注销登录状态
     @Update("update bbs_user_table set loginStatus = 0 where userName = #{userName}")
     void gaibiandengluzhuangtai2(String userName);
+
+    //查询用户头像
+    @Select("select picUrl from bbs_user_table where userName = #{userName}")
+    String findByTouXiang(String userName);
 }

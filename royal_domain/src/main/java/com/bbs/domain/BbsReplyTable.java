@@ -11,6 +11,15 @@ public class BbsReplyTable {
     private Date replyTime;//回复时间
     private String replyUserName;//回复人
     private long commentId;//评论编号
+    private String userTouXiang; //用户头像
+
+    public String getUserTouXiang() {
+        return userTouXiang;
+    }
+
+    public void setUserTouXiang(String userTouXiang) {
+        this.userTouXiang = userTouXiang;
+    }
 
     public long getReplyId() {
         return replyId;

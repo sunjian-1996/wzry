@@ -11,6 +11,10 @@ public interface CommentDao {
             @Result(id = true, property = "commentId", column = "commentId"),
             @Result(property = "bbsReplyTables", column = "commentId", many = @Many(
                     select = "com.bbs.dao.ReplyDao.findByCommentId"
+            )),
+            @Result(property = "commentUserName", column = "commentUserName"),
+            @Result(property = "userTouXiang", column = "commentUserName", one = @One(
+                    select = "com.bbs.dao.UserDao.findByTouXiang"
             ))
     })
     public BbsCommentTable findByArticleId(int articleId) throws Exception;
