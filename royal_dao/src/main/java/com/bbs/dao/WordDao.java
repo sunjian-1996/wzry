@@ -23,4 +23,7 @@ public interface WordDao {
     //查询所有敏感词
     @Select("select * from bbs_word_table")
     List<BbsWordTable> findAllWord();
+
+    @Update("update bbs_word_table set status=#{status} where wordId=#{id}")
+    void update(@Param("id") int id, @Param("status") long status,int page,int size);
 }

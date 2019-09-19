@@ -30,4 +30,10 @@ public class WordServiceImpl implements WordService {
         return wordDao.findAllWord();
     }
 
+    @Override
+    public void update(int id, long status,int page,int size) {
+        PageHelper.startPage(page, size);
+        wordDao.update(id,status,page,size);
+    }
+
 }
