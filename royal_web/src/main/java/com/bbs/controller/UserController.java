@@ -64,6 +64,8 @@ public class UserController {
             request.getSession().setAttribute("msg", "账号或密码有误");
         } else {
          if (bCryptPasswordEncoder.matches(bbsUserTable.getUserPass(),bb.getUserPass()) && bb.getUserName().equals(bbsUserTable.getUserName())) {
+          //改变登录状态
+             userService.gaibiandengluzhuangtai(bbsUserTable.getUserName());
 //                bb.getUserPass().equals(bbsUserTable.getUserPass())
                 request.getSession().setAttribute("loginUser", bb);
                 request.getSession().removeAttribute("msg");
@@ -81,9 +83,10 @@ public class UserController {
     //注销
     @RequestMapping("logout.do")
     public ModelAndView logout(HttpSession httpSession) {
+        BbsUserTable loginUser = (BbsUserTable)httpSession.getAttribute("loginUser");
+        userService.gaibiandengluzhuangtai2(loginUser.getUserName());
         httpSession.removeAttribute("loginUser");
         httpSession.removeAttribute("articleId");
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/article/show.do");
         return modelAndView;

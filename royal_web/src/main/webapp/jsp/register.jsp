@@ -25,16 +25,10 @@
             <h1 class="logo l">
                 <a href="javascript:;"><img src="../images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
-            <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
-            </div>
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>注册页面
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>注册页面
         </div>
     </div>
 </div>
@@ -61,7 +55,7 @@
                                 <span class="red">*</span> 密&nbsp;&nbsp;&nbsp;码：
                             </div>
                             <div class="reg-c">
-                                <input type="password" id="userPass" name="userPass" class="txt" value=""/>
+                                <input type="password" id="mima" name="userPass" class="txt" value="" onblur="checkMima()"/>
                             </div>
                             <span class="tips">密码长度必须6~10位的英文或数字</span>
                         </li>
@@ -74,7 +68,7 @@
                         <li>
                             <div class="reg-l"></div>
                             <div class="reg-c">
-                                <input type="submit" class="submit-btn" value="注册"/><br/>
+                                <input type="submit" id="zhuce" class="submit-btn" value="注册"/><br/>
                             </div>
                         </li>
                     </ul>
@@ -91,6 +85,26 @@
 <jsp:include page="common/footer.jsp"/>
 
 <script>
+    $(function () {
+        $("#zhuce").prop("type","button");
+
+        // $("#zhuce").onclick(function () {
+        //     //1.获取用户输入的内容
+        //     var userName = $("#username").val();
+        //     if (userName==null){
+        //             alert("请输入用户名")
+        //     }
+        //     var mm = $("#mima").val();
+        //     if (mm==null){
+        //         alert("请输入密码")
+        //     }
+        //
+        // })
+
+
+
+    })
+
 
     //判断用户名是否可用
     function checkName() {
@@ -99,7 +113,9 @@
         //2.定义正则表达式
         var tel1 = /^[a-zA-Z0-9_-]{3,16}$/;
 
+
         if (tel1.test(userName)) {
+
             //3.若内容不为空，发送ajax
             //3.1请求路径
             $.post("${pageContext.request.contextPath}/user/findByuserName.do",
@@ -110,17 +126,40 @@
                     //3.4判断回调函数
                     if (date!=null){
                         alert("该用户名已存在，请重新输入");
+                        $("#zhuce").prop("type","hidden");
+                    }else {
+                        var mm = $("#mima").val();
+                        if (mm!=""){
+                            $("#zhuce").prop("type","submit");}
                     }
                         //提示信息在前台做或者后台做都是一样的效果
                 },"json"
             )
+
+
         }else {
             //4.若用户输入的格式不对或为空，提示信息
            alert("你输入的格式有误，请输入字母+数字的格式,长度在3~16之间");
+            $("#zhuce").prop("type","hidden");
+            return;
 
         }
 
     };
+    function checkMima() {
+        //定义密码正则表达式
+        var mima = /^[a-zA-Z0-9_-]{6,10}$/;
+        var mm = $("#mima").val();
+        if (mima.test(mm)) {
+            $("#zhuce").prop("type","submit");
+        }else {
+            $("#zhuce").prop("type","hidden");
+            alert("你输入的密码格式不正确，请重新输入")
+            return;
+            }
+    }
+
+
 </script>
 
 </body>

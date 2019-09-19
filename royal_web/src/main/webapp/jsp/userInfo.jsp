@@ -31,15 +31,12 @@
                 <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
+                <img src="/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
             </div>
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>个人信息
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -79,6 +76,7 @@
 
 
                 <form action="${pageContext.request.contextPath}/userInfo/update.do" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id= "picUrl" name = "picUrl" value="">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
@@ -95,8 +93,8 @@
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;">${msgg}</span>
+                                <input type="submit" class="btn"  value="保存"/>
+                                <span style="color:red;" >${msggs}</span>
                             </div>
                         </li>
                     </ul>
@@ -122,9 +120,17 @@
             dataType:"text",
             success:function (data) {
                 $("#pic").prop("src",data);
+                $("#picUrl").val(data);
             }
         })
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType:"text",
+            success:function (data) {
 
+            }
+        })
     })
 </script>
 

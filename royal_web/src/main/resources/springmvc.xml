@@ -24,7 +24,7 @@
     <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/images/" mapping="/img/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
-    <mvc:resources location="/upload/" mapping="/upload/**"/>
+    <mvc:resources location="/jsp/upload/" mapping="/jsp/upload/**"/>
     <mvc:default-servlet-handler/>
 
     <!--开启springmvc注解支持-->
@@ -41,7 +41,7 @@
         <!-- 设定文件上传时写入内存的最大值，如果小于这个参数不会生成临时文件，默认为10240 -->
         <property name="maxInMemorySize" value="40960"></property>
         <!-- 上传文件的临时路径 -->
-        <property name="uploadTempDir" value="/jsp/upload/images"></property>
+        <property name="uploadTempDir" value="/upload/images"></property>
         <!-- 延迟文件解析 -->
         <property name="resolveLazily" value="true"/>
     </bean>
