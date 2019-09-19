@@ -6,7 +6,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:applicationContext*.xml,classpath*:manage_springmvc.xml</param-value>
+    <param-value>classpath*:applicationContext*.xml,classpath*:manage_springmvc.xml,classpath*:spring-security.xml</param-value>
   </context-param>
 
 

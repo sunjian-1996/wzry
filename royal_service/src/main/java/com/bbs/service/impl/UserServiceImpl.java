@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     //异步验证用户名
     @Override
-    public BbsUserTable findByUserName(String userName) {
+    public BbsUserTable findByuserName(String userName) {
         return userDao.findByuserName( userName );
     }
 
@@ -52,21 +52,10 @@ public class UserServiceImpl implements UserService {
     }
 
 
-/*    @Override
-    public User login(String userName,String userPass) {
-        return userDao.findWithLoginAndPassword( userName,userPass );
-    }*/
-
-    /*管理员登录*/
-//    @Override
-//    public BbsUserTable findByUserName(BbsUserTable bbsUserTable) {
-//        return userDao.findWithLoginAndPassword( bbsUserTable );
-//    }
-
     /*查询所有用户*/
     @Override
     public List<BbsUserTable> findByPage(int page, int size) {
-        PageHelper.startPage( page, size );
+        PageHelper.startPage( page,size );
         return userDao.findByPage();
     }
 
@@ -82,24 +71,20 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    /*模糊查询*/
+    /*条件查询*/
     @Override
     public List<BbsUserTable> findByUserName(String userName, String role, int page, int size) {
-        if ("超级管理员".equals( role )) {
-            role = "3";
-        } else if ("高级用户".equals( role )) {
-            role = "2";
-        } else {
-            role = "1";
+        if ("0".equals( role )){
+            role=null;
         }
         PageHelper.startPage( page, size );
-        return userDao.findByUserName( userName, role );
+        return userDao.findByUserName( "%"+userName+"%", role );
     }
 
 
     /*禁言和恢复*/
     @Override
-    public void WordAndReply(int userId, int talkStatus) {
+    public void WordAndReply(int userId,int talkStatus) {
         userDao.WordAndReply( userId, talkStatus );
     }
 
@@ -130,16 +115,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-/*    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        BbsUserTable bbsUserTable = null;
-        try {
-            bbsUserTable = userDao.findByUsername( username );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        User user = new User(bbsUserTable.getUserName(),bbsUserTable.getUserPass(),null);
-        return user;*/
 }
 
 

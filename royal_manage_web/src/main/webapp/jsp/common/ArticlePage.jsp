@@ -147,12 +147,6 @@
                                             <span aria-hidden="true">«</span>
                                         </a>
                                 </c:if>
-                                <c:if test="${pageInfo.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}')"
-                                       aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
-                                </c:if>
                             </li>
 
                             <c:forEach items="${pageInfo.navigatepageNums}" var="page_num">

@@ -19,7 +19,7 @@ public interface UserService extends UserDetailsService {
 
     void WordAndReply(int userId, int talkStatus);
 
-    BbsUserTable findByUserName(String userName);
+    BbsUserTable findByuserName(String userName);
 
     void save(BbsUserTable bbsUserTable);
 
