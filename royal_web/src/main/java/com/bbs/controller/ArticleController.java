@@ -21,6 +21,8 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private WordUtilsBean.WordUtils wordUtils;
 
     //版块所有的帖
     @RequestMapping("/findAll.do")
@@ -29,7 +31,7 @@ public class ArticleController {
         List<BbsArticleTable> articleList = articleService.findAll(zoneId);
         session.setAttribute("zoneId", zoneId);
         session.removeAttribute("articleId");
-        return articleList;
+        return wordUtils.updateArticle(articleList);
     }
 
     //写帖
@@ -58,7 +60,7 @@ public class ArticleController {
     public ModelAndView getArticle(@RequestParam(name = "articleId") long articleId, HttpSession session) throws Exception {
         BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("bbsArticleTable", bbsArticleTable);
+        mv.addObject("bbsArticleTable", wordUtils.updateArticle(bbsArticleTable));
         session.setAttribute("articleId", bbsArticleTable.getArticleId());
         mv.setViewName("getArticle");
         return mv;
