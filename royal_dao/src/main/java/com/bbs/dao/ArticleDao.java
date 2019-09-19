@@ -13,7 +13,7 @@ import java.util.List;
 public interface ArticleDao {
 
     //查询单个版块的所有帖
-    @Select("select * from bbs_article_table where zoneId = #{zoneId} ORDER BY sendTime DESC ")
+    @Select("select * from bbs_article_table where zoneId = #{zoneId} and articleStatus = 0 ORDER BY sendTime DESC ")
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
     //写帖
@@ -63,4 +63,16 @@ public interface ArticleDao {
     //添加评论次数
     @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
     void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
+
+    //用户发帖计数
+    @Select("select count(*) from bbs_article_table where senderName = #{userName}")
+    long publishCount(String userName) throws Exception;
+
+    //查询点赞次数
+    @Select("select upvoteCount from bbs_article_table where articleId = #{articleId}")
+    Long findDianZanCount(long articleId) throws Exception;
+
+    //修改点赞次数
+    @Update("update bbs_article_table set upvoteCount = #{dianZanCount} where articleId = #{articleId}")
+    void addDianZan(@Param("articleId") long articleId, @Param("dianZanCount") Long dianZanCount);
 }
