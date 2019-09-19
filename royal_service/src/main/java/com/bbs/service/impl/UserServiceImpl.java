@@ -27,4 +27,16 @@ public class UserServiceImpl implements UserService {
         bbsUserTable.setUserPass(bCryptPasswordEncoder.encode(bbsUserTable.getUserPass()));
         userDao.save(bbsUserTable);
     }
+
+    //改变登录状态
+    @Override
+    public void gaibiandengluzhuangtai(String userName) {
+        userDao.gaibiandengluzhuangtai(userName);
+    }
+
+    //注销改变登录状态
+    @Override
+    public void gaibiandengluzhuangtai2(String userName) {
+        userDao.gaibiandengluzhuangtai2(userName);
+    }
 }

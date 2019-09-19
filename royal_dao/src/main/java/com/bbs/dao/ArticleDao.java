@@ -1,15 +1,19 @@
 package com.bbs.dao;
 
 import com.bbs.domain.BbsArticleTable;
-import com.bbs.domain.BbsArticleTable;
+
 import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 public interface ArticleDao {
 
     //查询单个版块的所有帖
-    @Select("select * from bbs_article_table where zoneId = #{zoneId} ORDER BY sendTime DESC ")
+    @Select("select * from bbs_article_table where zoneId = #{zoneId} and articleStatus = 0 ORDER BY sendTime DESC ")
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 
     //写帖
@@ -28,6 +32,24 @@ public interface ArticleDao {
     })
     BbsArticleTable getArticle(long articleId) throws Exception;
 
+    //分页+模糊查询
+    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
+    @Results({
+            @Result(id = true,property = "articleId",column = "articleId"),
+            @Result(property = "title",column = "title"),
+            @Result(property = "content",column = "content"),
+            @Result(property = "sendTime",column = "sendTime"),
+            @Result(property = "senderName",column = "senderName"),
+            @Result(property = "isTop",column = "isTop"),
+            @Result(property = "replyCount",column = "replyCount"),
+            @Result(property = "upvoteCount",column = "upvoteCount"),
+            @Result(property = "browseCount",column = "browseCount"),
+            @Result(property = "zoneId",column = "zoneId"),
+            @Result(property = "isReport",column = "isReport"),
+
+    })
+    List<BbsArticleTable> findByPage(int page,int size,@Param("title") String title, @Param("senderName") String senderName);
+
     //帖子总数
     @Select("select count(*) from bbs_article_table")
     int tiezifindAll() throws Exception;
@@ -42,6 +64,10 @@ public interface ArticleDao {
     //添加评论次数
     @Update("update bbs_article_table set replyCount = #{count} where articleId = #{articleId}")
     void commentNumber(@Param("articleId") long articleId, @Param("count") long count) throws Exception;
+
+    //用户发帖计数
+    @Select("select count(*) from bbs_article_table where senderName = #{userName}")
+    long publishCount(String userName) throws Exception;
 
     //查询点赞次数
     @Select("select upvoteCount from bbs_article_table where articleId = #{articleId}")

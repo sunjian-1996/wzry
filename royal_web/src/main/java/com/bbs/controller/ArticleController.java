@@ -1,6 +1,7 @@
 package com.bbs.controller;
 
 import com.bbs.domain.BbsArticleTable;
+import com.bbs.domain.BbsUserTable;
 import com.bbs.service.ArticleService;
 import com.bbs.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private WordUtilsBean.WordUtils wordUtils;
 
     //版块所有的帖
     @RequestMapping("/findAll.do")
@@ -28,7 +31,7 @@ public class ArticleController {
         List<BbsArticleTable> articleList = articleService.findAll(zoneId);
         session.setAttribute("zoneId", zoneId);
         session.removeAttribute("articleId");
-        return articleList;
+        return wordUtils.updateArticle(articleList);
     }
 
     //写帖
@@ -57,7 +60,7 @@ public class ArticleController {
     public ModelAndView getArticle(@RequestParam(name = "articleId") long articleId, HttpSession session) throws Exception {
         BbsArticleTable bbsArticleTable = articleService.getArticle(articleId);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("bbsArticleTable", bbsArticleTable);
+        mv.addObject("bbsArticleTable", wordUtils.updateArticle(bbsArticleTable));
         session.setAttribute("articleId", bbsArticleTable.getArticleId());
         mv.setViewName("getArticle");
         return mv;
@@ -72,6 +75,18 @@ public class ArticleController {
         } else {
             return "redirect:/jsp/index.jsp";
         }
+    }
+
+    //用户发帖计数
+    @RequestMapping("publishCount.do")
+    public @ResponseBody
+    Map<String, Long> publishCount(HttpSession session) throws Exception {
+        BbsUserTable userTable = (BbsUserTable) session.getAttribute("loginUser");
+        String userName = userTable.getUserName();
+        long publishCount = articleService.publishCount(userName);
+        HashMap<String, Long> map = new HashMap<String, Long>();
+        map.put("publishCount", publishCount);
+        return map;
     }
 
 }

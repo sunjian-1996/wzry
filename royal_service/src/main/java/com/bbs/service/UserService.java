@@ -8,4 +8,8 @@ public interface UserService {
     BbsUserTable findByuserName(String userName);
 
     void save(BbsUserTable bbsUserTable);
+
+    void gaibiandengluzhuangtai(String userName);
+
+    void gaibiandengluzhuangtai2(String userName);
 }

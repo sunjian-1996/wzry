@@ -2,6 +2,7 @@ package com.bbs.controller;
 
 import com.bbs.domain.BbsUserTable;
 import com.bbs.service.UserInfoService;
+import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,37 +24,53 @@ public class UserInfoController {
     private UserInfoService userInfoService;
     private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
 
+    @Autowired
+    private UserService userService;
+
     //修改邮箱
     @RequestMapping("update.do")
     public ModelAndView update(@RequestParam(value="file",required=false) MultipartFile file, BbsUserTable bbsUserTable, HttpServletRequest request) throws IOException {
         // 使用fileupload组件完成文件上传
         // 上传的位置
-        String path = request.getSession().getServletContext().getRealPath("/upload/images/");
-        // 判断，该路径是否存在
-        File file2 = new File(path);
-        if(!file2.exists()){
-            // 创建该文件夹
-            file2.mkdirs();
+        if (file.getSize() != 0){
+            String path = request.getSession().getServletContext().getRealPath("/jsp/upload/images/");
+            // 判断，该路径是否存在
+            File file2 = new File(path);
+            if(!file2.exists()){
+                // 创建该文件夹
+                file2.mkdirs();
+
+            }
+
+            // 说明上传文件项
+            // 获取上传文件的名称
+            String filename = file.getOriginalFilename();
+            String substring = filename.substring(filename.lastIndexOf(".") + 1);
+            if((!"jpg".equals(substring.toLowerCase())) && (!"png".equals(substring.toLowerCase()))){
+                ModelAndView mv = new ModelAndView();
+                //mv.addObject("msgg","修改成功");
+                request.getSession().setAttribute("msggs","图片格式非法");
+                mv.setViewName("redirect:/jsp/userInfo.jsp");
+                return mv;
+            }
+            // 把文件的名称设置唯一值，uuid
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            filename = uuid+"_"+filename;
+            // 完成文件上传
+
+            file.transferTo(new File(path,filename));
+
+            bbsUserTable.setPicUrl("" +
+                    "upload/images/"+filename);
         }
-
-        // 说明上传文件项
-        // 获取上传文件的名称
-        String filename = file.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
-
-        file.transferTo(new File(path,filename));
-
-
-
-        bbsUserTable.setPicUrl("" +
-                "upload/images/"+filename);
+        request.getSession().removeAttribute("msgg");
         userInfoService.update(bbsUserTable);
+        BbsUserTable userTable = userService.findByuserName(bbsUserTable.getUserName());
+        request.getSession().setAttribute("loginUser",userTable);
         ModelAndView mv = new ModelAndView();
-        mv.addObject("msgg","修改成功");
-        mv.setViewName("userInfo");
+        //mv.addObject("msgg","修改成功");
+        request.getSession().setAttribute("msggs","修改成功");
+        mv.setViewName("redirect:/jsp/userInfo.jsp");
         return mv;
     }
 
@@ -62,7 +79,9 @@ public class UserInfoController {
     @ResponseBody
     public String findPic(HttpServletRequest request){
         BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
-        return loginUser.getPicUrl();
+        BbsUserTable bbsUserTable = userService.findByuserName(loginUser.getUserName());
+        request.getSession().setAttribute("loginUser",bbsUserTable);
+        return bbsUserTable.getPicUrl();
     }
 
 
@@ -75,11 +94,14 @@ public class UserInfoController {
       if (bCryptPasswordEncoder.matches(oldPassword,loginUser.getUserPass())){
           loginUser.setUserPass(bCryptPasswordEncoder.encode(newPassword));
           userInfoService.updateToPass(loginUser);
-          mv.setViewName("index");
+          mv.setViewName("redirect:/jsp/userPwd.jsp");
+          request.getSession().setAttribute("msgg","修改成功");
 //          mv.addObject("msgg","修改成功");
       }else {
-          mv.setViewName("index");
+          mv.setViewName("redirect:/jsp/userPwd.jsp");
 //          mv.addObject("msgg","修改失败");
+          request.getSession().setAttribute("msgg","修改失败");
+
       }
         return mv;
     }
@@ -91,5 +113,22 @@ public class UserInfoController {
         }else {
             return null;
         }
+    }
+
+    //申请高级用户
+    @RequestMapping("upgrade.do")
+    public ModelAndView  upgrade(HttpServletRequest request){
+    BbsUserTable loginUser = (BbsUserTable)request.getSession().getAttribute("loginUser");
+    userInfoService.upgrade(loginUser);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/jsp/userInfoGj.jsp");
+        return modelAndView;
+    }
+    //销毁session
+    @RequestMapping("SChu.do")
+    public void  xiaohui(HttpServletRequest request){
+        request.getSession().removeAttribute("msgg");
+        request.getSession().removeAttribute("msggs");
+
     }
 }

@@ -29,18 +29,15 @@
     <div class="hm-inner clearfix">
         <div class="hm-header-t clearfix">
             <h1 class="logo l">
-                <a href="javascript:;"><img src="images/logo.png" alt=""/></a>
+                <a href="javascript:;"><img src="${pageContext.request.contextPath}/images/logo.png" alt=""/></a>
             </h1>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
+               <img src="/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
             </div>
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.do">首页</a><span>></span>修改密码
+            <a href="${pageContext.request.contextPath}/jsp/index.jsp">首页</a><span>></span>修改密码
         </div>
     </div>
 </div>
@@ -132,6 +129,14 @@
             dataType:"text",
             success:function (data) {
                 $("#pic").prop("src",data);
+            }
+        })
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType:"text",
+            success:function (data) {
+
             }
         })
     })
