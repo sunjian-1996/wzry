@@ -36,7 +36,7 @@ public class WordUtilsBean {
         List<BbsWordTable> all = wordDao.findAllWord();
         ArrayList<String> list = new ArrayList<>();
         for (BbsWordTable bbsWordTable : all) {
-            if (bbsWordTable.getStatus() == 0) {
+            if (bbsWordTable.getStatus() != 0) {
                 list.add(bbsWordTable.getWord());
             }
         }
@@ -59,7 +59,7 @@ public class WordUtilsBean {
         public void update() {
             List<String> wordList = findWordList();
             this.setList(wordList);
-            System.out.println("更新明感词库");
+            System.out.println("更新敏感词库");
         }
 
         //输入一个集合文本，返回过滤后的集合文本
