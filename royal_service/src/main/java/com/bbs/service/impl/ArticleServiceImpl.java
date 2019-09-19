@@ -54,4 +54,13 @@ public class ArticleServiceImpl implements ArticleService {
     public long publishCount(String userName) throws Exception {
         return articleDao.publishCount(userName);
     }
+
+    //关键字查询功能
+    @Override
+    public List<BbsArticleTable> findByKeyword(String keyword) {
+        String keyword1="%"+ keyword+"%";
+        String keyword2=keyword1;
+        List<BbsArticleTable> byKeyword = articleDao.findByKeyword(keyword1, keyword2);
+        return byKeyword;
+    }
 }

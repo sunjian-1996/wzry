@@ -21,4 +21,7 @@ public interface ArticleService {
     int jinritiezifindAll(String date) throws Exception;
 //用户发帖计数
     long publishCount(String userName) throws Exception;
+
+    //关键字查询功能
+    List<BbsArticleTable> findByKeyword(String keyword);
 }

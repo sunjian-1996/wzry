@@ -1,7 +1,9 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.UserDao;
+import com.bbs.dao.ZoneapplyDao;
 import com.bbs.domain.BbsUserTable;
+import com.bbs.domain.BbsZoneapplyTable;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,7 +14,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private ZoneapplyDao zoneapplyDao;
     private BCryptPasswordEncoder bCryptPasswordEncoder =new BCryptPasswordEncoder();
 
     //异步验证用户名
@@ -38,5 +41,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void gaibiandengluzhuangtai2(String userName) {
         userDao.gaibiandengluzhuangtai2(userName);
+    }
+
+    //    添加新版块
+    @Override
+    public Boolean addZone(BbsZoneapplyTable zoneapply) {
+        try {
+            zoneapplyDao.addZone(zoneapply);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

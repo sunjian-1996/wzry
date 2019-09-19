@@ -1,6 +1,7 @@
 package com.bbs.service;
 
 import com.bbs.domain.BbsUserTable;
+import com.bbs.domain.BbsZoneapplyTable;
 
 public interface UserService {
 
@@ -12,4 +13,6 @@ public interface UserService {
     void gaibiandengluzhuangtai(String userName);
 
     void gaibiandengluzhuangtai2(String userName);
+
+    Boolean addZone(BbsZoneapplyTable zoneapply);
 }

@@ -89,4 +89,10 @@ public class ArticleController {
         return map;
     }
 
+    //关键字查询功能
+    @RequestMapping("/findByKeyword.do")
+    public @ResponseBody List<BbsArticleTable> findByKeyword(String keyword){
+        return articleService.findByKeyword(keyword);
+    }
+
 }

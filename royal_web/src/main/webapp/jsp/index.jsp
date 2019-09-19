@@ -38,10 +38,11 @@
                     <span>全部帖子<strong></strong><span id="total" style="color: red;font-weight:550;"></span></span>
                 </p>
             </div>
+            <!--关键字搜索-->
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
+                <form id="keywordForm" action="#" method="post">
+                    <input id="keyword" type="text" class="txt l" placeholder="请输入关键字">
+                    <input id="kwbtn" type="button" value="搜索" class="btn l"/>
                 </form>
             </div>
         </div>
@@ -95,22 +96,18 @@
             <div class="aside l">
                 <div class="aside-box">
                     <h3 class="t">
-                        <a href="javascript:;">在线用户(2)</a>
+                        <a href="${pageContext.request.contextPath}/jsp/index.jsp">在线用户(${userOnline.totalNum})</a>
                     </h3>
                     <ul class="b clearfix">
-                        <li>
-                            <div><img src="${pageContext.request.contextPath}/images/default.png" height="55"/></div>
-                            <p>Mr.King</p>
-                        </li>
-                        <li>
-                            <div><img src="${pageContext.request.contextPath}/images/default.png" height="55"/></div>
-                            <p>疯子</p>
-                        </li>
+                        <c:forEach items="${userOnline.list}" var="Online">
+                            <li>
+                                <div><img src="${pageContext.request.contextPath}${Online.picUrl}" height="55"/></div>
+                                <p>${Online.userName}</p>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -303,7 +300,51 @@
         }, "json")
     }
 
+    // 关键字搜索功能
 
+    $("#kwbtn").click(function () {
+        if ($("#keyword").val()){
+            // 发送ajax请求查询关键字
+            $.post("${pageContext.request.contextPath}/article/findByKeyword.do",{keyword:$("#keyword").val()},function (data) {
+
+                //清空版块内容
+                var jArticleUl = $("#articleUl");
+                jArticleUl.empty();
+
+                //未查询到关键字信息
+                if (data.length == 0 || data == null) {
+                    jArticleUl.append($("<li class=\"clearfix ding\"><div class=\"hm-index-title\">查询不到任何相关帖子信息</div></div></li>\n"));
+                    return;
+                }
+                $(data).each(function () {
+                    var article = "<li class=\"clearfix\">\n" +
+                        "<div class=\"hm-index-title\">\n" +
+                        "<i class=\"set-to-top\">顶</i> <a href=\"${pageContext.request.contextPath}/article/getArticle.do?articleId=" + this['articleId'] + "\">" + this['title'] + "</a>\n" +
+                        "</div>\n" +
+                        "<div class=\"hm-index-con\">" + this['content'] + "</div>\n" +
+                        "<div class=\"hm-index-info l\">\n" +
+                        "<span class=\"article-username\">" + this['senderName'] + "</span><span\n" +
+                        " class=\"post-time\">" + this['sendTime'] + "</span>\n" +
+                        "</div>\n" +
+                        "<div class=\"hm-index-fun r\">\n" +
+                        "<span class=\"icon-like\"><i></i>" + this['upvoteCount'] + "</span>\n" +
+                        "<span class=\"icon-talk\"><i></i>" + this['replyCount'] + "</span>\n" +
+                        "</div>\n" +
+                        "</li>";
+                    var jArticle = $(article);
+                    //是否置顶并展示文章
+                    if (this['isTop'] == 1) {
+                        jArticle.addClass("ding");
+                        jArticleUl.prepend(jArticle);
+                    } else {
+                        jArticleUl.append(jArticle);
+                    }
+                })
+            }, "json")}
+        else{
+            alert("请输入关键字")
+        }
+    })
     $(function () {
         $.post("${pageContext.request.contextPath}/article/tiezifindAll.do", function (data) {
             $("#total").html(data['total']);
