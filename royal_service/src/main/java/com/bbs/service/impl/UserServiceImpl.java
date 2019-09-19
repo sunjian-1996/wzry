@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
-}
+
 
 
     /*查询所有用户*/
@@ -129,8 +129,6 @@ public class UserServiceImpl implements UserService {
         }
         return list;
     }
-
-
 }
 
 
