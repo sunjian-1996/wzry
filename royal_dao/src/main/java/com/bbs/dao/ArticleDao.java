@@ -45,10 +45,9 @@ public interface ArticleDao {
             @Result(property = "upvoteCount",column = "upvoteCount"),
             @Result(property = "browseCount",column = "browseCount"),
             @Result(property = "zoneId",column = "zoneId"),
-            @Result(property = "isReport",column = "isReport"),
-
+            @Result(property = "isReport",column = "isReport")
     })
-    List<BbsArticleTable> findByPage(int page,int size,@Param("title") String title, @Param("senderName") String senderName);
+    List<BbsArticleTable> findByPage(@Param("page") int page,@Param("size") int size,@Param("title") String title, @Param("senderName") String senderName);
 
     //帖子总数
     @Select("select count(*) from bbs_article_table")
