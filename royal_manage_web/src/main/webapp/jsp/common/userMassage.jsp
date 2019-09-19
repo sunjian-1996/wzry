@@ -48,8 +48,8 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="userSearchForm"
-                              action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do">
+                        <form method="post" id="userSearchForm"
+                              action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=5&page=1">
                             <table>
                                 <tr>
                                     <th>
@@ -57,8 +57,8 @@
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
-                                               name="title" value="">
-                                        <input type="hidden" id="pageNum" name="pn" value="">
+                                               name="userName" value="${userRole[0]}"/>
+                                        <input type="hidden" id="pageNum" name="pn" value=""/>
                                     </th>
                                     <th>
                                         <label for="article_sendername" class="control-label">用户组:</label>
@@ -66,10 +66,10 @@
                                     </th>
                                     <th>
                                         <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="">
+                                               name="role" value="${userRole[1]}">
                                     </th>
                                     <th colspan="2">
-                                        <input type="submit" value="查询" class="form-control btn-primary">
+                                        <input type="submit" value="查询" class="form-control btn-primary" id="SearchByUserAndRoleBtn">
                                     </th>
                                 </tr>
                             </table>
@@ -93,7 +93,7 @@
                     </thead>
                     <tbody>
 
-                    <c:forEach items="${all}" var="article">
+                    <c:forEach items="${pageInfo.list}" var="article">
                         <tr>
 
                             <td width="15%">${article.userName}</td>
@@ -144,12 +144,13 @@
                     </tbody>
                 </table>
 
-            </div><!-- /.panel panel-success -->
+            </div>
+            <!-- /.panel panel-success -->
             <!--显示分页信息-->
             <div class="row">
                 <!--文字信息-->
                 <div class="col-md-6">
-                    当前第${articleMsgs.pageNum}页.总共${articleMsgs.pages}页.一共${articleMsgs.total}条记录
+                    当前第${pageInfo.pageNum}页.总共${pageInfo.pages}页.一共${pageInfo.total}条记录
                 </div>
 
                 <!--点击分页-->
@@ -157,35 +158,41 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=1&size=${pageInfo.pageSize}" >首页</a></li>
                             <!--上一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
+                                <c:if test="${pageInfo.hasPreviousPage}">
+                                    <a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
                                     </a>
                                 </c:if>
                             </li>
+                           <%-- <li>
+                                <a href="#"  aria-label="Previous">
+                                    <span aria-hidden="true"></span>
+                                </a>
+                            </li>--%>
+                            <c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
+                                <li><a href="#" >${page_num}</a></li>
+                            </c:forEach>
 
-                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
+<%--                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
                                 <c:if test="${page_num == articleMsgs.pageNum}">
                                     <li class="active"><a href="#">${page_num}</a></li>
                                 </c:if>
                                 <c:if test="${page_num != articleMsgs.pageNum}">
                                     <li><a href="#" onclick="searchArticle('${page_num}')">${page_num}</a></li>
                                 </c:if>
-                            </c:forEach>
-
+                            </c:forEach>--%>
                             <!--下一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pageNum+1}')"
-                                       aria-label="Next">
-                                        <span aria-hidden="true">»</span>
+                                <c:if test="${pageInfo.hasNextPage}">
+                                    <a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" >尾页</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -196,7 +203,7 @@
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->
-
-<%--<%@ include file="ArticleAdd.jsp"%>--%>
+<%--<%@ include file="ArticleUpdate.jsp"%>
+<%@ include file="ArticleAdd.jsp"%>--%>
 </body>
 </html>

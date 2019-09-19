@@ -9,11 +9,6 @@
         <param-value>classpath*:manage_springmvc.xml,classpath*:spring-security.xml</param-value>
     </context-param>
 
-  <!--监听器-->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-
 
 <!--  &lt;!&ndash;获取request对象&ndash;&gt;
   <listener>
@@ -30,19 +25,21 @@
             <param-value>utf-8</param-value>
         </init-param>
     </filter>
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
+
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
+<filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 
     <!--监听器-->
     <listener>
@@ -68,8 +65,7 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>/jsp/login.jsp</welcome-file>
+        <welcome-file>/jsp/common/login.jsp</welcome-file>
     </welcome-file-list>
-
 
 </web-app>

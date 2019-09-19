@@ -26,13 +26,13 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="../../jsp/commom/head.jsp" %>
+    <%@ include file="head.jsp" %>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
     <div class="hrms_dept_body">
         <!-- 左侧栏 -->
-        <%@ include file="../../jsp/commom/leftsidebar.jsp" %>
+        <%@ include file="leftsidebar.jsp" %>
 
         <!-- 表格内容 -->
         <div class="dept_info col-sm-10">
@@ -179,12 +179,12 @@
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="../../jsp/commom/foot.jsp" %>
+        <%@ include file="foot.jsp" %>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-/*<%@ include file="ArticleUpdate.jsp"%>*/
+<%--<%@ include file="ArticleUpdate.jsp"%>--%>
 </body>
 </html>

@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<form role="form" method="post" id="login_form" action="${pageContext.request.contextPath}/user/login.do">
+<form role="form" method="post" id="login_form" action="${pageContext.request.contextPath}/login.do">
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4" style="margin: 380px 380px">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="panel-body">
                     <div id="errorMsg" class="alert alert-danger" ></div>
-                    <font color="red">${message }</font>
+                    <font color="red">${message}</font>
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="用户名" name="userName" autofocus>

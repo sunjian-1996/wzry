@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:security="http://www.springframework.org/schema/security"
@@ -6,73 +5,58 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/security
-    http://waww.springframework.org/schema/security/spring-security.xsd">
-
-    <!--开启权限注解 jsr使用不需要加前缀ROSE  secured需要加前缀-->
-    <!--pre-post-annotations 开启表达式 可以指定权限，也可以在指定具体的用户，才可以做哪些操作-->
-    <!--@PreAuthorize("hasRole('ROLE_ADMIN')")-->
-    <!--@PreAuthorize("authentication.principal.username == 'tom'")-->
-    <security:global-method-security jsr250-annotations="enabled" secured-annotations="enabled"
-                                     pre-post-annotations="enabled"></security:global-method-security>
-
+    http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- 配置不拦截的资源 -->
-    <security:http pattern="/login.jsp" security="none"/>
-    <security:http pattern="/failer.jsp" security="none"/>
-    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/jsp/common/login.jsp" security="none"/>
+    <security:http pattern="/bootstrap/**" security="none"/>
     <security:http pattern="/img/**" security="none"/>
     <security:http pattern="/plugins/**" security="none"/>
-    <security:http pattern="/favicon.ico" security="none"/>
-
-
+    <security:http pattern="/fonts/**" security="none"/>
     <!--
     	配置具体的规则
     	auto-config="true"	不用自己编写登录的页面，框架提供默认登录页面
     	use-expressions="false"	是否使用SPEL表达式（没学习过）
     -->
-    <security:http auto-config="true" use-expressions="true">
+    <security:http auto-config="true" use-expressions="false" >
         <!-- 配置具体的拦截的规则 pattern="请求路径的规则" access="访问系统的人，必须有ROLE_USER的角色" -->
-        <security:intercept-url pattern="/**" access="hasAnyRole('ROLE_USER,ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/**" access="ROLE_ADMIN"/>
 
         <!-- 定义跳转的具体的页面 -->
-        <security:form-login
-                login-page="/jsp/login.jsp"
-                login-processing-url="/WEB-INF/jsp/ArticlePage.jsp"
-                default-target-url="/WEB-INF/jsp/ArticlePage.jsp"
-                authentication-failure-url="/failer.jsp"
+        <security:form-login username-parameter="userName" password-parameter="userPass"
+                login-page="/jsp/common/login.jsp"
+                login-processing-url="/login.do"
+                authentication-success-forward-url="/jsp/common/main.jsp"
+                authentication-failure-url="/jsp/common/login.jsp"
         />
-        <!--2.请求的url-->
-        <!--1.在没有登陆的时候,默认跳转到登陆页面-->
-        <!--3.配置成功跳转页面-->
-        <!--4.配置失败跳转页面-->
+
+
         <!-- 关闭跨域请求 -->
         <security:csrf disabled="true"/>
-
         <!-- 退出 -->
-        <security:logout invalidate-session="true" logout-url="/logout" logout-success-url="/login.jsp"/>
+        <security:logout invalidate-session="true" logout-url="/logout.do" logout-success-url="/login.jsp" />
 
     </security:http>
 
-    <!--&lt;!&ndash; 切换成数据库中的用户名和密码 &ndash;&gt;-->
-    <!--<security:authentication-manager>-->
-    <!--<security:authentication-provider user-service-ref="userService">-->
-    <!--&lt;!&ndash; 配置加密的方式&ndash;&gt;-->
-    <!--<security:password-encoder ref="passwordEncoder"/>-->
-    <!--</security:authentication-provider>-->
-    <!--</security:authentication-manager>-->
-
-    <!-- 配置加密类 -->
-    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-
-    <!-- 提供了入门的方式，在内存中存入用户名和密码 -->
+    <!-- 切换成数据库中的用户名和密码 -->
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin" password="{noop}admin" authorities="ROLE_USER"/>
-            </security:user-service>
+        <security:authentication-provider user-service-ref="userService">
         </security:authentication-provider>
     </security:authentication-manager>
 
+    <bean id="userService" class="com.bbs.service.impl.UserServiceImpl"/>
+    <!-- 配置加密类 -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!-- 提供了入门的方式，在内存中存入用户名和密码
+    <security:authentication-manager>
+    	<security:authentication-provider>
+    		<security:user-service>
+    			<security:user name="admin" password="{noop}admin" authorities="ROLE_USER"/>
+    		</security:user-service>
+    	</security:authentication-provider>
+    </security:authentication-manager>
+    -->
 
 </beans>
 
