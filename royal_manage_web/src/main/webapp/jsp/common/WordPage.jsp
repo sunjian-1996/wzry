@@ -80,15 +80,13 @@
                             <td width="5%" class="line-limit-length">${word.word}</td>
                             <td width="5%" class="line-limit-length">${word.status}</td>
                             <td width="15%">
-                                <a href="/article/deleteArticle.do?id=${article.articleId}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
-                                   role="button" class="btn btn-primary">屏蔽</a>
-                                <c:if test="${article.isTop==0}">
-                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
-                                       role="button" class="btn btn-danger">置顶</a>
+                                <c:if test="${word.status==1}">
+                                    <a href="${pageContext.request.contextPath}/word/findAll.do?id=${word.wordId}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary"
+                                    >启用</a>
                                 </c:if>
-                                <c:if test="${article.isTop==1}">
-                                    <a href="/article/changeStatus.do?id=${article.articleId}&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}"
-                                       role="button" class="btn btn-info">取消</a>
+                                <c:if test="${word.status==0}">
+                                    <a href="${pageContext.request.contextPath}/word/findAll.do?id=${word.wordId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger"
+                                    >停用</a>
                                 </c:if>
                             </td>
                         </tr>

@@ -26,7 +26,7 @@
 <body>
 <div class="hrms_dept_container">
     <!-- 导航栏-->
-    <%@ include file="head.jsp" %>
+    <%@ include file="head.jsp"%>
 
 
     <!-- 中间部分（左侧栏+表格内容） -->
@@ -64,7 +64,7 @@
                                     </th>
                                     <th>
                                         <input type="text" id="article_sendername" class="form-control"
-                                               name="sendername" value="${senderName}">
+                                               name="senderName" value="${senderName}">
                                     </th>
                                     <th colspan="2">
                                         <input type="submit" value="查询" class="form-control btn-primary">
@@ -120,6 +120,8 @@
                             </td>
                         </tr>
                     </c:forEach>
+
+
                     </tbody>
                 </table>
 
@@ -140,14 +142,13 @@
                             <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
-<<<<<<< HEAD:royal_manage_web/src/main/webapp/jsp/common/ArticlePage.jsp
                                 <c:if test="${pageInfo.hasPreviousPage}">
                                         <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
-=======
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')"
+                                </c:if>
+                                <c:if test="${pageInfo.hasPreviousPage}">
+                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}')"
                                        aria-label="Previous">
                                         <span aria-hidden="true">«</span>
                                     </a>
@@ -179,7 +180,7 @@
             </div>
         </div><!-- /.dept_info -->
         <!-- 尾部-->
-        <%@ include file="foot.jsp" %>
+        <%@ include file="foot.jsp"%>
     </div><!-- /.hrms_dept_body -->
 
 </div><!-- /.hrms_dept_container -->

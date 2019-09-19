@@ -31,8 +31,7 @@ public interface ArticleDao {
             ))
     })
     BbsArticleTable getArticle(long articleId) throws Exception;
-
-    @Select("<script>select * from bbs_article_table <if test=\"title !=null \">where title = #{title} </if></script>")
+    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
     List<BbsArticleTable> findByTitleOrSenderName(@Param("title") String title, @Param("senderName") String senderName);
 
     @Select("select * from bbs_article_table ")
