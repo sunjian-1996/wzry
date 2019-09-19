@@ -2,12 +2,14 @@ package com.bbs.controller;
 
 import com.bbs.domain.BbsUserTable;
 import com.bbs.service.UpvoteService;
+import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +20,9 @@ public class UpvoteController {
 
     @Autowired
     private UpvoteService upvoteService;
+
+    @Autowired
+    private UserService userService;
 
     //查询点赞状态
     @RequestMapping("/findDianZanStatus.do")
@@ -42,5 +47,7 @@ public class UpvoteController {
         map.put("dianZanCount", dianZanCount);
         return map;
     }
+
+
 
 }
