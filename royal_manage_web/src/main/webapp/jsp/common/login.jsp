@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4" style="margin: 380px 380px">
+        <div class="col-md-4 col-md-offset-4" style="   margin: 380px 380px">
             <div class="login-panel panel panel-default"style="margin-top:-130px" >
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center;">王者荣耀论坛管理后台</h3>

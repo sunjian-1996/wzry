@@ -3,6 +3,7 @@ package com.bbs.service.impl;
 import com.bbs.dao.ArticleDao;
 import com.bbs.domain.BbsArticleTable;
 import com.bbs.service.ArticleService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,6 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.findAll(zoneId);
     }
 
-    //写帖
     @Override
     public long publish(BbsArticleTable articleTable) throws Exception {
         articleTable.setSendTime(new Date());
@@ -31,6 +31,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public BbsArticleTable getArticle(long articleId) throws Exception {
         return articleDao.getArticle(articleId);
+    }
+
+    @Override
+    public List<BbsArticleTable> findByPage(int page, int size,String title, String senderName) {
+        PageHelper.startPage(page, size);
+        return articleDao.findByPage(page,size,title,senderName);
     }
 
     //帖子总数
