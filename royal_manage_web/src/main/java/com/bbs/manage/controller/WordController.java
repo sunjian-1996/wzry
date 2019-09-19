@@ -1,6 +1,5 @@
 package com.bbs.manage.controller;
 
-import com.bbs.domain.BbsArticleTable;
 import com.bbs.domain.BbsWordTable;
 import com.bbs.service.WordService;
 import com.github.pagehelper.PageInfo;
