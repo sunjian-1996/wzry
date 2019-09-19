@@ -18,4 +18,6 @@ public interface WordDao {
 
     @Insert("insert into bbs_word_table(word,status) values(#{word},#{status})")
     void save(BbsWordTable wordId);
+    @Update("update bbs_word_table set status=#{status} where wordId=#{id}")
+    void update(@Param("id") int id, @Param("status") long status,int page,int size);
 }

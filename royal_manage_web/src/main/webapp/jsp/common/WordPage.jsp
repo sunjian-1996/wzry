@@ -80,15 +80,14 @@
                             <td width="5%" class="line-limit-length">${word.word}</td>
                             <td width="5%" class="line-limit-length">${word.status}</td>
                             <td width="15%">
-                                <c:if test="${word.status==1}">
-                                    <a href="${pageContext.request.contextPath}/word/findAll.do?id=${word.wordId}&page=${pageInfo.pageNum}" role="button" class="btn btn-primary"
-                                    >启用</a>
-                                </c:if>
                                 <c:if test="${word.status==0}">
-                                    <a href="${pageContext.request.contextPath}/word/findAll.do?id=${word.wordId}&page=${pageInfo.pageNum}" role="button" class="btn btn-danger"
-                                    >停用</a>
+                                    <a href="${pageContext.request.contextPath}/word/changeStatus.do?id=${word.wordId}&page=${pageInfo.pageNum}&size=${pageInfo.pageSize}&status=1" role="button" class="btn btn-danger" >启用</a>
+                                </c:if>
+                                <c:if test="${word.status==1}">
+                                    <a href="${pageContext.request.contextPath}/word/changeStatus.do?id=${word.wordId}&page=${pageInfo.pageNum}&size=${pageInfo.pageSize}&status=0" role="button" class="btn btn-info" >停用</a>
                                 </c:if>
                             </td>
+
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -9,4 +9,5 @@ public interface WordService {
 
     void save(BbsWordTable wordId);
 
+    void update(int id, long status,int page,int size);
 }
