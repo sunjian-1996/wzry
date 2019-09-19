@@ -31,10 +31,7 @@
                 <a href="javascript:;"><img src="images/logo.png" height="64" width="168" alt=""/></a>
             </h1>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
-                </form>
+                <img src="/jsp/upload/images/f9c286bcff024c0499a0c6f719f28a02_logo.png">
             </div>
         </div>
         <div class="hm-header-b">
@@ -79,7 +76,7 @@
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/userInfo/updateToPass.do" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/userInfo/upgrade.do" method="post" enctype="multipart/form-data">
                     <ul class="bd">
 
 
@@ -103,7 +100,7 @@
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit"  id="shenqing" class="btn" value="申请"/>
-                                <span style="color:red;">${msgg}</span>
+                                <span style="color:red;"></span>
                             </div>
                         </li>
 
@@ -140,7 +137,7 @@
                     alert("已提交申请，请等待审核")
                 } else {
                     $("#shenqing").prop("type","button")
-                    alert("请发5条帖子")
+                    alert("你发的帖子数不满足条件")
                 }
             }
             ,"json"
