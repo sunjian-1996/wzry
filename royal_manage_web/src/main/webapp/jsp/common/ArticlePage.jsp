@@ -161,13 +161,13 @@
                             <!--下一页-->
                             <li>
                                 <c:if test="${pageInfo.hasNextPage}">
-                                    <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
+                                    <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}&title=${title}&senderName=${senderName}" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}&title=${title}&senderName=${senderName}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>

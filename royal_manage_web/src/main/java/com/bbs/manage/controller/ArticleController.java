@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -21,9 +23,15 @@ public class ArticleController {
 
     //分页查询+模糊查询
     @RequestMapping("/findByPage.do")
-    public ModelAndView findByPage( @RequestParam(name = "page",required = true,defaultValue = "1") int page,
+    public ModelAndView findByPage(@RequestParam(name = "page",required = true,defaultValue = "1") int page,
                                    @RequestParam(name = "size",required = true,defaultValue = "4") int size,
-                                   String title,String senderName){
+                                   String title, String senderName, HttpServletRequest request){
+        String temp = request.getParameter("title");
+        try {
+            title = new String(temp.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         ModelAndView mv = new ModelAndView();
        List<BbsArticleTable> articleTableList=articleService.findByPage(page,size,title,senderName);
     //分页bean,pageInfo
