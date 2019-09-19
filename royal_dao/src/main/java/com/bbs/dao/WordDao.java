@@ -17,6 +17,7 @@ public interface WordDao {
     })
     List<BbsWordTable> findAll(int page, int size);
 
+
     @Insert("insert into bbs_word_table(word,status) values(#{word},#{status})")
     void save(BbsWordTable wordId);
 
