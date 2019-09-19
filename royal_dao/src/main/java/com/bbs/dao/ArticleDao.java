@@ -31,10 +31,9 @@ public interface ArticleDao {
             ))
     })
     BbsArticleTable getArticle(long articleId) throws Exception;
-    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
-    List<BbsArticleTable> findByTitleOrSenderName(@Param("title") String title, @Param("senderName") String senderName);
 
-    @Select("select * from bbs_article_table ")
+    //分页+模糊查询
+    @Select("<script>select * from bbs_article_table where 1=1 <if test=\"title !=null \">and title like '%${title}%' </if> <if test=\"senderName !=null \">and senderName like '%${senderName}%' </if></script>")
     @Results({
             @Result(id = true,property = "articleId",column = "articleId"),
             @Result(property = "title",column = "title"),
@@ -49,7 +48,7 @@ public interface ArticleDao {
             @Result(property = "isReport",column = "isReport"),
 
     })
-    List<BbsArticleTable> findByPage(int page, int size);
+    List<BbsArticleTable> findByPage(int page,int size,@Param("title") String title, @Param("senderName") String senderName);
 
     //帖子总数
     @Select("select count(*) from bbs_article_table")

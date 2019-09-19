@@ -6,9 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    List<BbsArticleTable> findByPage(int page, int size);
-
-    List<BbsArticleTable> findByTitleOrSenderName(String title, String senderName);
+    List<BbsArticleTable> findByPage(int page, int size,String title,String senderName);
 
     public List<BbsArticleTable> findAll(int zoneId) throws Exception;
 

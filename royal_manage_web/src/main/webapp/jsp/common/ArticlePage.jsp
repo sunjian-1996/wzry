@@ -48,7 +48,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="post" action="${pageContext.request.contextPath}/article/findByTitleOrSenderName.do" id="articleSearchForm">
+                        <form method="post" action="${pageContext.request.contextPath}/article/findByPage.do" id="articleSearchForm">
                             <table>
                                 <tr>
                                     <th>
@@ -146,12 +146,6 @@
                                         <a href="${pageContext.request.contextPath}/article/findByPage.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
-                                </c:if>
-                                <c:if test="${pageInfo.hasPreviousPage}">
-                                    <a href="#" onclick="searchArticle('${pageInfo.pageNum-1}')"
-                                       aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
                                 </c:if>
                             </li>
 
