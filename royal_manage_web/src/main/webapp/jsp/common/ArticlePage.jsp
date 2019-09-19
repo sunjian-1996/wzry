@@ -180,6 +180,6 @@
 </div><!-- /.hrms_dept_container -->
 
 <%--<%@ include file="ArticleAdd.jsp"%>--%>
-<%@ include file="ArticleUpdate.jsp" %>
+<%--<%@ include file="ArticleUpdate.jsp"%>--%>
 </body>
 </html>
