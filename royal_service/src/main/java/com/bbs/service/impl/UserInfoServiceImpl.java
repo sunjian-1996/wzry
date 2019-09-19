@@ -22,4 +22,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoDao.updateToPass(loginUser);
     }
 
+    //申请高级用户
+    @Override
+    public void upgrade(BbsUserTable loginUser) {
+        userInfoDao.upgrade(loginUser);
+    }
+
 }

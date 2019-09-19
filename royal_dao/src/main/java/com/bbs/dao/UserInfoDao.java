@@ -15,4 +15,8 @@ public interface UserInfoDao {
     //修改密码
     @Update("update bbs_user_table set userPass=#{userPass} where userName=#{userName}")
     void updateToPass(BbsUserTable loginUser);
+
+    //申请高级用户
+    @Update("update bbs_user_table set isupdating = 1 where userName = #{userName}")
+    void upgrade(BbsUserTable loginUser);
 }

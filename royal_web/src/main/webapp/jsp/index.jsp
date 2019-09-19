@@ -233,6 +233,14 @@
         } else {
             findAll(1);
         }
+        $.ajax({
+            type:"get",
+            url:"${pageContext.request.contextPath}/userInfo/SChu.do",
+            dataType:"text",
+            success:function (data) {
+
+            }
+        })
 
 
     });
