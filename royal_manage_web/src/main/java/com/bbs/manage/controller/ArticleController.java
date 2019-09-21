@@ -27,10 +27,12 @@ public class ArticleController {
                                    @RequestParam(name = "size",required = true,defaultValue = "4") int size,
                                    String title, String senderName, HttpServletRequest request){
         String temp = request.getParameter("title");
-        try {
-            title = new String(temp.getBytes("ISO-8859-1"), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if (temp!=null){
+            try {
+                title = new String(temp.getBytes("ISO-8859-1"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
         ModelAndView mv = new ModelAndView();
        List<BbsArticleTable> articleTableList=articleService.findByPage(page,size,title,senderName);
@@ -41,6 +43,39 @@ public class ArticleController {
         mv.addObject("senderName",senderName);
         mv.setViewName("ArticlePage");
         return mv;
+    }
+
+
+    @RequestMapping("/changeStatus.do")
+    public String changeStatus(Integer articleId, Integer isTop) {
+        articleService.changeStatus(articleId, isTop);
+        return "redirect:/article/findByPage.do";
+    }
+
+    /**
+     * 查询所有
+     *
+     * @return
+     */
+    @RequestMapping("/findAllPage.do")
+    public ModelAndView findAllPage() throws Exception {
+        List<BbsArticleTable> all = articleService.findAllPage();
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("all", all);
+        mv.setViewName("forward:/jsp/Article.jsp");
+        return mv;
+    }
+
+    /**
+     * 屏蔽暗纽
+     *
+     * @param articleId
+     * @return
+     */
+    @RequestMapping("/deleteArticle.do")
+    public String articleStatus(Integer articleId, Integer articleStatus) {
+        articleService.articleStatus(articleId, articleStatus);
+        return "redirect:/article/findAllPage.do";
     }
 
 }

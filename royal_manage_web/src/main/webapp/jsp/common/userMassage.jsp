@@ -49,7 +49,7 @@
 <div>
 <div style="float: left">
 <form method="post" id="userSearchForm"
-action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=5&page=1">
+action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=4&page=1">
 <table>
 <tr>
 <th>
@@ -126,7 +126,7 @@ action="${pageContext.request.contextPath}/user/SearchByUserAndRole.do?size=5&pa
                                role="button" class="btn btn-primary">升级</a>
                         </c:if>
                         <c:if test="${article.role==2}">
-                            <a href="${pageContext.request.contextPath}/user/updateUser.do?userId=${article.userId}&role=3&page=${pageInfo.pageNum}"
+                            <a href="${pageContext.request.contextPath}/user/updateUser.do?userId=${article.userId}&role=2&page=${pageInfo.pageNum}"
                                role="button" class="btn btn-primary">升级</a>
                         </c:if>
                         <c:if test="${article.role==3}">

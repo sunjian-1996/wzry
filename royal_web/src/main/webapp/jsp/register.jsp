@@ -148,7 +148,7 @@
 
     function checkMima() {
         //定义密码正则表达式
-        var mima = /^[a-zA-Z0-9_-]{6,10}$/;
+        var mima = /^[a-zA-Z0-9_-]{5,10}$/;
         var mm = $("#mima").val();
 
         if (mima.test(mm)) {

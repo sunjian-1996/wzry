@@ -24,4 +24,11 @@ public interface ArticleService {
 
     //关键字查询功能
     List<BbsArticleTable> findByKeyword(String keyword);
+
+
+    void changeStatus(Integer articleId,Integer isTop);
+
+    List<BbsArticleTable> findAllPage() throws Exception;
+
+    void articleStatus(Integer articleId,Integer articleStatus);
 }

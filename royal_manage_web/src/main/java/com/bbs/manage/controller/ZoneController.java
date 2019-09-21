@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -37,6 +38,14 @@ public class ZoneController {
     public ModelAndView changeStatus1(@RequestParam(name = "page",required = true,defaultValue = "1") int page,
                                    @RequestParam(name = "size",required = true,defaultValue = "4") int size,
                                    String zone,String senderName,String applyZoneId,String zoneName){
+
+        if (zoneName!=null){
+            try {
+               zoneName = new String(zoneName.getBytes("ISO-8859-1"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
         zoneService.changeStatus1(applyZoneId,zoneName);
         ModelAndView mv = new ModelAndView();
         List<BbsZoneapplyTable> list = zoneService.findByPageAndTitle(page,size,zone,senderName);

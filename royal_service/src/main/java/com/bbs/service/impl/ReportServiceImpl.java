@@ -6,6 +6,8 @@ import com.bbs.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("reportService")
 public class ReportServiceImpl implements ReportService {
 
@@ -37,5 +39,33 @@ public class ReportServiceImpl implements ReportService {
         if (ropert == null) {
             reportDao.addReport(reportTable);
         }
+    }
+
+    /**
+     * 举报所有
+     *
+     * @return
+     */
+    @Override
+    public List<BbsReportTable> findByPage() {
+        return reportDao.findByPage();
+    }
+
+    @Override
+    public void upreportStatus(Integer reportId, Integer reportStatus) {
+        reportDao.upreportStatus(reportId, reportStatus);
+    }
+
+    @Override
+    public void deleteArticle(Integer reportId) {
+        reportDao.deleteArticle(reportId);
+    }
+
+    @Override
+    public String findArticleContent(int articleId) throws Exception {
+        System.out.println(articleId);
+        String articleContent = reportDao.findArticleContent(articleId);
+        System.out.println(articleContent);
+        return articleContent;
     }
 }

@@ -96,7 +96,7 @@
             <div class="aside l">
                 <div class="aside-box">
                     <h3 class="t">
-                        <a href="${pageContext.request.contextPath}/jsp/index.jsp">在线用户(${userOnline.totalNum})</a>
+                        <a href="${pageContext.request.contextPath}/jsp/index.jsp">最近在线用户(${userOnline.totalNum})</a>
                     </h3>
                     <ul class="b clearfix">
                         <c:forEach items="${userOnline.list}" var="Online">

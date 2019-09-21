@@ -63,4 +63,18 @@ public class ArticleServiceImpl implements ArticleService {
         List<BbsArticleTable> byKeyword = articleDao.findByKeyword(keyword1, keyword2);
         return byKeyword;
     }
+
+    @Override
+    public void changeStatus(Integer articleId, Integer isTop) {
+        articleDao.changeStatus(articleId, isTop);
+    }
+
+    @Override
+    public List<BbsArticleTable> findAllPage() throws Exception {
+        return articleDao.findAllPage();
+    }
+    @Override
+    public void articleStatus(Integer articleId, Integer articleStatus) {
+        articleDao.articleStatus(articleId, articleStatus);
+    }
 }

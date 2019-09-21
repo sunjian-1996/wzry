@@ -83,4 +83,18 @@ public interface ArticleDao {
     //关键字查询功能
     @Select("select * from bbs_article_table where articleStatus = 0 and (title like #{keyword1} or content like #{keyword2})")
     List<BbsArticleTable> findByKeyword(@Param("keyword1") String keyword1, @Param("keyword2") String keyword2);
+
+    @Update("update bbs_article_table set isTop=#{isTop} WHERE articleId=#{articleId}")
+    void changeStatus(@Param("articleId") int articleId, @Param("isTop")int isTop);
+
+    @Select("select * from bbs_article_table")
+    List<BbsArticleTable> findAllPage();
+
+    /**
+     * 屏蔽修改
+     * @param articleId
+     */
+    @Update("update bbs_article_table set articleStatus=#{articleStatus} where articleId=#{articleId}")
+    void articleStatus(@Param("articleId") Integer articleId,@Param("articleStatus")Integer articleStatus);
+
 }
